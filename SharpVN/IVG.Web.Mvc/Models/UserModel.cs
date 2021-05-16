@@ -13,7 +13,8 @@ namespace IVG.Web.Mvc.Models
         public string UserName { get; set; }
         public string Password { get; set; }
         public int UserType { get; set; }
-        public bool Remember { get; set; }
+        public string Remember { get; set; }
+        public string ReturnUrl { get; set; }
 
     }
     public class Register

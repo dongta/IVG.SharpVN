@@ -18,9 +18,11 @@ namespace IVG.Web.Mvc.Controllers
         AppDbContext db = new AppDbContext();
 
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl = "")
         {
-            return View();
+            ViewBag.Errors = string.Empty;
+
+            return View(new Login { ReturnUrl=returnUrl??"/"});
         }
 
         [HttpPost]
@@ -28,7 +30,7 @@ namespace IVG.Web.Mvc.Controllers
         public ActionResult Login(Login input)
         {
             var passMd5 = Helper.VerifyMD5.GetMd5Hash(input.Password);
-            tbl_Users user = db.tbl_Users.FirstOrDefault(a => a.UserName == input.UserName && a.Password == passMd5);
+            tbl_Users user = db.tbl_Users.FirstOrDefault(a => a.UserName == input.UserName && a.Password == passMd5 && a.UserType==input.UserType);
             if (user != null)
             {
                 var UserJsonString = JsonConvert.SerializeObject(user, Formatting.Indented);
@@ -37,14 +39,19 @@ namespace IVG.Web.Mvc.Controllers
                 string cookiestr;
                 HttpCookie ck;
                 tkt = new FormsAuthenticationTicket(1, user.UserName, DateTime.Now,
-                DateTime.Now.AddSeconds(30), input.Remember, UserJsonString);
+                DateTime.Now.AddHours(8), input.Remember=="on"?true:false, UserJsonString);
                 cookiestr = FormsAuthentication.Encrypt(tkt);
                 ck = new HttpCookie(FormsAuthentication.FormsCookieName, cookiestr);
-                if (input.Remember)
+                if (input.Remember=="on")
                     ck.Expires = tkt.Expiration;
                 ck.Path = FormsAuthentication.FormsCookiePath;
                 Response.Cookies.Add(ck);
-                return RedirectToAction("Index", "Home");
+                return Redirect(input.ReturnUrl??"/");
+                //return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewBag.Errors = "Thông tin đăng nhập không chính xác.";
             }
             return View();
         }
@@ -95,77 +102,6 @@ namespace IVG.Web.Mvc.Controllers
 
 
             return View();
-        }
-        // GET: User/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: User/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: User/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: User/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: User/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: User/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: User/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }
