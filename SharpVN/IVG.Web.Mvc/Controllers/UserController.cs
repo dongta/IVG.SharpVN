@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using IVG.Web.Mvc.Common;
 using System.Web.Security;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace IVG.Web.Mvc.Controllers
 {
@@ -47,14 +48,54 @@ namespace IVG.Web.Mvc.Controllers
             }
             return View();
         }
-        // GET: User
+
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
 
             return RedirectToAction("Login");
         }
+        public ActionResult GetCaptChaImage()
+        {
+            int width = 100;
+            int height = 36;
+            var captchaCode = CaptchaHelper.GenerateCaptchaCode();
+            var result = CaptchaHelper.GenerateCaptchaImage(width, height, captchaCode);
+            System.Web.HttpContext.Current.Session.Add("CaptchaCode", result.CaptchaCode);
+            Stream s = new MemoryStream(result.CaptchaByteData);
+            return new FileStreamResult(s, "image/png");
+        }
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public ActionResult ForgotPassword(ForgotPassword input)
+        {
+            if (ModelState.IsValid)
+            {
+                var context = System.Web.HttpContext.Current;
+                if (string.IsNullOrEmpty(input.Capcha) || !CaptchaHelper.ValidateCaptchaCode(input.Capcha, context))
+                {
+                    return View();
+                }
+
+                if (db.tbl_Users.Any(a => a.Email == input.Email))
+                {
+                    tbl_Users U = db.tbl_Users.FirstOrDefault(a => a.Email == input.Email);
+
+                    var newPassword = System.Web.Security.Membership.GeneratePassword(6, 1);
+                    var newMd5Pass = Helper.VerifyMD5.GetMd5Hash(newPassword);
+                    U.Password = newMd5Pass;
+                    db.SaveChanges();
+                    ViewBag.Info = "Pass đã đổi thành "+newPassword;
+                }
+            }
+
+
+            return View();
+        }
         // GET: User/Details/5
         public ActionResult Details(int id)
         {

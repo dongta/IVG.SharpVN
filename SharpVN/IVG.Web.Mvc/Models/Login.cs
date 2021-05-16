@@ -29,4 +29,10 @@ namespace IVG.Web.Mvc.Models
         public string Address { get; set; }
         //....
     }
+
+    public class ForgotPassword
+    {
+        public string Email { get; set; }
+        public string Capcha { get; set; }
+    }
 }
