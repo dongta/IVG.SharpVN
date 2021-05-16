@@ -1,0 +1,29 @@
+﻿@model IVG.Web.Mvc.Models.Login
+@using IVG.Web.Mvc.Models
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<form name="Login" method="post" action="/User/Login"> 
+    <div class="row">
+        <div class="col-sm-12">
+            <label>User Name</label>
+            <input type="text" name="UserName" class="form-control form-control-sm" />
+        </div>
+        <div class="col-sm-12">
+            <label>Password</label>
+            <input type="password" name="Password" class="form-control form-control-sm" />
+        </div>
+        <div class="col-sm-12">
+            <label>User Type</label>
+            <select class="form-control form-control-sm">
+                <option value="@AppEnum.Role.Administrator">System Admin</option>
+                <option value="@AppEnum.Role.Staff">Staff</option>
+                <option value="@AppEnum.Role.Dealer">Dealer</option>
+            </select>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Login"></input>
+    </div>
+</form>
+
