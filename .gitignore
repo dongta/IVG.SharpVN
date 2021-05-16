@@ -1,0 +1,11 @@
+#Visual Studio Folder
+packages/
+zTempProject/
+bin/
+obj/
+.vs/
+Logs/
+
+#Angular Not sync
+dist/
+node_modules/
