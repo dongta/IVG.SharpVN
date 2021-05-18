@@ -13,16 +13,18 @@ using System.IO;
 
 namespace IVG.Web.Mvc.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         AppDbContext db = new AppDbContext();
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Login(string returnUrl = "")
         {
             ViewBag.Errors = string.Empty;
 
-            return View(new Login { ReturnUrl=returnUrl??"/"});
+            return View(new Login { ReturnUrl = returnUrl ?? "/" });
         }
 
         [HttpPost]
@@ -30,7 +32,7 @@ namespace IVG.Web.Mvc.Controllers
         public ActionResult Login(Login input)
         {
             var passMd5 = Helper.VerifyMD5.GetMd5Hash(input.Password);
-            tbl_Users user = db.tbl_Users.FirstOrDefault(a => a.UserName == input.UserName && a.Password == passMd5 && a.UserType==input.UserType);
+            tbl_Users user = db.tbl_Users.FirstOrDefault(a => a.UserName == input.UserName && a.Password == passMd5 && a.UserType == input.UserType);
             if (user != null)
             {
                 var UserJsonString = JsonConvert.SerializeObject(user, Formatting.Indented);
@@ -39,21 +41,21 @@ namespace IVG.Web.Mvc.Controllers
                 string cookiestr;
                 HttpCookie ck;
                 tkt = new FormsAuthenticationTicket(1, user.UserName, DateTime.Now,
-                DateTime.Now.AddHours(8), input.Remember=="on"?true:false, UserJsonString);
+                DateTime.Now.AddHours(8), input.Remember == "on" ? true : false, UserJsonString);
                 cookiestr = FormsAuthentication.Encrypt(tkt);
                 ck = new HttpCookie(FormsAuthentication.FormsCookieName, cookiestr);
-                if (input.Remember=="on")
+                if (input.Remember == "on")
                     ck.Expires = tkt.Expiration;
                 ck.Path = FormsAuthentication.FormsCookiePath;
                 Response.Cookies.Add(ck);
-                return Redirect(input.ReturnUrl??"/");
+                return Redirect(input.ReturnUrl ?? "/");
                 //return RedirectToAction("Index", "Home");
             }
             else
             {
                 ViewBag.Errors = "Thông tin đăng nhập không chính xác.";
             }
-            return View();
+            return View(input);
         }
 
         public ActionResult Logout()
@@ -96,12 +98,87 @@ namespace IVG.Web.Mvc.Controllers
                     var newMd5Pass = Helper.VerifyMD5.GetMd5Hash(newPassword);
                     U.Password = newMd5Pass;
                     db.SaveChanges();
-                    ViewBag.Info = "Pass đã đổi thành "+newPassword;
+                    ViewBag.Info = "Pass đã đổi thành " + newPassword;
                 }
             }
 
 
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult ChangePassword()
+        {
+            return View(new ChangePassword());
+        }
+        [HttpPost]
+        public ActionResult ChangePassword(ChangePassword input)
+        {
+            if (ModelState.IsValid)
+            {
+                var UserName = HttpContext.User.Identity.Name;
+                tbl_Users user = db.tbl_Users.FirstOrDefault(a=>a.UserName==UserName);
+                var currentPassMd5 = Helper.VerifyMD5.GetMd5Hash(input.CurrentPassword);
+                if (user.Password== currentPassMd5)
+                {
+                    if (input.NewPassword==input.ConfirmNewPassword)
+                    {
+                        var newPassMd5 = Helper.VerifyMD5.GetMd5Hash(input.NewPassword);
+                        user.Password = newPassMd5;
+                        db.SaveChanges();
+                        ViewBag.Msg = "Mật khẩu đã được thay đổi.";
+                        return View(input);
+
+                    }
+                    else
+                    {
+                        ViewBag.Error = "Mật khẩu mới không trùng khớp.";
+                        return View(input);
+                    }
+                }
+                else
+                {
+                    ViewBag.Error = "Mật khẩu cũ không đúng.";
+                    return View(input);
+                }
+            }
+            else
+            {
+                foreach (ModelState modelState in ViewData.ModelState.Values)
+                {
+                    foreach (ModelError error in modelState.Errors)
+                    {
+                        ViewBag.Error += error+"</br>";
+                    }
+                }
+            }
+            return View(input);
+        }
+
+        public ActionResult MyProfile()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult MyProfile(Register input)
+        {
+            //Update User
+            return View();
+        }
+
+        public ActionResult PDPA()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult PDPA(bool IsAgree)
+        {
+            if (IsAgree)
+            {
+
+            }
+            return RedirectToAction("index","home");
         }
     }
 }

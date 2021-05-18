@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    .folder{
+        position:relative;
+        height:50px;
+        width:100px;
+        background-color:gray;
+    }
+</style>
+<div class="row">
+    <a href="/Staff/Index">Home</a>
+    <div class="fa fa-arrow-right"></div><a href="/Staff/SVC">SVC</a>
+    <div class="fa fa-arrow-right"></div><a href="/Staff/CRM">CRM</a>
+    <div class="fa fa-arrow-right"></div><a href="/Staff/ServiceLog">Simple Service Logs(Branch)</a>
+</div>
+<div class="row">
+    <div class="row">Report Details</div>
+    <div class="row">Product Details</div>
+    <div class="row">Customer Details</div>
+    <div class="row">Service Details</div>
+    <div class="row">Technician Details (sẽ hiển thị nếu trạng thái ASC chưa hoàn thành)</div> 
+    <div class="row">Technician Update (sẽ hiển thị nếu trạng thái ASC đã hoàn thành)</div>
+    <div class="row">Other Details</div>
+    <div class="row" style="display:none">
+        Assign ASC
+        <div>
+            <input type="checkbox" />To remain in same screen after saved
+            <button>Save</button>
+            <a href="#">Back</a>
+        </div>
+    </div>
+    <div class="row">
+        <a href="#">Assign ASC</a>
+        <a href="/Staff/ServiceLog">Back</a>
+
+    </div>
+</div>
+
