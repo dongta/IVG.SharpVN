@@ -231,6 +231,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AppEnum.cs" />
+    <Compile Include="Controllers\DealerController.cs" />
+    <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -498,6 +500,16 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\ForgotPassword.cshtml" />
+    <Content Include="Views\User\ChangePassword.cshtml" />
+    <Content Include="Views\User\PDPA.cshtml" />
+    <Content Include="Views\Staff\Index.cshtml" />
+    <Content Include="Views\Staff\SVC.cshtml" />
+    <Content Include="Views\Dealer\Index.cshtml" />
+    <Content Include="Views\Staff\CRM.cshtml" />
+    <Content Include="Views\Staff\ServiceLog.cshtml" />
+    <Content Include="Views\Staff\JobDetail.cshtml" />
+    <Content Include="Views\Staff\PrintOrder.cshtml" />
+    <Content Include="Views\User\MyProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
