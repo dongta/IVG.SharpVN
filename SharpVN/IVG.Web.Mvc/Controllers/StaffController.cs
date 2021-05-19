@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace IVG.Web.Mvc.Controllers
 {
+    [Authorize]
     public class StaffController : Controller
     {
         // GET: Staff

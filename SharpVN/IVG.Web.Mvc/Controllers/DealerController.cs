@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace IVG.Web.Mvc.Controllers
 {
+    [Authorize]
     public class DealerController : Controller
     {
         // GET: Dealer
@@ -13,6 +14,15 @@ namespace IVG.Web.Mvc.Controllers
         {
             return View();
         }
-        
+        public ActionResult ServiceRequest()
+        {
+            return View();
+        }
+        public ActionResult AddRequest()
+        {
+            return View();
+        }
+
+
     }
 }
