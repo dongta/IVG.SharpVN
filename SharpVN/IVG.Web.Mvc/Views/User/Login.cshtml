@@ -4,36 +4,50 @@
 @{
     ViewBag.Title = "Login";
 }
-<form name="Login" method="post" action="/User/Login">
-    <div class="row text-danger">
+<form class="" name="Login" method="post" action="/User/Login">
+    @*<div class="row text-danger">
         <label>@ViewBag.Errors</label>
-    </div>
+    </div>*@
     <input type="text" style="display:none" name="ReturnUrl" value="@Model.ReturnUrl" />
+
     <div class="row">
-        <div class="col-sm-12">
-            <label>User Name</label>
-            <input type="text" name="userName" class="form-control form-control-sm" value="@Model.UserName" />
+        <div class="col-6">
+            <div class="row">
+                <div class="col-sm-12">
+                    <label>User Name</label>
+                    <input type="text" name="userName" class="form-control form-control-sm" value="@Model.UserName" />
+                    <p>123</p>
+                    <span>123</span>
+                </div>
+                <div class="col-sm-12">
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-control form-control-sm" value="@Model.Password" />
+                </div>
+                <div class="col-sm-12">
+                    <label>User Type</label>
+                    <select class="form-control form-control-sm" name="userType" id="userType">
+                        <option></option>
+                        <option value="1" @Html.Raw(Model.UserType == (int)AppEnum.Role.Administrator ? "selected" : "")>System Admin</option>
+                        <option value="2" @Html.Raw(Model.UserType == (int)AppEnum.Role.Staff ? "selected" : "")>Staff</option>
+                        <option value="3" @Html.Raw(Model.UserType == (int)AppEnum.Role.Dealer ? "selected" : "")>Dealer</option>
+                    </select>
+                </div>
+                <div class="col-sm-12">
+                    <input id="remember" name="remember" type="checkbox" />
+                    <label>Remember</label>
+                </div>
+                <div class="row">
+                    <button name="btnSubmit" type="submit" class="btn btn-primary" value="Login">Login</button>
+                </div>
+            </div>
         </div>
-        <div class="col-sm-12">
-            <label>Password</label>
-            <input type="password" name="password" class="form-control form-control-sm" value="@Model.Password" />
+        <div class="col-6">
+            <div class="banner">
+                <img class="img-fluid" src="~/Resources/images/" alt="Alternate Text" />
+            </div>
         </div>
-        <div class="col-sm-12">
-            <label>User Type</label>
-            <select class="form-control form-control-sm" name="userType" id="userType">
-                <option></option>
-                <option value="1" @Html.Raw(Model.UserType == (int)AppEnum.Role.Administrator ? "selected" : "")>System Admin</option>
-                <option value="2" @Html.Raw(Model.UserType == (int)AppEnum.Role.Staff ? "selected" : "")>Staff</option>
-                <option value="3" @Html.Raw(Model.UserType == (int)AppEnum.Role.Dealer ? "selected" : "")>Dealer</option>
-            </select>
-        </div>
-        <div class="col-sm-12">
-            <input id="remember" name="remember" type="checkbox" />
-            <label>Remember</label>
-        </div>
-        <div class="row">
-            <button name="btnSubmit" type="submit" class="btn btn-primary" value="Login">Login</button>
-        </div>
-    </div>
+    </div> 
+
+    
 </form>
 
