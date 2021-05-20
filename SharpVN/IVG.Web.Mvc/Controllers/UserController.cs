@@ -180,5 +180,11 @@ namespace IVG.Web.Mvc.Controllers
             }
             return RedirectToAction("index","home");
         }
+        public PartialViewResult GetMenu()
+        {
+           var tbl_Users = db.tbl_Users.FirstOrDefault(a => a.UserName == User.Identity.Name);
+
+            return PartialView("MenuPartial", tbl_Users);
+        }
     }
 }

@@ -9,9 +9,9 @@ namespace IVG.Web.Mvc.Models
     {
         public enum Role
         {
-            Administrator=1,
-            Staff=2,
-            Dealer=3
+            Administrator=0,
+            Staff=1,
+            Dealer=2
         }
     }
 }

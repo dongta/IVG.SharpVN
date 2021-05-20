@@ -513,6 +513,7 @@
     <Content Include="Views\User\MyProfile.cshtml" />
     <Content Include="Views\Dealer\ServiceRequest.cshtml" />
     <Content Include="Views\Dealer\AddRequest.cshtml" />
+    <Content Include="Views\User\MenuPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
