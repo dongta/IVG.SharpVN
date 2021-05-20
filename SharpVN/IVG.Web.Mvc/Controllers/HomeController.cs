@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IVG.Web.Mvc.EF;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +10,11 @@ namespace IVG.Web.Mvc.Controllers
     [Authorize]
     public class HomeController : Controller
     {
+        AppDbContext db = new AppDbContext();
         public ActionResult Index()
         {
-            return View();
+            tbl_Users u = db.tbl_Users.FirstOrDefault(a=>a.UserName==User.Identity.Name);
+            return View(u);
         }
 
         public ActionResult About()

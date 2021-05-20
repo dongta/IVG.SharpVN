@@ -503,9 +503,9 @@
     <Content Include="Views\User\ForgotPassword.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />
     <Content Include="Views\User\PDPA.cshtml" />
-    <Content Include="Views\Staff\Index.cshtml" />
+    <Content Include="Views\Staff\Home.cshtml" />
     <Content Include="Views\Staff\SVC.cshtml" />
-    <Content Include="Views\Dealer\Index.cshtml" />
+    <Content Include="Views\Dealer\Home.cshtml" />
     <Content Include="Views\Staff\CRM.cshtml" />
     <Content Include="Views\Staff\ServiceLog.cshtml" />
     <Content Include="Views\Staff\JobDetail.cshtml" />

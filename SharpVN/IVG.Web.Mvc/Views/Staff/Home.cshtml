@@ -1,17 +1,23 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 <style>
-    .folder{
-        position:relative;
-        height:50px;
-        width:100px;
-        background-color:gray;
+    .folder {
+        position: relative;
+        height: 50px;
+        width: 100px;
+        background-color: gray;
+        border: 1px solid yellow;
     }
 </style>
 <div class="row">
-    <div class="fa fa-arrow-left">Home</div>
+    @if (User.Identity.IsAuthenticated)
+    {
+        Html.RenderAction("GetMenu", "User");
+    }
+</div>
+<div class="row">
+    <div class="fa fa-arrow-right">Home</div>
 </div>
 <div class="row">
     <div class="col-sm-4">

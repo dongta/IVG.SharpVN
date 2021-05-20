@@ -10,9 +10,9 @@ namespace IVG.Web.Mvc.Controllers
     public class DealerController : Controller
     {
         // GET: Dealer
-        public ActionResult Index()
+        public ActionResult Home()
         {
-            return View();
+            return PartialView("Home");
         }
         public ActionResult ServiceRequest()
         {

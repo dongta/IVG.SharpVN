@@ -10,9 +10,9 @@ namespace IVG.Web.Mvc.Controllers
     public class StaffController : Controller
     {
         // GET: Staff
-        public ActionResult Index()
+        public ActionResult Home()
         {
-            return View();
+            return PartialView("Home");
         }
         public ActionResult SVC()
         {

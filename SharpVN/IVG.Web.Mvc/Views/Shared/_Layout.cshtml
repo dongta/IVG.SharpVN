@@ -17,6 +17,7 @@
     <style>
         .menu1 > a {
             width: 150px !important;
+            text-align:center !important;
         }
 
         .menu1 > span {
@@ -50,13 +51,7 @@
                             </div>
                         }
                     </div>
-                </div>
-                <div class="row">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        Html.RenderAction("GetMenu", "User");
-                    }
-                </div>
+                </div>               
             </div>
 
         </div>
