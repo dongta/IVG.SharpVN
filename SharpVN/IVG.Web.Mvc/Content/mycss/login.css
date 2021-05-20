@@ -1,31 +1,3 @@
-﻿/*
-html {
-    font-size: 16px;
+﻿#TestBTN {
+    font-size:100px
 }
-
-body {
-    font-family: 'Segoe UI','Open Sans';
-    font-size: 100%;
-    position: relative;
-    overflow: scroll
-}
-
-a:hover, a:focus {
-    text-decoration: none;
-}
-
-*, *:after, *:before {
-    box-sizing: border-box;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    outline: none
-}
-
-img {
-    max-width: 100%;
-}
-
-*/

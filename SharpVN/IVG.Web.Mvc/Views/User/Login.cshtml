@@ -11,19 +11,20 @@
     <input type="text" style="display:none" name="ReturnUrl" value="@Model.ReturnUrl" />
 
     <div class="row">
-        <div class="col-6">
+        <div class="col-4">
             <div class="row">
-                <div class="col-sm-12">
-                    <label>User Name</label>
-                    <input type="text" name="userName" class="form-control form-control-sm" value="@Model.UserName" />
-                    <p>123</p>
-                    <span>123</span>
+                <div class="col-12 font-weight-bold">
+                    <label>Login to myPortal@SEM   </label>
                 </div>
-                <div class="col-sm-12">
+                <div class="col-12 mb-4">
+                    <label>Login ID:</label>
+                    <input type="text" name="userName" class="form-control form-control-sm" value="@Model.UserName" />
+                </div>
+                <div class="col-12 mb-4">
                     <label>Password</label>
                     <input type="password" name="password" class="form-control form-control-sm" value="@Model.Password" />
                 </div>
-                <div class="col-sm-12">
+                <div class="col-12 mb-3">
                     <label>User Type</label>
                     <select class="form-control form-control-sm" name="userType" id="userType">
                         <option></option>
@@ -32,24 +33,25 @@
                         <option value="3" @Html.Raw(Model.UserType == (int)AppEnum.Role.Dealer ? "selected" : "")>Dealer</option>
                     </select>
                 </div>
-                <div class="col-sm-12">
-                    <input id="remember" name="remember" type="checkbox" />
-                    <label>Remember</label>
+                <div class="col-12 ">
+                    <input id="remember" name="remember" class="btn" type="checkbox" />
+                    <label class="btn m-0 p-0" for="remember">Remember my login</label>
                 </div>
-                <div class="row">
+                <div class="col-12">
                     <button name="btnSubmit" type="submit" class="btn btn-primary" value="Login">Login</button>
                 </div>
+                <div class="col-12">
+                    <a id="TestBTN" href="user/fogotpassword" style="text-decoration: underline">Fogot password</a>
+                </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-8">
             <div class="banner">
-                <img class="img-fluid" src="~/Resources/images/" alt="Alternate Text" />
+                <img class="img-fluid" src="~/Resources/images/banner.jpg" alt="Ảnh banner" style="object-fit: cover;height: calc(100vh - 165px);width: 100%;" />
             </div>
         </div>
-        <div class="row">
-            <button name="btnSubmit" type="submit" class="btn btn-primary" value="Login">Login</button>
-        </div>
+        
+       
     </div>
-    <a href="user/fogotpassword">Fogot password</a>
 </form>
 
