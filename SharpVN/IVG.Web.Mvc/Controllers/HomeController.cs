@@ -14,6 +14,14 @@ namespace IVG.Web.Mvc.Controllers
         public ActionResult Index()
         {
             tbl_Users u = db.tbl_Users.FirstOrDefault(a=>a.UserName==User.Identity.Name);
+            if (u.UserType==1)
+            {
+                return RedirectToAction("Home", "Staff");
+            }
+            else
+            {
+                return RedirectToAction("ServiceRequest", "Dealer");
+            }
             return View(u);
         }
 

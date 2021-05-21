@@ -1,38 +1,40 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Home";
 }
-<style>
-    .folder {
-        position: relative;
-        height: 50px;
-        width: 100px;
-        background-color: gray;
-        border: 1px solid yellow;
-    }
-</style>
-<div class="row">
-    @if (User.Identity.IsAuthenticated)
-    {
-        Html.RenderAction("GetMenu", "User");
-    }
-</div>
-<div class="row">
-    <div class="fa fa-arrow-right">Home</div>
+<div class="col-lg-12 dnv-nav" >
+    <i class="fa fa-long-arrow-right"></i>
+    <a href="/staff/home">Home</a>
 </div>
 <div class="row">
     <div class="col-sm-4">
-        <div class="folder"></div>
-        <div class="folder"></div>
-        <div class="folder"></div>
+        <a class="folder" href="#">
+            <input type="button" class="folder folder-icon btn-light btn"  value="CM"/>
+        </a>
+        <a class="folder" href="#">
+            <input type="button" class="folder folder-icon btn-light btn" value="MIS" />
+        </a>
+        <a class="folder" href="#">
+            <input type="button" class="folder folder-icon btn-light btn" value="My Account" />
+        </a>
     </div>
     <div class="col-sm-4">
-        <div class="folder"></div>
-        <div class="folder"></div>
-        <div class="folder"></div>
+        <a class="folder" href="#">
+            <input type="button" class="folder folder-icon btn-light btn" value="Finance" />
+        </a>
+        <a class="folder" href="#">
+            <input type="button" class="folder folder-icon btn-light btn" value="Sales" />
+        </a>
+        <a class="folder" href="#">
+            <input type="button" class="folder folder-icon btn-light btn" value="System Settings" />
+        </a>
     </div>
     <div class="col-sm-4">
-        <div class="folder"></div>
-        <div class="folder"></div>
+        <a class="folder" href="#">
+            <input type="button" class="folder folder-icon btn-light btn" value="HR" />
+        </a>
+        <a class="folder" href="/staff/svc">
+            <input type="button" class="folder folder-icon btn-light btn" value="SVC" />
+        </a>
     </div>
 </div>
 

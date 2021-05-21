@@ -12,7 +12,7 @@ namespace IVG.Web.Mvc.Controllers
         // GET: Staff
         public ActionResult Home()
         {
-            return PartialView("Home");
+            return View("Home");
         }
         public ActionResult SVC()
         {

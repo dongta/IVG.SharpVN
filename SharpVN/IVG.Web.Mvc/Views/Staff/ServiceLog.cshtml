@@ -1,25 +1,123 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Simple Service Logs (Branch)";
 }
-<style>
-    .folder{
-        position:relative;
-        height:50px;
-        width:100px;
-        background-color:gray;
-    }
-</style>
-<div class="row">
-    <a href="/Staff/Index">Home</a>
-    <div class="fa fa-arrow-right"></div><a href="/Staff/SVC">SVC</a>
-    <div class="fa fa-arrow-right"></div><a href="/Staff/CRM">CRM</a>
-    <div class="fa fa-arrow-right"></div><a href="/Staff/ServiceLog">Simple Service Logs(Branch)</a>
+<div class="col-lg-12 dnv-nav">
+    <i class="fa fa-long-arrow-right"></i><a href="/staff/home">Home</a>
+    <i class="fa fa-long-arrow-right"></i><a href="/staff/svc">SVC</a>
+    <i class="fa fa-long-arrow-right"></i><a href="/staff/crm">CRM</a>
+    <i class="fa fa-long-arrow-right"></i><a href="/staff/ServiceLog">Simple Service Logs (Branch)</a>
 </div>
-<div class="row" >
-    <form name="filterFunction">
-        form filter
-    </form>
+<div class="col-sm-12" style="font-size:20px !important;">
+    <i class="fa fa-arrow-right"> Simple Service Logs</i>
+</div>
+<div class="container" style="font-size:14px !important">
+    <a href="#" id="filter">
+        <i class="fa fa-chevron-left text-uppercase"> Filter</i>
+    </a>
+</div>
+<div class="row" style="border:1px solid #d5d0d0; padding-bottom:5px;border-radius:5px;">
+    <div class="col-sm-4">
+        <div class="form">
+            <label>Reference No.</label>
+            <input type="text" name="" class="form-control form-control-sm" />
+        </div>
+        <div class="form">
+            <label>Customer Name</label>
+            <input type="text" name="" class="form-control form-control-sm" />
+        </div>
+        <div class="form">
+            <label>Request from</label>
+            <input type="date" name="" class="form-control form-control-sm" />
+        </div>
+        <div class="form">
+            <label>Escalation decision</label>
+            <select name="" class="form-control form-control-sm">
+                <option value="0">No Filter</option>
+            </select>
+        </div>
+        <div class="form">
+            <label>Transaction channel</label>
+            <select name="" class="form-control form-control-sm">
+                <option value="0">No Filter</option>
+            </select>
+        </div>
+        <div class="form">
+            <label>State</label>
+            <select name="" class="form-control form-control-sm">
+                <option value="0">No Filter</option>
+            </select>
+        </div>
+        <div class="form">
+            <label>Escalate to</label>
+            <select name="" class="form-control form-control-sm">
+                <option value="0">No Filter</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form">
+            <label>Report ID</label>
+            <input type="text" name="" class="form-control form-control-sm" />
+        </div>
+        <div class="form">
+            <label>Customer telephone No.</label>
+            <input type="text" name="" class="form-control form-control-sm" />
+        </div>
+        <div class="form">
+            <label>Request to</label>
+            <input type="date" name="" class="form-control form-control-sm" />
+        </div>
+        <div class="form">
+            <label>Quality assurance checking</label>
+            <select name="" class="form-control form-control-sm">
+                <option value="0">No Filter</option>
+            </select>
+        </div>
+        <div class="form">
+            <label>Type of inquire</label>
+            <select name="" class="form-control form-control-sm">
+                <option value="0">No Filter</option>
+            </select>
+        </div>
+        <div class="form">
+            <label>Product type</label>
+            <select name="" class="form-control form-control-sm">
+                <option value="0">No Filter</option>
+            </select>
+        </div>
+        <div class="form">
+            <label>Transaction status</label>
+            <select name="" class="form-control form-control-sm">
+                <option value="0">No Filter</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="row">
+            <div class="col-sm-6">
+                <a href="#" id="btnSearch">
+                    <i class="fa fa-search"> Search data</i>
+                </a>
+            </div>
+            <div class="col-sm-6">
+                <a href="#" id="btnClearSearch">
+                    <i class="fa fa-trash"> Clear search</i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="padding-top:5px; padding-bottom:5px">
+    <div class="form-inline">
+        <label class="text-body">Sort by</label>
+        <select class="form-control form-control-sm" style="min-width:100px;">
+            <option>a</option>
+            <option>b</option>
+        </select>
+        <button class="fa fa-file-excel btn btn-sm btn-primary"> Export Excel</button>
+    </div>
+
 </div>
 <div class="row" name="ketQuaTimKiem">
     <table class="table table-hover">

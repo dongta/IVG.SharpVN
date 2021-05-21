@@ -1,10 +1,13 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <title>@ViewBag.Title</title>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="~/Content/fontawesome.css" rel="stylesheet" />
-    <title>@ViewBag.Title</title>
+    <link href="~/Content/mycss/common-style.css" rel="stylesheet" />
+
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/fontawesome")
     @Scripts.Render("~/bundles/modernizr")
@@ -12,12 +15,15 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Resources/javascripts/FormAuthentication.js"></script>
+
     <link href="~/Content/css/select2.min.css" rel="stylesheet" />
     <script src="~/Scripts/select2.js"></script>
     <style>
         .menu1 > a {
             width: 150px !important;
-            text-align:center !important;
+            text-align: center !important;
         }
 
         .menu1 > span {
@@ -51,9 +57,14 @@
                             </div>
                         }
                     </div>
-                </div>               
+                </div>
             </div>
-
+            <div class="row">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    Html.RenderAction("GetMenu", "User");
+                }
+            </div>
         </div>
     </div>
     <div class="container body-content" style="padding:0;">

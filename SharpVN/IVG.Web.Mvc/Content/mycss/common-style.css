@@ -1,0 +1,44 @@
+﻿.error {
+    color: red;
+    font-size: smaller;
+    margin-top:0 !important;
+    padding-top:0 !important;
+}
+input.error{
+    border:1px solid red !important;
+}
+label{
+    margin-bottom:1px !important;
+    margin-top:0.3rem;
+    font-size:14px !important;
+    color:black;
+}
+
+.folder {
+    width: 100%;
+    height: 100px;
+    text-align: right !important;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.folder-icon {
+    background-image: url('../../Resources/images/folder-icon.png');
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: 40% 60%;
+    background-position: left center;
+    height: 100px;
+}
+.page-icon {
+    background-image: url('../../Resources/images/page-icon.png');
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: 30% 100%;
+    background-position: left center;
+    height: 100px;
+}
+.dnv-nav{
+    font-size:16px;
+}

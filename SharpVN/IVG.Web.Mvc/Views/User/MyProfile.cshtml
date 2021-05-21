@@ -1,7 +1,43 @@
-﻿
+﻿@using IVG.Web.Mvc.Models;
+@model MyProfile
 @{
     ViewBag.Title = "MyProfile";
 }
-
-<h2>MyProfile</h2>
+<form name="MyProfile" action="/user/myprofile" method="post">
+    <div class="container">
+        <h4 class="container text-dark"><i class="fa fa-arrow-right"></i> My profile</h4>
+        <div class="col-sm-12">
+            <div class="text-danger"> @ViewBag.Errors</div>
+            <div class="text-primary"> @ViewBag.Info</div>
+        </div>
+        <div class="col-12">
+            <label>Login ID</label>
+            <input type="text" name="UserName" style="display:none" value="@Model.UserName" class="form-control form-control-sm " />
+            <input type="text"  disabled value="@Model.UserName" class="form-control form-control-sm " />
+        </div>
+        <div class="col-12">
+            <label>Name</label>
+            <input type="text" name="DisplayName" value="@Model.DisplayName" class="form-control form-control-sm " />
+        </div>
+        <div class="col-12">
+            <label>Email</label>
+            <input type="text" name="Email" value="@Model.Email" class="form-control form-control-sm " />
+        </div>
+        <div class="col-12">
+            <label>Telephone No.</label>
+            <input type="text" name="Phone" value="@Model.Phone" class="form-control form-control-sm " />
+        </div>
+        <div class="col-12">
+            <label>Hand phone No.</label>
+            <input type="text" name="MobilePhone" value="@Model.MobilePhone" class="form-control form-control-sm " />
+        </div>
+        <div class="col-12">
+            <label>Extension No.</label>
+            <input type="text" name="ExtNo" value="@Model.ExtNo" class="form-control form-control-sm " />
+        </div>
+        <div class="col-12" style="margin-top:10px;">
+            <button type="submit" value="Save" name="btnSave" class="fa fa-save btn btn-primary"> Save</button>
+        </div>
+    </div>
+</form>
 

@@ -31,39 +31,58 @@ namespace IVG.Web.Mvc.Controllers
         [AllowAnonymous]
         public ActionResult Login(Login input)
         {
-            var passMd5 = Helper.VerifyMD5.GetMd5Hash(input.Password);
-            tbl_Users user = db.tbl_Users.FirstOrDefault(a => a.UserName == input.UserName && a.Password == passMd5 && a.UserType == input.UserType);
-            if (user != null)
+            string errorMessages = string.Empty;
+            if (ModelState.IsValid)
             {
-                var UserJsonString = JsonConvert.SerializeObject(user, Formatting.Indented);
-                FormsAuthentication.SetAuthCookie(user.UserName, false);
-                FormsAuthenticationTicket tkt;
-                string cookiestr;
-                HttpCookie ck;
-                tkt = new FormsAuthenticationTicket(1, user.UserName, DateTime.Now,
-                DateTime.Now.AddHours(8), input.Remember == "on" ? true : false, UserJsonString);
-                cookiestr = FormsAuthentication.Encrypt(tkt);
-                ck = new HttpCookie(FormsAuthentication.FormsCookieName, cookiestr);
-                if (input.Remember == "on")
-                    ck.Expires = tkt.Expiration;
-                ck.Path = FormsAuthentication.FormsCookiePath;
-                Response.Cookies.Add(ck);
-                return Redirect(input.ReturnUrl ?? "/");
-                //return RedirectToAction("Index", "Home");
+                var passMd5 = Helper.VerifyMD5.GetMd5Hash(input.Password);
+                tbl_Users user = db.tbl_Users.FirstOrDefault(a => a.UserName == input.UserName && a.Password == passMd5 && a.UserType == input.UserType);
+                if (user != null)
+                {
+                    var UserJsonString = JsonConvert.SerializeObject(user, Formatting.Indented);
+                    FormsAuthentication.SetAuthCookie(user.UserName, false);
+                    FormsAuthenticationTicket tkt;
+                    string cookiestr;
+                    HttpCookie ck;
+                    tkt = new FormsAuthenticationTicket(1, user.UserName, DateTime.Now,
+                    DateTime.Now.AddHours(8), input.Remember == "on" ? true : false, UserJsonString);
+                    cookiestr = FormsAuthentication.Encrypt(tkt);
+                    ck = new HttpCookie(FormsAuthentication.FormsCookieName, cookiestr);
+                    if (input.Remember == "on")
+                        ck.Expires = tkt.Expiration;
+                    ck.Path = FormsAuthentication.FormsCookiePath;
+                    Response.Cookies.Add(ck);
+                    return Redirect(input.ReturnUrl ?? "/");
+                    //return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    errorMessages = "Login failed.";
+                }
             }
             else
             {
-                ViewBag.Errors = "Thông tin đăng nhập không chính xác.";
+                errorMessages = string.Join(" <br /> ", this.ModelState.Values
+                .SelectMany(v => v.Errors)
+                .Select(e => e.ErrorMessage));
             }
+            ViewBag.Errors = errorMessages;
             return View(input);
         }
 
         public ActionResult Logout()
         {
+            if (1 + 1 == 3)
+            {
+                FormsIdentity formsIdentity = User.Identity as FormsIdentity;
+                FormsAuthenticationTicket ticket = formsIdentity.Ticket;
+                string userData = ticket.UserData;
+            }
+
             FormsAuthentication.SignOut();
 
             return RedirectToAction("Login");
         }
+        [AllowAnonymous]
         public ActionResult GetCaptChaImage()
         {
             int width = 100;
@@ -74,36 +93,44 @@ namespace IVG.Web.Mvc.Controllers
             Stream s = new MemoryStream(result.CaptchaByteData);
             return new FileStreamResult(s, "image/png");
         }
+
+        [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
-            return View();
+            return View(new ForgotPassword());
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult ForgotPassword(ForgotPassword input)
         {
             if (ModelState.IsValid)
             {
                 var context = System.Web.HttpContext.Current;
-                if (string.IsNullOrEmpty(input.Capcha) || !CaptchaHelper.ValidateCaptchaCode(input.Capcha, context))
+                if (string.IsNullOrEmpty(input.Captcha) || !CaptchaHelper.ValidateCaptchaCode(input.Captcha, context))
                 {
-                    return View();
+                    ViewBag.Errors = "Captcha code do not match";
+                    return View(input);
                 }
 
                 if (db.tbl_Users.Any(a => a.Email == input.Email))
                 {
                     tbl_Users U = db.tbl_Users.FirstOrDefault(a => a.Email == input.Email);
 
-                    var newPassword = System.Web.Security.Membership.GeneratePassword(6, 1);
+                    var newPassword = System.Web.Security.Membership.GeneratePassword(6, 0);
                     var newMd5Pass = Helper.VerifyMD5.GetMd5Hash(newPassword);
                     U.Password = newMd5Pass;
                     db.SaveChanges();
-                    ViewBag.Info = "Pass đã đổi thành " + newPassword;
+                    //cần save to other table để quét và gửi email cho người dùng.
+                    ViewBag.Info = $"Your password has been re-send to your email, please check your email. {newPassword}";
+                }
+                else
+                {
+                    ViewBag.Errors = "Your email is not found !";
+                    return View(input);
                 }
             }
-
-
-            return View();
+            return View(input);
         }
 
         [HttpGet]
@@ -117,28 +144,28 @@ namespace IVG.Web.Mvc.Controllers
             if (ModelState.IsValid)
             {
                 var UserName = HttpContext.User.Identity.Name;
-                tbl_Users user = db.tbl_Users.FirstOrDefault(a=>a.UserName==UserName);
+                tbl_Users user = db.tbl_Users.FirstOrDefault(a => a.UserName == UserName);
                 var currentPassMd5 = Helper.VerifyMD5.GetMd5Hash(input.CurrentPassword);
-                if (user.Password== currentPassMd5)
+                if (user.Password == currentPassMd5)
                 {
-                    if (input.NewPassword==input.ConfirmNewPassword)
+                    if (input.NewPassword == input.ConfirmNewPassword)
                     {
                         var newPassMd5 = Helper.VerifyMD5.GetMd5Hash(input.NewPassword);
                         user.Password = newPassMd5;
                         db.SaveChanges();
-                        ViewBag.Msg = "Mật khẩu đã được thay đổi.";
+                        ViewBag.Info = "Your password has been changed successful.";
                         return View(input);
 
                     }
                     else
                     {
-                        ViewBag.Error = "Mật khẩu mới không trùng khớp.";
+                        ViewBag.Errors = "Confirm password do not match.";
                         return View(input);
                     }
                 }
                 else
                 {
-                    ViewBag.Error = "Mật khẩu cũ không đúng.";
+                    ViewBag.Errors = "Current password is incorrect.";
                     return View(input);
                 }
             }
@@ -148,23 +175,39 @@ namespace IVG.Web.Mvc.Controllers
                 {
                     foreach (ModelError error in modelState.Errors)
                     {
-                        ViewBag.Error += error+"</br>";
+                        ViewBag.Error += error + "</br>";
                     }
                 }
+                return View(input);
             }
             return View(input);
         }
 
         public ActionResult MyProfile()
         {
-            return View();
+            var myProfile = db.tbl_Users.Where(a => a.UserName == User.Identity.Name).Select(a => new MyProfile
+            {
+                UserName = a.UserName,
+                Email = a.Email,
+                DisplayName = a.DisplayName,
+                Phone = a.Phone,
+                MobilePhone = a.MobilePhone,
+                ExtNo = string.Empty
+            }).FirstOrDefault();
+            return View(myProfile);
         }
 
         [HttpPost]
-        public ActionResult MyProfile(Register input)
+        public ActionResult MyProfile(MyProfile input)
         {
-            //Update User
-            return View();
+            var user = db.tbl_Users.FirstOrDefault(a => a.UserName == User.Identity.Name);
+            user.Email = input.Email;
+            user.DisplayName = input.DisplayName;
+            user.Phone = input.Phone;
+            user.MobilePhone = input.MobilePhone;
+            db.SaveChanges();
+            ViewBag.Info = "Your infomation has been updated successful.";
+            return View(input);
         }
 
         public ActionResult PDPA()
@@ -178,11 +221,11 @@ namespace IVG.Web.Mvc.Controllers
             {
 
             }
-            return RedirectToAction("index","home");
+            return RedirectToAction("index", "home");
         }
         public PartialViewResult GetMenu()
         {
-           var tbl_Users = db.tbl_Users.FirstOrDefault(a => a.UserName == User.Identity.Name);
+            var tbl_Users = db.tbl_Users.FirstOrDefault(a => a.UserName == User.Identity.Name);
 
             return PartialView("MenuPartial", tbl_Users);
         }

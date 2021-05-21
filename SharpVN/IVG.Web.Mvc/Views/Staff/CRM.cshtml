@@ -1,34 +1,36 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "CRM";
 }
-<style>
-    .folder{
-        position:relative;
-        height:50px;
-        width:100px;
-        background-color:gray;
-    }
-</style>
-<div class="row">
-    <a href="/Staff/Index">Home</a>
-    <div class="fa fa-arrow-right"></div><a href="/Staff/SVC">SVC</a>
-    <div class="fa fa-arrow-right"></div><a href="/Staff/CRM">CRM</a>
+<div class="col-lg-12 dnv-nav">
+    <i class="fa fa-long-arrow-right"></i>
+    <a href="/staff/home">Home</a>
+    <i class="fa fa-long-arrow-right"></i>
+    <a href="/staff/svc">SVC</a>
+    <i class="fa fa-long-arrow-right"></i>
+    <a href="/staff/crm">CRM</a>
 </div>
 <div class="row">
     <div class="col-sm-4">
-        <div class="folder"></div>
-        <div class="folder"></div>
-        <div class="folder"></div>
+        <a class="folder" href="#">
+            <input type="button" class="folder folder-icon btn-light btn" value="Reports" />
+        </a>
+        <a class="folder" href="#">
+            <input type="button" class="folder page-icon btn-light btn" value="Simple service logs (ASC)" />
+        </a>
     </div>
     <div class="col-sm-4">
-        <div class="folder"></div>
-        <div class="folder"></div>
-        <div class="folder"></div>
+        <a class="folder" href="#">
+            <input type="button" class="folder folder-icon btn-light btn" value="Settings" />
+        </a>
+        <a class="folder" href="/Staff/ServiceLog">
+            <input type="button" class="folder page-icon btn-light btn" value="Simple service logs (Branch)" />
+        </a>
     </div>
     <div class="col-sm-4">
-        <div class="folder"></div>
-        <div class="folder"></div>
+        <a class="folder" href="#">
+            <input type="button" class="folder page-icon btn-light btn" value="Simple service logs" />
+        </a>
     </div>
 </div>
 

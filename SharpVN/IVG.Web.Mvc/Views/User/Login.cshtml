@@ -4,10 +4,10 @@
 @{
     ViewBag.Title = "Login";
 }
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Resources/javascripts/FormAuthentication.js"></script>
+
 <form class="" name="Login" method="post" action="/User/Login">
-    @*<div class="row text-danger">
-        <label>@ViewBag.Errors</label>
-    </div>*@
     <input type="text" style="display:none" name="ReturnUrl" value="@Model.ReturnUrl" />
 
     <div class="row">
@@ -16,18 +16,20 @@
                 <div class="col-12 font-weight-bold">
                     <label>Login to myPortal@SEM   </label>
                 </div>
+                <div class="col-12 text-danger">
+                    <label>@Html.Raw(ViewBag.Errors)</label>
+                </div>
                 <div class="col-12 mb-4">
-                    <label>Login ID:</label>
-                    <input type="text" name="userName" class="form-control form-control-sm" value="@Model.UserName" />
+                    <label>Login ID</label>
+                    <input type="text" name="userName" placeholder="Enter your User ID" class="form-control form-control-sm" value="@Model.UserName" />
                 </div>
                 <div class="col-12 mb-4">
                     <label>Password</label>
-                    <input type="password" name="password" class="form-control form-control-sm" value="@Model.Password" />
+                    <input type="password" name="password" placeholder="Enter your password" class="form-control form-control-sm" value="@Model.Password" />
                 </div>
                 <div class="col-12 mb-3">
                     <label>User Type</label>
                     <select class="form-control form-control-sm" name="userType" id="userType">
-                        <option></option>
                         <option value="1" @Html.Raw(Model.UserType == (int)AppEnum.Role.Staff ? "selected" : "")>Staff</option>
                         <option value="2" @Html.Raw(Model.UserType == (int)AppEnum.Role.Dealer ? "selected" : "")>Dealer</option>
                     </select>
@@ -40,7 +42,7 @@
                     <button name="btnSubmit" type="submit" class="btn btn-primary" value="Login">Login</button>
                 </div>
                 <div class="col-12">
-                    <a id="TestBTN" href="user/fogotpassword" style="text-decoration: underline">Fogot password</a>
+                    <a id="TestBTN" href="/user/ForgotPassword" style="text-decoration: underline">Fogot password</a>
                 </div>
             </div>
         </div>
@@ -49,8 +51,8 @@
                 <img class="img-fluid" src="~/Resources/images/banner.jpg" alt="Ảnh banner" style="object-fit: cover;height: calc(100vh - 165px);width: 100%;" />
             </div>
         </div>
-        
-       
+
+
     </div>
 </form>
 

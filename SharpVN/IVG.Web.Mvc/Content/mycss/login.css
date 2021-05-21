@@ -1,3 +1,8 @@
 ﻿#TestBTN {
     font-size:100px
 }
+
+.error{
+    color:red;
+    font-size:smaller;
+}

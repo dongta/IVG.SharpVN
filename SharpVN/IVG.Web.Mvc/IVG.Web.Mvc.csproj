@@ -253,6 +253,7 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\fontawesome.css" />
     <Content Include="Content\fontawesome.min.css" />
+    <Content Include="Content\mycss\common-style.css" />
     <Content Include="Content\mycss\login.css" />
     <Content Include="Content\mycss\reset.css" />
     <Content Include="Content\regular.css" />
@@ -270,7 +271,10 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Resources\images\banner.jpg" />
+    <Content Include="Resources\images\folder-icon.png" />
     <Content Include="Resources\images\logo.png" />
+    <Content Include="Resources\images\page-icon.png" />
+    <Content Include="Resources\javascripts\FormAuthentication.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
