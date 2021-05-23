@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
@@ -11,7 +11,17 @@ namespace IVG.Web.Mvc.EF
             : base("name=AppDbContext")
         {
         }
-
+        #region bổ sung DB
+        public virtual DbSet<tbl_EscalationDicision> tbl_EscalationDicision { get; set; }
+        public virtual DbSet<tbl_QualityAssuranceChecking> tbl_QualityAssuranceChecking { get; set; }
+        public virtual DbSet<tbl_EscalateTo> tbl_EscalateTo { get; set; }
+        public virtual DbSet<tbl_InquiryDescription1> tbl_InquiryDescription1 { get; set; }
+        public virtual DbSet<tbl_InquiryDescription2> tbl_InquiryDescription2 { get; set; }
+        public virtual DbSet<tbl_ProductType> tbl_ProductType { get; set; }
+        public virtual DbSet<tbl_TransactionChannel> tbl_TransactionChannel { get; set; }
+        public virtual DbSet<tbl_TransactionStatus> tbl_TransactionStatus { get; set; }
+        public virtual DbSet<tbl_TypeOfInquiry> tbl_TypeOfInquiry { get; set; }
+        #endregion
         public virtual DbSet<tbl_Areas> tbl_Areas { get; set; }
         public virtual DbSet<tbl_Attribute> tbl_Attribute { get; set; }
         public virtual DbSet<tbl_AuditConfigurations> tbl_AuditConfigurations { get; set; }

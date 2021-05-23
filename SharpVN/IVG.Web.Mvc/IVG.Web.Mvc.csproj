@@ -171,12 +171,16 @@
     <Compile Include="EF\tbl_Districts.cs" />
     <Compile Include="EF\tbl_Documents.cs" />
     <Compile Include="EF\tbl_Entities.cs" />
+    <Compile Include="EF\tbl_EscalateTo.cs" />
+    <Compile Include="EF\tbl_EscalationDicision.cs" />
     <Compile Include="EF\tbl_EWarrantyRole.cs" />
     <Compile Include="EF\tbl_ExchangeRates.cs" />
     <Compile Include="EF\tbl_ExchangeReasons.cs" />
     <Compile Include="EF\tbl_Exchanges.cs" />
     <Compile Include="EF\tbl_Files.cs" />
     <Compile Include="EF\tbl_ImportResult.cs" />
+    <Compile Include="EF\tbl_InquiryDescription1.cs" />
+    <Compile Include="EF\tbl_InquiryDescription2.cs" />
     <Compile Include="EF\tbl_Introduction.cs" />
     <Compile Include="EF\tbl_IntroductionDetail.cs" />
     <Compile Include="EF\tbl_LabourCosts.cs" />
@@ -198,7 +202,9 @@
     <Compile Include="EF\tbl_PositionDefect.cs" />
     <Compile Include="EF\tbl_Prices.cs" />
     <Compile Include="EF\tbl_ProcessingTime.cs" />
+    <Compile Include="EF\tbl_ProductType.cs" />
     <Compile Include="EF\tbl_Provinces.cs" />
+    <Compile Include="EF\tbl_QualityAssuranceChecking.cs" />
     <Compile Include="EF\tbl_Reimburses.cs" />
     <Compile Include="EF\tbl_RepairCodes.cs" />
     <Compile Include="EF\tbl_Reports.cs" />
@@ -222,6 +228,9 @@
     <Compile Include="EF\tbl_TechnicalStaffs.cs" />
     <Compile Include="EF\tbl_TicketProblems.cs" />
     <Compile Include="EF\tbl_Transaction.cs" />
+    <Compile Include="EF\tbl_TransactionChannel.cs" />
+    <Compile Include="EF\tbl_TransactionStatus.cs" />
+    <Compile Include="EF\tbl_TypeOfInquiry.cs" />
     <Compile Include="EF\tbl_UserRoles.cs" />
     <Compile Include="EF\tbl_Users.cs" />
     <Compile Include="EF\tbl_Wards.cs" />
@@ -233,6 +242,8 @@
     <Compile Include="Models\AppEnum.cs" />
     <Compile Include="Controllers\DealerController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
+    <Compile Include="Models\FilterServiceLogItemDto.cs" />
+    <Compile Include="Models\DropdownItemDto.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
