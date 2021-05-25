@@ -31,7 +31,22 @@ namespace IVG.Web.Mvc.EF
         [StringLength(255)]
         public string Address { get; set; }
 
+        [StringLength(500)]
+        public string Address2 { get; set; }
+
+        [StringLength(500)]
+        public string Address3 { get; set; }
+
+        [StringLength(50)]
+        public string PostCode { get; set; }
+
+        [StringLength(500)]
+        public string TownOrCity { get; set; }
+
         public Guid? ProvinceID { get; set; }
+
+        [StringLength(50)]
+        public string AlternativeTelephoneNo { get; set; }
 
         public Guid? DistrictID { get; set; }
 
