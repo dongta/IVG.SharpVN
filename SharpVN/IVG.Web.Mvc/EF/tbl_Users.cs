@@ -84,6 +84,5 @@ namespace IVG.Web.Mvc.EF
         public string Token { get; set; }
 
         public Guid? EWarrantyRoleId { get; set; }
-        public virtual int? UserType { get; set; }
     }
 }

@@ -11,5 +11,6 @@ namespace IVG.Web.Mvc.Models
         public string LookupId { get; set; }
         public string DisplayName { get; set; }
         public bool Selected { get; set; }
+        public string Name { get; set; }
     }
 }

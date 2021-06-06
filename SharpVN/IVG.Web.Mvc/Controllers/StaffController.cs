@@ -28,14 +28,14 @@ namespace IVG.Web.Mvc.Controllers
         public ActionResult ServiceLog()
         {
             FilterServiceLogItemDto dto = new FilterServiceLogItemDto();
-            dto.tbl_EscalationDicision = db.tbl_EscalationDicision.OrderBy(a => a.Name).ToList();
-            dto.tbl_TransactionChannel = db.tbl_TransactionChannel.OrderBy(a => a.Name).ToList();
-            dto.tbl_Provinces = db.tbl_Provinces.OrderBy(a => a.Name).ToList();
-            dto.tbl_EscalateTo= db.tbl_EscalateTo.OrderBy(a => a.Name).ToList();
-            dto.tbl_QualityAssuranceChecking = db.tbl_QualityAssuranceChecking.OrderBy(a => a.Name).ToList();
-            dto.tbl_TypeOfInquiry = db.tbl_TypeOfInquiry.OrderBy(a => a.Name).ToList();
-            dto.tbl_ProductType = db.tbl_ProductType.OrderBy(a => a.Name).ToList();
-            dto.tbl_TransactionStatus = db.tbl_TransactionStatus.OrderBy(a => a.Name).ToList();
+            //dto.tbl_EscalationDicision = db.tbl_EscalationDicision.OrderBy(a => a.Name).ToList();
+            //dto.tbl_TransactionChannel = db.tbl_TransactionChannel.OrderBy(a => a.Name).ToList();
+            //dto.tbl_Provinces = db.tbl_Provinces.OrderBy(a => a.Name).ToList();
+            //dto.tbl_EscalateTo= db.tbl_EscalateTo.OrderBy(a => a.Name).ToList();
+            //dto.tbl_QualityAssuranceChecking = db.tbl_QualityAssuranceChecking.OrderBy(a => a.Name).ToList();
+            //dto.tbl_TypeOfInquiry = db.tbl_TypeOfInquiry.OrderBy(a => a.Name).ToList();
+            //dto.tbl_ProductType = db.tbl_ProductType.OrderBy(a => a.Name).ToList();
+            //dto.tbl_TransactionStatus = db.tbl_TransactionStatus.OrderBy(a => a.Name).ToList();
 
             dto.SortBy = new List<SortBy>();
             dto.SortBy.Add(new SortBy { Value = 1, Text = "Reference No. (A-Z)" });

@@ -35,10 +35,11 @@ namespace IVG.Web.Mvc.Controllers
             if (ModelState.IsValid)
             {
                 var passMd5 = Helper.VerifyMD5.GetMd5Hash(input.Password);
-                tbl_Users user = db.tbl_Users.FirstOrDefault(a => a.UserName == input.UserName && a.Password == passMd5 && a.UserType == input.UserType);
-                if (user != null)
+                tbl_Users user = db.tbl_Users.FirstOrDefault(a => a.UserName == input.UserName && a.Password == passMd5);
+                var role = db.tbl_Roles.FirstOrDefault(a => a.Role == input.UserType.ToString());
+                if (user != null && db.tbl_UserRoles.Any(a => a.UserID == user.ID && a.RoleID == role.ID))
                 {
-                    var UserJsonString = JsonConvert.SerializeObject(user, Formatting.Indented);
+                    var UserJsonString = role.Role;//JsonConvert.SerializeObject(role, Formatting.Indented);
                     FormsAuthentication.SetAuthCookie(user.UserName, false);
                     FormsAuthenticationTicket tkt;
                     string cookiestr;
@@ -75,7 +76,7 @@ namespace IVG.Web.Mvc.Controllers
             {
                 FormsIdentity formsIdentity = User.Identity as FormsIdentity;
                 FormsAuthenticationTicket ticket = formsIdentity.Ticket;
-                string userData = ticket.UserData;
+                string roleData = ticket.UserData;
             }
 
             FormsAuthentication.SignOut();

@@ -1,9 +1,11 @@
 ﻿using IVG.Web.Mvc.EF;
+using IVG.Web.Mvc.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace IVG.Web.Mvc.Controllers
 {
@@ -14,11 +16,14 @@ namespace IVG.Web.Mvc.Controllers
         public ActionResult Index()
         {
             tbl_Users u = db.tbl_Users.FirstOrDefault(a=>a.UserName==User.Identity.Name);
-            if (u.UserType==1)
+            FormsIdentity formsIdentity = User.Identity as FormsIdentity;
+            FormsAuthenticationTicket ticket = formsIdentity.Ticket;
+            string roleName = ticket.UserData;
+            if (roleName.ToLower()==AppEnum.Role.Staff.ToString().ToLower())
             {
                 return RedirectToAction("Home", "Staff");
             }
-            else
+            else if (roleName.ToLower() == AppEnum.Role.Dealer.ToString().ToLower())
             {
                 return RedirectToAction("ServiceRequest", "Dealer");
             }

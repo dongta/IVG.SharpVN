@@ -7,25 +7,25 @@ namespace IVG.Web.Mvc.Models
 {
     public class FilterServiceLogItemDto
     {
-        public List<tbl_EscalationDicision> tbl_EscalationDicision { get; set; }
-        public List<tbl_TransactionChannel> tbl_TransactionChannel { get; set; }
-        public List<tbl_Provinces> tbl_Provinces { get; set; }
-        public List<tbl_EscalateTo> tbl_EscalateTo { get; set; }
-        public List<tbl_QualityAssuranceChecking> tbl_QualityAssuranceChecking { get; set; }
-        public List<tbl_TypeOfInquiry> tbl_TypeOfInquiry { get; set; }
-        public List<tbl_ProductType> tbl_ProductType { get; set; }
-        public List<tbl_TransactionStatus> tbl_TransactionStatus { get; set; }
+        public List<DropdownItemDto> tbl_EscalationDicision { get; set; }
+        public List<DropdownItemDto> tbl_TransactionChannel { get; set; }
+        public List<DropdownItemDto> tbl_Provinces { get; set; }
+        public List<DropdownItemDto> tbl_EscalateTo { get; set; }
+        public List<DropdownItemDto> tbl_QualityAssuranceChecking { get; set; }
+        public List<DropdownItemDto> tbl_TypeOfInquiry { get; set; }
+        public List<DropdownItemDto> tbl_ProductType { get; set; }
+        public List<DropdownItemDto> tbl_TransactionStatus { get; set; }
         public List<SortBy> SortBy { get; set; }
         public FilterServiceLogItemDto()
         {
-            tbl_EscalationDicision = new List<tbl_EscalationDicision>();
-            tbl_TransactionChannel = new List<tbl_TransactionChannel>();
-            tbl_Provinces = new List<tbl_Provinces>();
-            tbl_EscalateTo = new List<tbl_EscalateTo>();
-            tbl_QualityAssuranceChecking = new List<tbl_QualityAssuranceChecking>();
-            tbl_TypeOfInquiry = new List<tbl_TypeOfInquiry>();
-            tbl_ProductType = new List<tbl_ProductType>();
-            tbl_TransactionStatus = new List<tbl_TransactionStatus>();
+            tbl_EscalationDicision = new List<DropdownItemDto>();
+            tbl_TransactionChannel = new List<DropdownItemDto>();
+            tbl_Provinces = new List<DropdownItemDto>();
+            tbl_EscalateTo = new List<DropdownItemDto>();
+            tbl_QualityAssuranceChecking = new List<DropdownItemDto>();
+            tbl_TypeOfInquiry = new List<DropdownItemDto>();
+            tbl_ProductType = new List<DropdownItemDto>();
+            tbl_TransactionStatus = new List<DropdownItemDto>();
             SortBy = new List<SortBy>();
             //SortBy.Add(
             //    new SortBy { Value = 1, Text = "Reference No. (A-Z)" },

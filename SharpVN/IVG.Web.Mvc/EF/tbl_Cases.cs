@@ -141,20 +141,5 @@ namespace IVG.Web.Mvc.EF
         public DateTime? CreatedCustomerOn { get; set; }
 
         public Guid? CreatedCustomerBy { get; set; }
-
-        public Guid? ProductTypeId { get; set; }
-
-        [Column(TypeName = "date")]
-        public DateTime? PurchaseDate { get; set; }
-
-        public int? WarrantyId { get; set; }
-
-        public Guid? TypeOfInquiryId { get; set; }
-
-        public Guid? InquiryDescription1Id { get; set; }
-
-        public Guid? InquiryDescription2Id { get; set; }
-
-        public string ReportedIssue { get; set; }
     }
 }

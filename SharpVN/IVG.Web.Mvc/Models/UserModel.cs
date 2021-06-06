@@ -15,7 +15,7 @@ namespace IVG.Web.Mvc.Models
         [Required(ErrorMessage = "Password is required.")]
         public string Password { get; set; }
         [Required(ErrorMessage = "User type is required.")]
-        public int UserType { get; set; }
+        public AppEnum.Role UserType { get; set; }
         public string Remember { get; set; }
         public string ReturnUrl { get; set; }
 

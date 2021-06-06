@@ -30,8 +30,8 @@
                 <div class="col-12 mb-3">
                     <label>User Type</label>
                     <select class="form-control form-control-sm" name="userType" id="userType">
-                        <option value="1" @Html.Raw(Model.UserType == (int)AppEnum.Role.Staff ? "selected" : "")>Staff</option>
-                        <option value="2" @Html.Raw(Model.UserType == (int)AppEnum.Role.Dealer ? "selected" : "")>Dealer</option>
+                        <option value="@AppEnum.Role.Staff" @Html.Raw(Model.UserType == AppEnum.Role.Staff ? "selected" : "")>Staff</option>
+                        <option value="@AppEnum.Role.Dealer" @Html.Raw(Model.UserType == AppEnum.Role.Dealer ? "selected" : "")>Dealer</option>
                     </select>
                 </div>
                 <div class="col-12 ">
