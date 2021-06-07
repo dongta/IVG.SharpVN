@@ -23,8 +23,19 @@ namespace IVG.Web.Mvc.Controllers
         public ActionResult Login(string returnUrl = "")
         {
             ViewBag.Errors = string.Empty;
+            var loginInfo = new Login
+            {
+                ReturnUrl = returnUrl ?? "/"
+            };
+            var userCoookie = HttpContext.Request.Cookies["login"];
+            if (userCoookie != null)
+            {
+                loginInfo.UserName = userCoookie["username"];
+                loginInfo.Password = userCoookie["password"];
+                loginInfo.UserType = string.IsNullOrEmpty(userCoookie["usertype"]) ? AppEnum.Role.Dealer : (AppEnum.Role)Enum.Parse(typeof(AppEnum.Role), userCoookie["usertype"], true);
+            }
 
-            return View(new Login { ReturnUrl = returnUrl ?? "/" });
+            return View(loginInfo);
         }
 
         [HttpPost]
@@ -48,8 +59,16 @@ namespace IVG.Web.Mvc.Controllers
                     DateTime.Now.AddHours(8), input.Remember == "on" ? true : false, UserJsonString);
                     cookiestr = FormsAuthentication.Encrypt(tkt);
                     ck = new HttpCookie(FormsAuthentication.FormsCookieName, cookiestr);
-                    if (input.Remember == "on")
+                    if (input.Remember == "on" || input.Remember == "true")
+                    {
                         ck.Expires = tkt.Expiration;
+                        HttpCookie loginRemember = new HttpCookie("login");
+                        loginRemember["username"] = input.UserName;
+                        loginRemember["password"] = input.Password;
+                        loginRemember["usertype"] = input.UserType.ToString();
+                        loginRemember.Expires = DateTime.Now.AddMonths(1);
+                        HttpContext.Response.SetCookie(loginRemember);
+                    }
                     ck.Path = FormsAuthentication.FormsCookiePath;
                     Response.Cookies.Add(ck);
                     return Redirect(input.ReturnUrl ?? "/");
@@ -78,7 +97,6 @@ namespace IVG.Web.Mvc.Controllers
                 FormsAuthenticationTicket ticket = formsIdentity.Ticket;
                 string roleData = ticket.UserData;
             }
-
             FormsAuthentication.SignOut();
 
             return RedirectToAction("Login");

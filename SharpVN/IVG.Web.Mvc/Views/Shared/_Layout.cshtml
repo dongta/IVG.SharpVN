@@ -31,7 +31,7 @@
         }
     </style>
 </head>
-<body style="padding-top:0 !important">
+<body style="padding-top:0 !important" >
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -50,7 +50,7 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <div class="nav navbar navbar-inverse w-100 menu1">
-                                <span class="text-truncate">Welcome @User.Identity.Name tôi là ai va ai là tôi?</span>
+                                <span class="text-truncate">Welcome @User.Identity.Name</span>
                                 <a href="/user/myprofile"> <i class="fa fa-user"> My profile </i> </a>
                                 <a href="/user/changepassword" style="padding-left:5px;"> <i class="fa fa-key"> Change password  </i>  </a>
                                 <a href="/user/logout" class=""> <i class="fa fa-lock"> Logout </i></a>
@@ -69,9 +69,9 @@
     </div>
     <div class="container body-content" style="padding:0;">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - IVG</p>
+        <hr style="margin-bottom:0 !important" />
+        <footer style="font-size:12px;">
+            <p>&copy;Copyright Sharp Electronics Viet Nam @DateTime.Now.Year.</p>
         </footer>
     </div>
 
