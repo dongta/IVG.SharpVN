@@ -6,11 +6,19 @@
     FormsAuthenticationTicket ticket = formsIdentity.Ticket;
     string roleData = ticket.UserData;
 }
+<style>
+    .menu-group > a {
+        width: 150px !important;
+    }
 
+    .menu-group > div {
+        width: 150px !important;
+    }
+</style>
 
 @if (roleData.ToLower() == AppEnum.Role.Staff.ToString().ToLower())//nếu là staff
 {
-    <div class="nav navbar navbar-inverse btn-light"  style="padding:0">
+    <div class="nav navbar navbar-inverse btn-light" style="padding:0">
         <div class="btn-group menu-group">
             <a class="btn btn-sm btn-light" href="#"><i class="fa fa-newspaper"> About Us </i></a>
             <a class="btn btn-sm btn-light" href="#"><i class="fa fa-newspaper"> Complaints/Inquiries </i></a>
@@ -31,12 +39,12 @@
 }
 else if (roleData.ToLower() == AppEnum.Role.Dealer.ToString().ToLower())//nếu là dealer
 {
-    <div class="nav navbar navbar-inverse btn-light"  style="padding:0">
-        <div class="btn-group">
+    <div class="nav navbar navbar-inverse btn-light" style="padding:0">
+        <div class="btn-group menu-group">
             <a class="btn btn-sm btn-light" href="#"><i class="fa fa-newspaper"> Company direction </i></a>
             <a class="btn btn-sm btn-light" href="#"><i class="fa fa-newspaper"> eSharp promotions </i></a>
             <a class="btn btn-sm btn-light" href="#"><i class="fa fa-newspaper"> Orders </i></a>
-            <a class="btn btn-sm btn-light" href="#"><i class="fa fa-newspaper"> Service request</i></a>
+            <a class="btn btn-sm btn-light" href="/dealer/servicerequest"><i class="fa fa-newspaper"> Service request</i></a>
             <div class="btn btn-sm btn-light" style="cursor:default !important">
                 <a class="btn btn-light dropdown-toggle" style="padding:0;font-size:14px; border:none !important" id="MyProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-user"> My Profile </i>
@@ -50,3 +58,4 @@ else if (roleData.ToLower() == AppEnum.Role.Dealer.ToString().ToLower())//nếu 
         </div>
     </div>
 }
+

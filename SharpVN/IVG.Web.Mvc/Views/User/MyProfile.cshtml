@@ -3,9 +3,18 @@
 @{
     ViewBag.Title = "MyProfile";
 }
+<div class="d-flex justify-content-between">
+    <div class="">
+        <a href="/"><i class="fa fa-home"></i> Home </a>  >
+        <a href="#"> My Profile</a> >
+        <a href="#"> Edit Profile</a>
+    </div>
+</div>
 <form name="MyProfile" action="/user/myprofile" method="post">
-    <div class="container">
-        <h4 class="container text-dark"><i class="fa fa-arrow-right"></i> My profile</h4>
+    <div class="container"  style="padding-top:30px;">
+        <div class="col-sm-4">
+            <h4 class="container text-dark text-center text-uppercase"><i class="fa text-center"></i> My profile</h4>
+        </div>
         <div class="col-sm-12">
             <div class="text-danger"> @ViewBag.Errors</div>
             <div class="text-primary"> @ViewBag.Info</div>

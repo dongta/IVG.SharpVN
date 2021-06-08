@@ -132,8 +132,12 @@
 </div>
 <div class="container" style="padding-top:10px;">
     <div class="btn-group">
-        <button class="btn btn-sm btn-primary"> <i class="fa fa-save"> Save</i></button>
+        <button class="btn btn-sm btn-primary" onclick="ShowToastr();"> <i class="fa fa-save"> Save</i></button>
         <a href="/dealer/servicerequest" class="btn btn-sm btn-danger"> <i class="fa fa-close"> Cancel</i></a>
     </div>
 </div>
-
+<script>
+    function ShowToastr() {
+        toastr.success("Record Created", "Successfully Created",);
+    };
+</script>
