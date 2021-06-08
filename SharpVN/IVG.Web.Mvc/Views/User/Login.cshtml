@@ -19,17 +19,17 @@
                 <div class="col-12 text-danger">
                     <label>@Html.Raw(ViewBag.Errors)</label>
                 </div>
-                <div class="col-12 mb-4">
+                <div class="col-12">
                     <label>Login ID</label>
-                    <input type="text" name="userName" placeholder="Enter your User ID" class="form-control form-control-sm" value="@Model.UserName" />
+                    <input type="text" name="userName" placeholder="Enter your User ID" class="form-control form-control-sm w-100" value="@Model.UserName" />
                 </div>
-                <div class="col-12 mb-4">
+                <div class="col-12">
                     <label>Password</label>
-                    <input type="password" name="password" placeholder="Enter your password" class="form-control form-control-sm" value="@Model.Password" />
+                    <input type="password" name="password" placeholder="Enter your password" class="form-control form-control-sm w-100" value="@Model.Password" />
                 </div>
-                <div class="col-12 mb-3">
+                <div class="col-12">
                     <label>User Type</label>
-                    <select class="form-control form-control-sm" name="userType" id="userType">
+                    <select class="form-control form-control-sm w-100" name="userType" id="userType">
                         <option value="@AppEnum.Role.Staff" @Html.Raw(Model.UserType == AppEnum.Role.Staff ? "selected" : "")>Staff</option>
                         <option value="@AppEnum.Role.Dealer" @Html.Raw(Model.UserType == AppEnum.Role.Dealer ? "selected" : "")>Dealer</option>
                     </select>
@@ -39,7 +39,7 @@
                     <label class="btn m-0 p-0" for="remember">Remember my login</label>
                 </div>
                 <div class="col-12">
-                    <button name="btnSubmit" type="submit" class="btn btn-primary" value="Login">Login</button>
+                    <button name="btnSubmit" type="submit" class="btn btn-primary w-100" value="Login">Login</button>
                 </div>
                 <div class="col-12">
                     <a id="TestBTN" href="/user/ForgotPassword" style="text-decoration: underline">Fogot password</a>

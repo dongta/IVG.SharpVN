@@ -9,17 +9,18 @@
 
 <style>
     .menu-group > a {
-        width: 200px !important;
+        min-width: 200px !important;
     }
 
     .menu-group > div {
-        width: 200px !important;
+        min-width: 200px !important;
+        width: 100% !important;
     }
 </style>
 
 @if (roleData.ToLower() == AppEnum.Role.Staff.ToString().ToLower())//nếu là staff
 {
-    <div class="nav navbar navbar-inverse w-100">
+    <div class="nav navbar navbar-inverse w-100 p-3" style="background-color:red !important">
         <div class="btn-group menu-group">
             <a class="btn btn-sm btn-light" href="#"><i class="fa fa-newspaper"> About Us </i></a>
             <a class="btn btn-sm btn-light" href="#"><i class="fa fa-newspaper"> Complaints/Inquiries </i></a>
@@ -40,13 +41,13 @@
 }
 else if (roleData.ToLower() == AppEnum.Role.Dealer.ToString().ToLower())//nếu là dealer
 {
-    <div class="nav navbar navbar-inverse w-100">
+    <div class="nav navbar navbar-inverse w-100 p-3" style="background-color:red !important">
         <div class="btn-group menu-group">
             <a class="btn btn-sm btn-light" href="#"><i class="fa fa-newspaper"> Company direction </i></a>
             <a class="btn btn-sm btn-light" href="#"><i class="fa fa-newspaper"> eSharp promotions </i></a>
             <a class="btn btn-sm btn-light" href="#"><i class="fa fa-newspaper"> Orders </i></a>
             <a class="btn btn-sm btn-light" href="#"><i class="fa fa-newspaper"> Service request</i></a>
-            <div class="btn btn-sm btn-light">
+            <div class="btn btn-sm btn-light w-100">
                 <a class="btn btn-light dropdown-toggle" style="padding:0;font-size:14px;" id="MyProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-user"> My Profile </i>
                 </a>
