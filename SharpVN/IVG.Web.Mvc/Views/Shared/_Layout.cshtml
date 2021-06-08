@@ -31,41 +31,35 @@
         }
     </style>
 </head>
-<body class="fa" style="padding-top:0 !important" >
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <div class="row">
-                    <div class="d-inline">
-                        <div>
-                            <a href="/home/index">
-                                <img src="~/Resources/images/logo.png" />
-                            </a>
-                        </div>
-                    </div>
-                    <div class="d-inline ">
-                        <div class="d-flex justify-content-center">
-                            My Portal @Html.Raw("@SEM")
-                        </div>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <div class="nav navbar navbar-inverse w-100 menu1">
-                                <span class="text-truncate">Welcome @User.Identity.Name</span>
-                                <a href="/user/myprofile"> <i class="fa fa-user"> My profile </i> </a>
-                                <a href="/user/changepassword" style="padding-left:5px;"> <i class="fa fa-key"> Change password  </i>  </a>
-                                <a href="/user/logout" class=""> <i class="fa fa-lock"> Logout </i></a>
-                            </div>
-                        }
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                @if (User.Identity.IsAuthenticated)
-                {
-                    Html.RenderAction("GetMenu", "User");
-                }
+<body style="padding-top:0 !important">
+    <div class="navbar navbar-inverse navbar-fixed-top container">
+        <div class="w-25">
+            <div>
+                <a href="/home/index">
+                    <img src="~/Resources/images/logo.png" />
+                </a>
             </div>
         </div>
+        <div class="w-75">
+            <div class="d-flex justify-content-center">
+                <h3>My Portal @Html.Raw("@SEM")</h3>
+            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="nav navbar navbar-inverse w-100 menu1">
+                    <span class="text-truncate">Welcome @User.Identity.Name</span>
+                    <a href="/user/myprofile"> <i class="fa fa-user"> My profile </i> </a>
+                    <a href="/user/changepassword" style="padding-left:5px;"> <i class="fa fa-key"> Change password  </i>  </a>
+                    <a href="/user/logout" class=""> <i class="fa fa-lock"> Logout </i></a>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="row">
+        @if (User.Identity.IsAuthenticated)
+        {
+            Html.RenderAction("GetMenu", "User");
+        }
     </div>
     <div class="container body-content" style="padding:0;">
         @RenderBody()
@@ -74,13 +68,12 @@
             <p>&copy;Copyright Sharp Electronics Viet Nam @DateTime.Now.Year.</p>
         </footer>
     </div>
-
 </body>
 </html>
 @*<link href="~/Content/css/select2.min.css" rel="stylesheet" />
-<script src="~/Scripts/select2.js"></script>
+    <script src="~/Scripts/select2.js"></script>
 
-<script>
-    console.log(`jqueryrrrrrr`, $);
-    $("select").select2();
-</script>*@
+    <script>
+        console.log(`jqueryrrrrrr`, $);
+        $("select").select2();
+    </script>*@
