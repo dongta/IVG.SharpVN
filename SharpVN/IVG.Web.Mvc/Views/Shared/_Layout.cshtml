@@ -31,6 +31,7 @@
         }
     </style>
 </head>
+@using IVG.Web.Mvc.Models;
 <body style="padding-top:0 !important">
     <div class="navbar navbar-inverse navbar-fixed-top container">
         <div class="w-25">
@@ -41,8 +42,24 @@
             </div>
         </div>
         <div class="w-75">
-            <div class="d-flex justify-content-center">
-                <h3>My Portal @Html.Raw("@SEM")</h3>
+            <div class="d-flex justify-content-center" style="color:darkblue;">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    var roleCookie = Request.Cookies["role"];
+                    var roleName = roleCookie?.Values["rolename"] ?? string.Empty;
+                    if (roleName == AppEnum.Role.Staff.ToString())
+                    {
+                        <h3>@Html.Raw("My Portal @SEV")</h3>
+                    }
+                    else if (roleName == AppEnum.Role.Dealer.ToString())
+                    {
+                        <h3>@Html.Raw("eDealer @ Sharp Electronics VietNam")</h3>
+                    }
+                }
+                else
+                {
+                    <h3>My Portal @Html.Raw("@SEV")</h3>
+                }
             </div>
             @if (User.Identity.IsAuthenticated)
             {
@@ -55,14 +72,20 @@
             }
         </div>
     </div>
-    <div class="row">
+    <div class="container" style="padding:0">
         @if (User.Identity.IsAuthenticated)
         {
             Html.RenderAction("GetMenu", "User");
         }
+        else
+        {
+            <hr />
+        }
     </div>
     <div class="container body-content" style="padding:0;">
         @RenderBody()
+    </div>
+    <div class="container">
         <hr style="margin-bottom:0 !important" />
         <footer style="font-size:12px;">
             <p>&copy;Copyright Sharp Electronics Viet Nam @DateTime.Now.Year.</p>

@@ -59,6 +59,12 @@ namespace IVG.Web.Mvc.Controllers
                     DateTime.Now.AddHours(8), input.Remember == "on" ? true : false, UserJsonString);
                     cookiestr = FormsAuthentication.Encrypt(tkt);
                     ck = new HttpCookie(FormsAuthentication.FormsCookieName, cookiestr);
+
+                    HttpCookie roleCkie = new HttpCookie("role");
+                    roleCkie["rolename"] = input.UserType.ToString();
+                    roleCkie.Expires = DateTime.Now.AddMonths(1);
+                    HttpContext.Response.SetCookie(roleCkie);
+
                     if (input.Remember == "on" || input.Remember == "true")
                     {
                         ck.Expires = tkt.Expiration;
@@ -97,6 +103,7 @@ namespace IVG.Web.Mvc.Controllers
                 FormsAuthenticationTicket ticket = formsIdentity.Ticket;
                 string roleData = ticket.UserData;
             }
+            HttpContext.Request.Cookies.Clear();
             FormsAuthentication.SignOut();
 
             return RedirectToAction("Login");
