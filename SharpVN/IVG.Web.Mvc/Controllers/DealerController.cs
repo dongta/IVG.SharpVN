@@ -22,7 +22,10 @@ namespace IVG.Web.Mvc.Controllers
         {
             return View();
         }
-
+        public ActionResult ServiceDetail()
+        {
+            return View();
+        }
 
     }
 }

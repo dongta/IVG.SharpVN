@@ -1,0 +1,241 @@
+﻿@{
+    ViewBag.Title = "Request Details";
+}
+<style>
+    .card-header {
+        padding: 0 !important;
+    }
+</style>
+<div class="d-flex justify-content-between">
+    <div class="">
+        <a href="/"><i class="fa fa-home"></i> Home </a>  >
+        <a href="/dealer/ServiceRequest"> Service request</a> >
+        <a href="#"> Request detail</a>
+    </div>
+    <div class="col-sm-2 btn-group" style="padding-right:0 !important;padding-top:2px !important">
+            <a class="btn btn-sm btn-primary" href="/dealer/addrequest"><i class="fa fa-edit"> Edit </i></a>
+            <a class="btn btn-sm btn-danger" href="/dealer/ServiceRequest"><i class="fa fa-edit"> Back </i></a>
+    </div>
+</div>
+<div id="accordion" style="padding-top:5px">
+    <div class="card">
+        <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    Report details
+                </button>
+            </h5>
+        </div>
+        <div id="collapseOne" class="collapse show">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Code :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <span>TP167-280521-004</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Reference code :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <span>1118330174</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Status :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="text-warning">Pending ASC</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Created By :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Nguyễn Văn Đông</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Created On :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>09/06/2021</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Received By :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Nguyễn Văn Đông</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Issue :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>H402 - Lỗi chức năng vi sóng</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Description 1 :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Mở hoài không nóng...</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Description 2 :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>khách báo lò không nóng ,kỹ thuật kiểm tra...</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Product Details
+                </button>
+            </h5>
+        </div>
+        <div id="collapseTwo" class="collapse show">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Product :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <span>R-208VN-WS - MWO</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Srial No :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <span>2019120783</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Purchase Date :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>12/04/2020</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Model Code :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <span>0000011</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Warranty :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <span>In Warranty</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Customer Details
+                </button>
+            </h5>
+        </div>
+        <div id="collapseThree" class="collapse show">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Customer Name :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <span>Hoàng Lý Thông</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Telephone 1</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <span>0888869333</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Telephone 2 :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>0974503199</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Address 1 :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <span>141 Hoàng Quốc Việt, Cầu Giấy, HN</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Address 2 :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <span>P.Đức Thắng, Đông Ngạc, Bắc Từ Liêm, HN</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>State :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Hà Nội</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingFour">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" href="#collapseFour" aria-expanded="false" aria-controls="headingFour">
+                    Techician
+                </button>
+            </h5>
+        </div>
+        <div id="collapseFour" class="collapse show">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>ASC :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <span>SVN - Công ty điện tử Sharp</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Technician</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <span>Nguyễn Trường Sinh</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Description :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Lò vi sóng bị ẩm ướt</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Cancel By :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <span></span>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Canceled Reason</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
