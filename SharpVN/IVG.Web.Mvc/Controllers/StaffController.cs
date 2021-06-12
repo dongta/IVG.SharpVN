@@ -61,6 +61,11 @@ namespace IVG.Web.Mvc.Controllers
         {
             return View();
         }
+        public ActionResult AssignJob()
+        {
+            return View();
+        }
+
         public ActionResult PrintOrder()
         {
             return View();

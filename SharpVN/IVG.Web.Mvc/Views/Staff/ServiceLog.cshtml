@@ -5,47 +5,47 @@
     ViewBag.Title = "Simple Service Logs (Branch)";
 }
 <div class="col-lg-12 dnv-nav">
-    <i class="fa @*fa-long-arrow-right*@"></i><a href="/staff/home">Home</a>
-    <i class="fa fa-long-arrow-right"></i><a href="/staff/svc">SVC</a>
-    <i class="fa fa-long-arrow-right"></i><a href="/staff/crm">CRM</a>
-    <i class="fa fa-long-arrow-right"></i><a href="/staff/ServiceLog">Simple Service Logs (Branch)</a>
+    <i class="fa fa-home"></i><a href="/staff/home"> Home </a>
+    <i class="fa fa-long-arrow-right"></i><a href="/staff/svc"> SVC </a>
+    <i class="fa fa-long-arrow-right"></i><a href="/staff/crm"> CRM </a>
+    <i class="fa fa-long-arrow-right"></i><a href="/staff/ServiceLog"> Simple Service Logs (Branch)</a>
 </div>
-<div class="col-sm-12 text-left" style="font-size:20px !important;">
+<div class="col-sm-12 text-left" style="font-size:20px !important; padding-left:0 !important">
     <i class="fa @*fa-arrow-right*@ text-uppercase"> Simple Service Logs</i>
 </div>
-<div class="d-flex justify-content-between">
+<div class="d-flex justify-content-between bg-light">
     <div>
-        <a href="#" id="filter">
-            <i class="fa fa-chevron-left text-uppercase"> Filter</i>
+        <a href="#" id="filter" class="btn btn-sm btn-primary">
+            <i class="fa fa-filter text-uppercase text-white"> Filter</i>
         </a>
     </div>
-    <div>
-        <div class="d-flex justify-content-end" id="divSearch">
-            <a href="#" id="btnSearch" style="padding-right:10px;">
+    <div id="frmFilterAction" style="display:none;">
+        <div class="d-flex justify-content-end btn-group" id="divSearch">
+            <a href="#" id="btnSearch" style="padding-right:10px;" class="btn btn-sm btn-primary">
                 <i class="fa fa-search"> Search data</i>
             </a>
-            <a href="#" id="btnClearSearch">
+            <a href="#" id="btnClearSearch" class="btn btn-sm btn-danger">
                 <i class="fa fa-trash"> Clear search</i>
             </a>
         </div>
     </div>
 </div>
-<form name="frmFilter" style="display:none">
-    <div class="row" style="border:1px solid #d5d0d0; padding-bottom:5px;border-radius:5px;">
-        <div class="col-sm-6">
+<form name="frmFilter" style="display:none" class="bg-light">
+    <div class="w-100 row">
+        <div class="col-sm-3">
             <div class="form">
                 <label>Reference No.</label>
                 <input type="text" name="referenceNo" class="form-control form-control-sm col-sm-12" />
             </div>
             <div class="form">
+                <label>Report ID</label>
+                <input type="text" name="" class="form-control form-control-sm col-sm-12" />
+            </div>
+            <div class="form">
                 <label>Customer Name</label>
                 <input type="text" name="customerName" class="form-control form-control-sm col-sm-12" />
             </div>
-            <div class="form">
-                <label>Request from</label>
-                <input type="date" name="requestFrom" class="form-control form-control-sm col-sm-12" />
-            </div>
-            <div class="form">
+            <div class="form" style="display:none">
                 <label>Escalation decision</label>
                 <select name="escalationDecisionId" class="form-control form-control-sm col-sm-12">
                     <option value="">No Filter</option>
@@ -55,6 +55,8 @@
                     }
                 </select>
             </div>
+        </div>
+        <div class="col-sm-3">
             <div class="form">
                 <label>Transaction channel</label>
                 <select name="" class="form-control form-control-sm col-sm-12">
@@ -86,20 +88,21 @@
                 </select>
             </div>
         </div>
-        <div class="col-sm-6">
-            <div class="form">
-                <label>Report ID</label>
-                <input type="text" name="" class="form-control form-control-sm col-sm-12" />
-            </div>
+        <div class="col-sm-3">
+
             <div class="form">
                 <label>Customer telephone No.</label>
                 <input type="text" name="" class="form-control form-control-sm col-sm-12" />
             </div>
             <div class="form">
+                <label>Request from</label>
+                <input type="date" name="requestFrom" class="form-control form-control-sm col-sm-12" />
+            </div>
+            <div class="form">
                 <label>Request to</label>
                 <input type="date" name="" class="form-control form-control-sm col-sm-12" />
             </div>
-            <div class="form">
+            <div class="form" style="display:none">
                 <label>Quality assurance checking</label>
                 <select name="" class="form-control form-control-sm col-sm-12">
                     <option value="">No Filter</option>
@@ -109,6 +112,9 @@
                     }
                 </select>
             </div>
+
+        </div>
+        <div class="col-sm-3">
             <div class="form">
                 <label>Type of inquire</label>
                 <select name="" class="form-control form-control-sm col-sm-12">
@@ -140,64 +146,304 @@
                 </select>
             </div>
         </div>
-    </div>
-    <div class="row" style="padding-top:5px; padding-bottom:5px">
-            <label class="text-body d-inline">Sort by</label>
-            <select class="form-control form-control-sm d-inline" style="min-width:100px;">
+        <div class="btn-group" style="padding-top:10px; padding-left:15px;">
+            <div class="btn btn-sm btn-outline-secondary"><b>Sort by <i class="fa fa-arrow-right"></i></b></div>
+            <select class="btn btn-sm  btn-outline-secondary clearfix " >
                 @foreach (var item in Model.SortBy)
                 {
                     <option value="@item.Value">@item.Text</option>
                 }
             </select>
-            <a href="/case/getjob" class="fa fa-file-excel btn btn-sm btn-primary d-inline"> Export Excel</a>
+            <a href="/case/getjob" class="fa fa-file-excel btn btn-sm btn-outline-primary"> Export Excel</a>
+        </div>
+    </div>
+    <div class="row" style="padding-top:5px; padding-bottom:5px">
+
     </div>
 </form>
 
-<div class="row" name="ketQuaTimKiem">
-    <div class="table-responsive" style="width:100%;height:300px;">
-        <table class="table table-bordered table-hover table-striped fa" id="tableResult" style="width:auto;min-width:1500px;">
-            <tr class="bg-light text-sm-left">
-                <th>No.</th>
-                <th>Report ID</th>
-                <th>Transaction Channel</th>
-                <th>Inquiry Cat</th>
-                <th>Sub Cat (1)</th>
-                <th>Sub Cat (2)</th>
-                <th>CustomerName</th>
-                <th>Address (1)</th>
-                <th>Address (2)</th>
-                <th>Address (3)</th>
-                <th>Postcode</th>
-                <th>Town/city</th>
-                <th>State</th>
-            </tr>
+<div class="w-100">
+    <div style="max-width:100%; overflow-x:auto">
+        <table class="table table-striped table-hover table-sm table-bordered" style="width:8500px !important">
+            <thead class="bg-light">
+                @*<tr>
+                        @for (int i = 0; i < 9; i++)
+                        {
+                            <th>Column @i</th>
+                        }
+                    </tr>*@
+                <tr>
+                    <th scope="col" style="text-align:center"><input type="checkbox" /></th>
+                    <th scope="col" style=""><a href="javascript:__doPostBack('ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList','Sort$Code')">Code</a></th>
+                    <th scope="col"><a href="javascript:__doPostBack('ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList','Sort$ReferenceCode')">Referece code</a></th>
+                    <th scope="col"><a href="javascript:__doPostBack('ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList','Sort$SerialNo')">Serial No.</a></th>
+                    <th scope="col"><a href="javascript:__doPostBack('ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList','Sort$Customer')">Customer</a></th>
+                    <th scope="col"><a href="javascript:__doPostBack('ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList','Sort$Address')">Address</a></th>
+                    <th scope="col"><a href="javascript:__doPostBack('ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList','Sort$Mainphone')">Mainphone</a></th>
+                    <th scope="col"><a href="javascript:__doPostBack('ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList','Sort$HomePhone')">HomePhone</a></th>
+                    <th scope="col"><a href="javascript:__doPostBack('ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList','Sort$MobilePhone')">MobilePhone</a></th>
+                    <th scope="col"><a href="javascript:__doPostBack('ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList','Sort$ModelCode')">Sản phẩm</a></th>
+                    <th scope="col"><a href="javascript:__doPostBack('ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList','Sort$ConditionCode')">Điều kiện lỗi</a></th>
+                    <th scope="col"><a href="javascript:__doPostBack('ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList','Sort$DefectCode')">Khuyết điểm</a></th>
+                    <th scope="col"><a href="javascript:__doPostBack('ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList','Sort$ASCName')">Trung tâm</a></th>
+                    <th scope="col"><a href="javascript:__doPostBack('ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList','Sort$TechnicaName')">Kỹ thuật viên</a></th>
+                    <th scope="col"><a href="javascript:__doPostBack('ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList','Sort$ReceivedDate')">Ngày tiếp nhận</a></th>
+                    <th scope="col"><a href="javascript:__doPostBack('ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList','Sort$StatusName')">Trạng thái</a></th>
+                    <th scope="col"><a href="javascript:__doPostBack('ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList','Sort$Description')">Diễn giải</a></th>
+                    <th scope="col"><a href="javascript:__doPostBack('ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList','Sort$SVNDescript')">Call Center Diễn giải</a></th>
+                    <th scope="col"><a href="javascript:__doPostBack('ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList','Sort$TechnicalCheckedOn')">TechnicalCheckedOn</a></th>
+                </tr>
+            </thead>
             <tbody>
-                @for (int i = 0; i < 10; i++)
-                {
-                    <tr>
-                        <td>@i</td>
-                        <td>@i</td>
-                        <td>@i</td>
-                        <td>@i</td>
-                        <td>@i</td>
-                        <td>@i</td>
-                        <td>@i</td>
-                        <td>@i</td>
-                        <td>@i</td>
-                        <td>@i</td>
-                        <td>@i</td>
-                        <td>@i</td>
-                        <td>@i</td>
-                    </tr>
-                }
+                <tr class="GridRowStyle">
+                    <td>
+                        <center><input id="Workspace1_ContentPlaceHolder1_ctl01_grdList_ckbSelect_0" type="checkbox" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl02$ckbSelect" onclick="ckbSelect('hdfTicketID',this,event);"></center>
+                        <input type="hidden" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl02$hdfTicketID" id="Workspace1_ContentPlaceHolder1_ctl01_grdList_hdfTicketID_0" value="9fbb3c6f-d6ce-468a-9c4b-7309b8a9117c"><input type="hidden" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl02$hdfStatus" id="Workspace1_ContentPlaceHolder1_ctl01_grdList_hdfStatus_0" value="1">
+                    </td>
+                    <td><a id="Workspace1_ContentPlaceHolder1_ctl01_grdList_linkCode_0" onclick="javascript:window.open('Edit.aspx?page=TicketProblems/edit&amp;EntityID=1e41752f-c4e3-45f7-820c-6c486c1d7251&amp;tab=d1581839-910a-4a9d-9614-a3f84b8f9096&amp;id=9fbb3c6f-d6ce-468a-9c4b-7309b8a9117c','_blank','left=20,top=20,width=1024,height=600,toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no');" style="cursor:pointer;">TP167-280521-004</a></td>
+                    <td>1118330174</td>
+                    <td>2019120783</td>
+                    <td>167-0521-00001 - A Cường</td>
+                    <td>Số 179/169/18 Vĩnh Hưng</td>
+                    <td>0392278882</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>R-208VN-WS - MWO</td>
+                    <td>&nbsp;</td>
+                    <td>H402 - Lỗi chức năng vi sóng</td>
+                    <td>167 - CÔNG TY TNHH MTV QUANG HIỂN</td>
+                    <td>167-00002 - Lê Tiến</td>
+                    <td>28/05/2021</td>
+                    <td>Chưa xử lý</td>
+                    <td>khách báo lò không nóng ,kỹ thuật kiểm tra lò bị hỏng đồng hồ timer ,đã thay linh kiện mới lò HĐBT</td>
+                    <td>&nbsp;</td>
+                    <td>23/05/2021</td>
+                </tr>
+                <tr class="GridAlternateRowStyle">
+                    <td>
+                        <center><input id="Workspace1_ContentPlaceHolder1_ctl01_grdList_ckbSelect_1" type="checkbox" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl03$ckbSelect" onclick="ckbSelect('hdfTicketID',this,event);"></center>
+                        <input type="hidden" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl03$hdfTicketID" id="Workspace1_ContentPlaceHolder1_ctl01_grdList_hdfTicketID_1" value="8ea728e0-91cc-4fa8-87d0-728141aca33e"><input type="hidden" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl03$hdfStatus" id="Workspace1_ContentPlaceHolder1_ctl01_grdList_hdfStatus_1" value="1">
+                    </td>
+                    <td><a id="Workspace1_ContentPlaceHolder1_ctl01_grdList_linkCode_1" onclick="javascript:window.open('Edit.aspx?page=TicketProblems/edit&amp;EntityID=1e41752f-c4e3-45f7-820c-6c486c1d7251&amp;tab=d1581839-910a-4a9d-9614-a3f84b8f9096&amp;id=8ea728e0-91cc-4fa8-87d0-728141aca33e','_blank','left=20,top=20,width=1024,height=600,toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no');" style="cursor:pointer;">TP209-190521-107</a></td>
+                    <td>11180472599</td>
+                    <td>86000284</td>
+                    <td>209-1020-00002 - ANH VŨ ĐMX</td>
+                    <td>KCN VĨNH NIỆM</td>
+                    <td>0969920560</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>AU-X10VXW - AIR CONDITIONER</td>
+                    <td>&nbsp;</td>
+                    <td>H103 - Có nguồn, không hoạt động</td>
+                    <td>209 - CT TNHH TM &amp; SX HỒNG HÀ</td>
+                    <td>&nbsp;</td>
+                    <td>19/05/2021</td>
+                    <td>Chưa xử lý</td>
+                    <td>THAY BOARD</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr class="GridRowStyle">
+                    <td>
+                        <center><input id="Workspace1_ContentPlaceHolder1_ctl01_grdList_ckbSelect_2" type="checkbox" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl04$ckbSelect" onclick="ckbSelect('hdfTicketID',this,event);"></center>
+                        <input type="hidden" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl04$hdfTicketID" id="Workspace1_ContentPlaceHolder1_ctl01_grdList_hdfTicketID_2" value="bac82a3f-4086-43b3-8d7d-1adb92459eec"><input type="hidden" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl04$hdfStatus" id="Workspace1_ContentPlaceHolder1_ctl01_grdList_hdfStatus_2" value="1">
+                    </td>
+                    <td><a id="Workspace1_ContentPlaceHolder1_ctl01_grdList_linkCode_2" onclick="javascript:window.open('Edit.aspx?page=TicketProblems/edit&amp;EntityID=1e41752f-c4e3-45f7-820c-6c486c1d7251&amp;tab=d1581839-910a-4a9d-9614-a3f84b8f9096&amp;id=bac82a3f-4086-43b3-8d7d-1adb92459eec','_blank','left=20,top=20,width=1024,height=600,toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no');" style="cursor:pointer;">TP181-190521-010</a></td>
+                    <td>11180442687</td>
+                    <td>200223567</td>
+                    <td>SVN-0421-05174 - THÁI BĂNG HỒ</td>
+                    <td>KHU TÀI LỘC, PHƯỜNG 8, TP CÀ MAU</td>
+                    <td>0908898089</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>SJ-FX631V-SL - REFRIGERATOR</td>
+                    <td>&nbsp;</td>
+                    <td>H501 - Lỗi bên ngoài (trầy, móp, bẩn, tróc sơn)</td>
+                    <td>181 - CTY TNHH MTV CÔNG NGHỆ ĐIỆN TỬ TBL</td>
+                    <td>&nbsp;</td>
+                    <td>19/05/2021</td>
+                    <td>Chưa xử lý</td>
+                    <td>19-05 đặt 04 cánh cửa</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr class="GridAlternateRowStyle">
+                    <td>
+                        <center><input id="Workspace1_ContentPlaceHolder1_ctl01_grdList_ckbSelect_3" type="checkbox" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl05$ckbSelect" onclick="ckbSelect('hdfTicketID',this,event);"></center>
+                        <input type="hidden" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl05$hdfTicketID" id="Workspace1_ContentPlaceHolder1_ctl01_grdList_hdfTicketID_3" value="512fc78c-5f06-4fe8-b128-6b648d003cac"><input type="hidden" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl05$hdfStatus" id="Workspace1_ContentPlaceHolder1_ctl01_grdList_hdfStatus_3" value="1">
+                    </td>
+                    <td><a id="Workspace1_ContentPlaceHolder1_ctl01_grdList_linkCode_3" onclick="javascript:window.open('Edit.aspx?page=TicketProblems/edit&amp;EntityID=1e41752f-c4e3-45f7-820c-6c486c1d7251&amp;tab=d1581839-910a-4a9d-9614-a3f84b8f9096&amp;id=512fc78c-5f06-4fe8-b128-6b648d003cac','_blank','left=20,top=20,width=1024,height=600,toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no');" style="cursor:pointer;">TP167-220321-003</a></td>
+                    <td>1118330166</td>
+                    <td>KS20-376273</td>
+                    <td>SVN-0318-02236 - Anh Tính - CH Hoàn Kiếm</td>
+                    <td>Số 24, Đường Khuyến Lương , Phường Trần  Phú , Q.Hoàng Mai, Hà Nội</td>
+                    <td>0833451678</td>
+                    <td>0983883725</td>
+                    <td>&nbsp;</td>
+                    <td>KSH-D1010V - </td>
+                    <td>&nbsp;</td>
+                    <td>H407 - Sống cơm</td>
+                    <td>167 - CÔNG TY TNHH MTV QUANG HIỂN</td>
+                    <td>167-00002 - Lê Tiến</td>
+                    <td>22/03/2021</td>
+                    <td>Chưa xử lý</td>
+                    <td>khách báo nấu không chín cơm ,kỹ thuật kiểm tra nồi bị hỏng thép từ giớ hạn nhiệt ,đãmua linh kiện ngoài thay mới nồi nấu đã chín cơm</td>
+                    <td>&nbsp;</td>
+                    <td>22/03/2021</td>
+                </tr>
+                <tr class="GridRowStyle">
+                    <td>
+                        <center><input id="Workspace1_ContentPlaceHolder1_ctl01_grdList_ckbSelect_4" type="checkbox" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl06$ckbSelect" onclick="ckbSelect('hdfTicketID',this,event);"></center>
+                        <input type="hidden" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl06$hdfTicketID" id="Workspace1_ContentPlaceHolder1_ctl01_grdList_hdfTicketID_4" value="2e7e95d4-59bf-49e9-8711-e468620519fa"><input type="hidden" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl06$hdfStatus" id="Workspace1_ContentPlaceHolder1_ctl01_grdList_hdfStatus_4" value="1">
+                    </td>
+                    <td><a id="Workspace1_ContentPlaceHolder1_ctl01_grdList_linkCode_4" onclick="javascript:window.open('Edit.aspx?page=TicketProblems/edit&amp;EntityID=1e41752f-c4e3-45f7-820c-6c486c1d7251&amp;tab=d1581839-910a-4a9d-9614-a3f84b8f9096&amp;id=2e7e95d4-59bf-49e9-8711-e468620519fa','_blank','left=20,top=20,width=1024,height=600,toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no');" style="cursor:pointer;">TP232-290121-001</a></td>
+                    <td>1118341229</td>
+                    <td>181230810</td>
+                    <td>SVN-0620-06084 - Hứa Văn Nhật</td>
+                    <td>Nalin, Yên Cư, Chợ Mới, Bắc Cạn</td>
+                    <td>09829036899</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>SJ-X176E-DSS - REF</td>
+                    <td>&nbsp;</td>
+                    <td>H103 - Có nguồn, không hoạt động</td>
+                    <td>232 - CTY TNHH THƯƠNG MAI &amp; DICH VỤ HOÀNG HUÂN</td>
+                    <td>&nbsp;</td>
+                    <td>29/01/2021</td>
+                    <td>Chưa xử lý</td>
+                    <td>Có nguồn nhưng không hoạt động/ KTV kiểm tra bị hư máy nén/ Thay Máy nén tủ hoat· động binh· thường</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr class="GridAlternateRowStyle">
+                    <td>
+                        <center><input id="Workspace1_ContentPlaceHolder1_ctl01_grdList_ckbSelect_5" type="checkbox" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl07$ckbSelect" onclick="ckbSelect('hdfTicketID',this,event);"></center>
+                        <input type="hidden" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl07$hdfTicketID" id="Workspace1_ContentPlaceHolder1_ctl01_grdList_hdfTicketID_5" value="d7165192-03ee-441b-9f2e-635661ea2513"><input type="hidden" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl07$hdfStatus" id="Workspace1_ContentPlaceHolder1_ctl01_grdList_hdfStatus_5" value="1">
+                    </td>
+                    <td><a id="Workspace1_ContentPlaceHolder1_ctl01_grdList_linkCode_5" onclick="javascript:window.open('Edit.aspx?page=TicketProblems/edit&amp;EntityID=1e41752f-c4e3-45f7-820c-6c486c1d7251&amp;tab=d1581839-910a-4a9d-9614-a3f84b8f9096&amp;id=d7165192-03ee-441b-9f2e-635661ea2513','_blank','left=20,top=20,width=1024,height=600,toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no');" style="cursor:pointer;">TP326-260121-011</a></td>
+                    <td>0316040981</td>
+                    <td>N200816889</td>
+                    <td>218-1219-00001 - Đoàn Trần Phương Thu</td>
+                    <td>1080 Hùng Vương</td>
+                    <td>02633870101</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>SJ-X346E-SL - REFRIGERATOR</td>
+                    <td>&nbsp;</td>
+                    <td>H205 - Không lạnh</td>
+                    <td>326 - TRAM BẢO HÀNH MINH SANG DI LINH</td>
+                    <td>&nbsp;</td>
+                    <td>26/01/2021</td>
+                    <td>Chưa xử lý</td>
+                    <td>KHÔNG LẠNH -THAY BLOCK -MÃ LK FCMPLA497CBKZ ĐƠN 80202961</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr class="GridRowStyle">
+                    <td>
+                        <center><input id="Workspace1_ContentPlaceHolder1_ctl01_grdList_ckbSelect_6" type="checkbox" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl08$ckbSelect" onclick="ckbSelect('hdfTicketID',this,event);"></center>
+                        <input type="hidden" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl08$hdfTicketID" id="Workspace1_ContentPlaceHolder1_ctl01_grdList_hdfTicketID_6" value="ac3584c8-cba3-4e5c-a86e-f7ef60a5c0c0"><input type="hidden" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl08$hdfStatus" id="Workspace1_ContentPlaceHolder1_ctl01_grdList_hdfStatus_6" value="1">
+                    </td>
+                    <td><a id="Workspace1_ContentPlaceHolder1_ctl01_grdList_linkCode_6" onclick="javascript:window.open('Edit.aspx?page=TicketProblems/edit&amp;EntityID=1e41752f-c4e3-45f7-820c-6c486c1d7251&amp;tab=d1581839-910a-4a9d-9614-a3f84b8f9096&amp;id=ac3584c8-cba3-4e5c-a86e-f7ef60a5c0c0','_blank','left=20,top=20,width=1024,height=600,toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no');" style="cursor:pointer;">TP176-121220-002</a></td>
+                    <td>11180502697</td>
+                    <td>19114147</td>
+                    <td>176-0819-00017 - ANH TRUNG  - DM XANH ĐÀ NẴNG</td>
+                    <td>Đường só 3 , KCN Hòa Khánh</td>
+                    <td>0909773189</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>KS-TH18-GL - Nồi cơm điện</td>
+                    <td>&nbsp;</td>
+                    <td>H407 - Sống cơm</td>
+                    <td>176 - CTY TNHH TM-DV ÁNH SÁNG</td>
+                    <td>176-00010 - DANG THANH QUI</td>
+                    <td>12/12/2020</td>
+                    <td>Chưa xử lý</td>
+                    <td>MÁY ĐMX THU HỒI - SỐNG CƠM - THAY ROLE - 9KS1001113019 - 80184249</td>
+                    <td>&nbsp;</td>
+                    <td>12/12/2020</td>
+                </tr>
+                <tr class="GridAlternateRowStyle">
+                    <td>
+                        <center><input id="Workspace1_ContentPlaceHolder1_ctl01_grdList_ckbSelect_7" type="checkbox" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl09$ckbSelect" onclick="ckbSelect('hdfTicketID',this,event);"></center>
+                        <input type="hidden" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl09$hdfTicketID" id="Workspace1_ContentPlaceHolder1_ctl01_grdList_hdfTicketID_7" value="4bcdade1-c78e-428b-be29-0e92dfdcc0af"><input type="hidden" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl09$hdfStatus" id="Workspace1_ContentPlaceHolder1_ctl01_grdList_hdfStatus_7" value="1">
+                    </td>
+                    <td><a id="Workspace1_ContentPlaceHolder1_ctl01_grdList_linkCode_7" onclick="javascript:window.open('Edit.aspx?page=TicketProblems/edit&amp;EntityID=1e41752f-c4e3-45f7-820c-6c486c1d7251&amp;tab=d1581839-910a-4a9d-9614-a3f84b8f9096&amp;id=4bcdade1-c78e-428b-be29-0e92dfdcc0af','_blank','left=20,top=20,width=1024,height=600,toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no');" style="cursor:pointer;">TP184-300920-043</a></td>
+                    <td>11180367067</td>
+                    <td>806412375</td>
+                    <td>184-0920-00027 - Đ.M.Hạnh</td>
+                    <td>Cẩm Phả</td>
+                    <td>0969681189</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>R-G371VN-W - MWO</td>
+                    <td>&nbsp;</td>
+                    <td>H101 - Không nguồn</td>
+                    <td>184 - CT TNHH TM - DV HÀ YÊN</td>
+                    <td>184-00004 - Nguyễn Trọng Thưởng</td>
+                    <td>30/09/2020</td>
+                    <td>Chưa xử lý</td>
+                    <td>Thay H.V capacitor đơn hàng 80192471</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr class="GridRowStyle">
+                    <td>
+                        <center><input id="Workspace1_ContentPlaceHolder1_ctl01_grdList_ckbSelect_8" type="checkbox" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl10$ckbSelect" onclick="ckbSelect('hdfTicketID',this,event);"></center>
+                        <input type="hidden" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl10$hdfTicketID" id="Workspace1_ContentPlaceHolder1_ctl01_grdList_hdfTicketID_8" value="67265093-8ebe-4355-b390-7a7a5026f319"><input type="hidden" name="ctl00$Workspace1$ContentPlaceHolder1$ctl01$grdList$ctl10$hdfStatus" id="Workspace1_ContentPlaceHolder1_ctl01_grdList_hdfStatus_8" value="1">
+                    </td>
+                    <td><a id="Workspace1_ContentPlaceHolder1_ctl01_grdList_linkCode_8" onclick="javascript:window.open('Edit.aspx?page=TicketProblems/edit&amp;EntityID=1e41752f-c4e3-45f7-820c-6c486c1d7251&amp;tab=d1581839-910a-4a9d-9614-a3f84b8f9096&amp;id=67265093-8ebe-4355-b390-7a7a5026f319','_blank','left=20,top=20,width=1024,height=600,toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no');" style="cursor:pointer;">TP258-230920-002</a></td>
+                    <td>11180397904</td>
+                    <td>01059680</td>
+                    <td>SVN-0820-07074 - C. Thủy</td>
+                    <td>Xóm Diexn Cầu, xã Tân Đức, huyện Phú Bình, Thái Nguyên</td>
+                    <td>0987839062</td>
+                    <td>&nbsp;</td>
+                    <td>0343444449</td>
+                    <td>AH-X9XEW - </td>
+                    <td>&nbsp;</td>
+                    <td>H101 - Không nguồn</td>
+                    <td>258 - CÔNG TY TNHH TM &amp; DV NGỌC THƠM</td>
+                    <td>258-00045 - PHẠM THANH XUÂN</td>
+                    <td>23/09/2020</td>
+                    <td>Chưa xử lý</td>
+                    <td>MÁY KHÔNG NGUỒN, DO HỎNG BO DÀN LẠNH, THAY MỚI</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
             </tbody>
-
         </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
+
+<script>
+    $(document).off("click", "tr").on("click", "tr", () => {
+        window.location.href = "/stAff/asSignjOb";
+    })
+</script>
 <script>
     $(document).off("click", "#filter").on("click", "#filter", (a) => {
         $("form[name='frmFilter']").toggle("fade");
+        $("#frmFilterAction").toggle('slow');
     });
     $(document).off("click", "#btnClearSearch").on("click", "#btnClearSearch", (a) => {
         $("form[name='frmFilter']").find("input[type=text], textarea,select").val("");

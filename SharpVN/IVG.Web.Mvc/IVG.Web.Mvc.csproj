@@ -288,6 +288,7 @@
     <Content Include="Resources\images\banner.jpg" />
     <Content Include="Resources\images\folder-icon.png" />
     <Content Include="Resources\images\logo.png" />
+    <Content Include="Resources\images\order.png" />
     <Content Include="Resources\images\page-icon.png" />
     <Content Include="Resources\javascripts\FormAuthentication.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -534,6 +535,7 @@
     <Content Include="Views\Dealer\AddRequest.cshtml" />
     <Content Include="Views\User\MenuPartial.cshtml" />
     <Content Include="Views\Dealer\ServiceDetail.cshtml" />
+    <Content Include="Views\Staff\AssignJob.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
