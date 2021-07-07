@@ -70,5 +70,13 @@ namespace IVG.Web.Mvc.Controllers
         {
             return View();
         }
+        public ActionResult Chat()
+        {
+            return View();
+        }
+        public PartialViewResult Chatbox()
+        {
+            return PartialView();
+        }
     }
 }

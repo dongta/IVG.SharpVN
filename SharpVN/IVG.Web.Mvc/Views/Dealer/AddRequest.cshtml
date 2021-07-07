@@ -10,98 +10,46 @@
     </div>
 </div>
 
-<div class="row bg-light" style="display:none" >
-    <div class="col-sm-4">
-        <label>Request Code</label>
-        <input type="text" class="form-control form-control-sm" />
-    </div>
-    <div class="col-sm-4">
-        <label>Reference Code</label>
-        <input type="text" class="form-control form-control-sm" />
-    </div>
-    <div class="col-sm-4">
-        <label>Received date</label>
-        <input type="date" class="form-control form-control-sm" />
-    </div>
-    <div class="col-sm-4">
-        <label>ASC</label>
-        <select class="form-control form-control-sm">
-            <option selected disabled>Select a ASC</option>
-        </select>
-    </div>
-    <div class="col-sm-4">
-        <label>Technician</label>
-        <select class="form-control form-control-sm">
-            <option selected disabled >Select a technician</option>
-        </select>
-    </div>
-    <div class="col-sm-4">
-        <label>Received by</label>
-        <select class="form-control form-control-sm">
-            <option selected disabled>Nguyễn Văn Đông</option>
-        </select>
-    </div>
-    <div class="col-sm-4">
-        <label>Status</label>
-        <select class="form-control form-control-sm">
-            <option selected disabled>New</option>
-        </select>
-    </div>
-    <div class="col-sm-4">
-        <label>Techinican check date</label>
-        <input type="date" class="form-control form-control-sm" />
-    </div>
-    <div class="row bg-info">Customer</div>
-</div>
-
 <div class="row" style="padding:0 !important; display:flex">
     <div class="col-sm-4">
         <div class="col-sm-12">
-            <label>Product type</label>
-            <select class="form-control form-control-sm">
+            <label>Sản phẩm</label>
+            <select name="modelID" class="form-control form-control-sm">
                 <option>Select product type</option>
                 <option>Select product type</option>
                 <option>Select product type</option>
                 <option>Select product type</option>
-            </select>
-        </div>
-        <div class="col-sm-12">
-            <label>Model code</label>
-            <select class="form-control form-control-sm">
-                <option>Select Model code</option>
-                <option>Select Model code</option>
-                <option>Select Model code</option>
-                <option>Select Model code</option>
             </select>
         </div>
         <div class="col-sm-12">
             <label>Serial No</label>
-            <input type="text" class="form-control form-control-sm" />
+            <input name="serialNo" type="text" class="form-control form-control-sm" />
         </div>
         <div class="col-sm-12">
-            <label>Purchase date</label>
+            <label>Ngày sản xuất</label>
+            <input name="madeDate" type="datetime-local" class="form-control form-control-sm" />
+        </div>
+        <div class="col-sm-12">
+            <label>Ngày hết bảo hành</label>
             <input type="datetime-local" class="form-control form-control-sm" />
         </div>
         <div class="col-sm-12">
-            <label>Warranty</label>
+            <label>Hình thức bảo hành</label>
             <select class="form-control form-control-sm">
-                <option>Select Warranty</option>
-                <option>Select Warranty</option>
-                <option>Select Warranty</option>
-                <option>Select Warranty</option>
+                <option>Carry-In</option>
+                <option>In-Home</option>
+                <option>In-Shop</option>
             </select>
         </div>
         <div class="col-sm-12">
-            <label>Type of inquire</label>
+            <label>Tình trạng bảo hành</label>
             <select class="form-control form-control-sm">
-                <option>Select Type of inquire</option>
-                <option>Select Type of inquire</option>
-                <option>Select Type of inquire</option>
-                <option>Select Type of inquire</option>
+                <option>Còn bảo hành</option>
+                <option>Hết bảo hành</option>
             </select>
         </div>
         <div class="col-sm-12">
-            <label>Inquire description (1)</label>
+            <label>Hiện tượng</label>
             <select class="form-control form-control-sm">
                 <option>Select Inquire description (1)</option>
                 <option>Select Inquire description (1)</option>
