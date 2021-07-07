@@ -15,7 +15,7 @@
         width: 200px !important;
     }
 </style>
-
+<link href="~/Content/mycss/Menu.css" rel="stylesheet" />
 @if (roleData.ToLower() == AppEnum.Role.Staff.ToString().ToLower())//nếu là staff
 {
     <div class="nav navbar navbar-inverse btn-light" style="padding:0">
@@ -24,7 +24,7 @@
             <a class="btn btn-sm btn-light" href="#"><i class="fa fa-newspaper"> Complaints/Inquiries </i></a>
             <a class="btn btn-sm btn-light" href="#"><i class="fa fa-newspaper"> eSharp Online Store </i></a>
             <a class="btn btn-sm btn-light" href="#"><i class="fa fa-newspaper"> Products </i></a>
-            <a class="btn btn-sm btn-light" href="/staff/chat"><i class="fa fa-comment"> Message </i></a>
+            <a class="btn btn-sm btn-light notification" href="/staff/chat"><i class="fa fa-comment"> Message </i> <span class="badge">3</span></a>
             <div class="btn btn-sm btn-light" style="cursor:default !important">
                 <a class="btn btn-light dropdown-toggle" style="padding:0;font-size:14px; border:none !important" id="MyProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-user"> My Profile </i>
