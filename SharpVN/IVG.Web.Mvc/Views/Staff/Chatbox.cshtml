@@ -1,83 +1,120 @@
-﻿<link href="~/Content/mycss/Chatbox.css" rel="stylesheet" />
-<div class="container">
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading top-bar">
-                    <div class="col-md-8 col-xs-8">
-                        <h3 class="panel-title"><span class="glyphicon glyphicon-book"></span> Contacts</h3>
+﻿<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/mycss/Chatbox.css" rel="stylesheet" />
+<div class="container-fluid h-100 w-100" style="padding:0!important;background-color:white !important;">
+    <div class="row justify-content-center h-100 w-100" style="margin:0 !important; padding:0 !important">
+        <div class="col-md-12 chat" style="margin:0 !important; padding:0 !important">
+            <div class="card">
+                <div class="card-header msg_head" style="margin:0 !important; padding:0 !important;background-color:#2bb2cb !important">
+                    <div class="d-flex bd-highlight">
+                        <div class="img_cont">
+                            <img src="~/Resources/images/avatar.png" class="rounded-circle user_img" />
+                            <span class="online_icon"></span>
+                        </div>
+                        <div class="user_info">
+                            <span>Chat với Sharp VietNam</span>
+                            <p>20 Messages</p>
+                        </div>
+                    </div>
+                    <span id="action_menu_btn"><i class="fa fa-ellipsis-v"></i></span>
+                    <div class="action_menu">
+                        <ul>
+                            <li><i class="fa fa-user-circle"></i> View profile</li>
+                            <li><i class="fa fa-users"></i> Add to close friends</li>
+                            <li><i class="fa fa-plus"></i> Add to group</li>
+                            <li><i class="fa fa-ban"></i> Block</li>
+                        </ul>
                     </div>
                 </div>
-                <table class="table table-striped table-hover">
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Masha</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Vasya</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Inna</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-
-
-        <div class="col-sm-8">
-            <div class="chatbody">
-                <div class="panel panel-primary">
-                    <div class="panel-heading top-bar">
-                        <div class="col-md-8 col-xs-8">
-                            <h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span> Chat - Miguel</h3>
+                <div class="card-body msg_card_body" style="display:block;">
+                    <div class="d-flex justify-content-start mb-4"  style="display:none !important">
+                        <div class="img_cont_msg">
+                            <img src="~/Resources/images/avatar.png" class="rounded-circle user_img_msg" />
+                        </div>
+                        <div class="msg_cotainer">
+                            Hi, how are you samim?
+                            <span class="msg_time">8:40 AM, Today</span>
                         </div>
                     </div>
-                    <div class="panel-body msg_container_base">
-                        <div class="row msg_container base_sent">
-                            <div class="col-md-10 col-xs-10">
-                                <div class="messages msg_sent">
-                                    <p>
-                                        that mongodb thing looks good, huh?
-                                        tiny master db, and huge document store
-                                    </p>
-                                    <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-                                </div>
-                            </div>
-                            <div class="col-md-2 col-xs-2 avatar">
-                                <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
-                            </div>
+                    <div class="d-flex justify-content-end mb-4">
+                        <div class="msg_cotainer_send">
+                            Vâng, chúng tôi xin lắng nghe và ghi nhận.
+                            <span class="msg_time_send">8:55 AM, Today</span>
                         </div>
-                        <div class="row msg_container base_receive">
-                            <div class="col-md-2 col-xs-2 avatar">
-                                <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
-                            </div>
-                            <div class="col-md-10 col-xs-10">
-                                <div class="messages msg_receive">
-                                    <p>
-                                        that mongodb thing looks good, huh?
-                                        tiny master db, and huge document store
-                                    </p>
-                                    <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-                                </div>
-                            </div>
+                        <div class="img_cont_msg">
+                            <img src="~/Resources/images/person.jpg" class="rounded-circle user_img_msg" />
                         </div>
                     </div>
-                    <div class="panel-footer">
-                        <div class="input-group">
-                            <input id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />
-                            <span class="input-group-btn">
-                                <button class="btn btn-primary btn-sm" id="btn-chat"><i class="fa fa-send fa-1x" aria-hidden="true"></i></button>
-                            </span>
+                    <div class="d-flex justify-content-start mb-4">
+                        <div class="img_cont_msg">
+                            <img src="~/Resources/images/avatar.png" class="rounded-circle user_img_msg" />
+                        </div>
+                        <div class="msg_cotainer">
+                            Sửa giúp mình cái TV, mình ở Hà Nội
+                            <span class="msg_time">9:00 AM, Today</span>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end mb-4">
+                        <div class="msg_cotainer_send">
+                            Dạ vâng, anh cung cấp địa chị chi tiết cho em ạ.
+                            <span class="msg_time_send">9:05 AM, Today</span>
+                        </div>
+                        <div class="img_cont_msg">
+                            <img src="~/Resources/images/person.jpg" class="rounded-circle user_img_msg" />
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-start mb-4">
+                        <div class="img_cont_msg">
+                            <img src="~/Resources/images/avatar.png" class="rounded-circle user_img_msg" />
+                        </div>
+                        <div class="msg_cotainer">
+                            54 Trần Duy Hưng, Hà Nội
+                            <span class="msg_time">9:07 AM, Today</span>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end mb-4">
+                        <div class="msg_cotainer_send">
+                            Ok anh/chị. bên em sẽ có kỹ thuật viên đến xem xét chi tiết cho anh ạ.
+                            <span class="msg_time_send">9:10 AM, Today</span>
+                        </div>
+                        <div class="img_cont_msg">
+                            <img src="~/Resources/images/person.jpg" class="rounded-circle user_img_msg" />
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-start mb-4">
+                        <div class="img_cont_msg">
+                            <img src="~/Resources/images/avatar.png" class="rounded-circle user_img_msg" />
+                        </div>
+                        <div class="msg_cotainer">
+                            OK. Cám ơn Sharp nhé !
+                            <span class="msg_time">9:12 AM, Today</span>
                         </div>
                     </div>
                 </div>
-
+                <div class="card-footer" style="display:block;">
+                    <div class="input-group">
+                        <div class="input-group-append">
+                            <span class="input-group-text attach_btn"><i class="fa fa-paperclip"></i></span>
+                        </div>
+                        <textarea name="" class="form-control type_msg" placeholder="Type your message..."></textarea>
+                        <div class="input-group-append">
+                            <span class="input-group-text send_btn"><i class="fa fa-location-arrow"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-100" style="display:none">
+                    <input style="background-color:#dff4f7" type="text" class="form-control w-100" placeholder="Vui lòng nhập tên của bạn" />
+                    <button class="w-100 btn btn-success">Bắt đầu trò chuyện</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $('#action_menu_btn').click(function () {
+            $('.action_menu').toggle();
+        });
+    });
+</script>

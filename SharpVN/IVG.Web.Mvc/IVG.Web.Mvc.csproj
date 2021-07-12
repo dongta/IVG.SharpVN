@@ -275,6 +275,7 @@
     <Content Include="Content\mycss\ChatPage.css" />
     <Content Include="Content\mycss\common-style.css" />
     <Content Include="Content\mycss\login.css" />
+    <Content Include="Content\mycss\Menu.css" />
     <Content Include="Content\mycss\reset.css" />
     <Content Include="Content\regular.css" />
     <Content Include="Content\regular.min.css" />
@@ -290,11 +291,15 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Resources\images\avatar.png" />
     <Content Include="Resources\images\banner.jpg" />
     <Content Include="Resources\images\folder-icon.png" />
     <Content Include="Resources\images\logo.png" />
+    <Content Include="Resources\images\msg-icon.png" />
     <Content Include="Resources\images\order.png" />
     <Content Include="Resources\images\page-icon.png" />
+    <Content Include="Resources\images\person.jpg" />
+    <Content Include="Resources\images\user-transparent.png" />
     <Content Include="Resources\javascripts\FormAuthentication.js" />
     <Content Include="Resources\sql script update database\1.sql" />
     <Content Include="Scripts\bootstrap.bundle.js" />

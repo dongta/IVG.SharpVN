@@ -93,8 +93,13 @@
             <p>&copy;Copyright Sharp Electronics Viet Nam @DateTime.Now.Year.</p>
         </footer>
     </div>
+    <div style="position:fixed;bottom:0;right:0;border:none; width:400px;height:500px; background-color:none; cursor:pointer;">
+        @{ Html.RenderPartial("chatbox"); }
+        @*<img style="width:50px; height:50px;" src="~/Resources/images/msg-icon.png" title="Chat với Sharp Việt Nam" />*@
+    </div>
 </body>
 </html>
+
 <script>
     toastr.options = {
         "debug": false,
