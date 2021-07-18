@@ -34,6 +34,8 @@
     </style>
 </head>
 @using IVG.Web.Mvc.Models;
+@using IVG.Web.Mvc.EF
+
 <body style="padding-top:0 !important">
     <div class="navbar navbar-inverse navbar-fixed-top container">
         <div class="w-25">
@@ -65,8 +67,15 @@
             </div>
             @if (User.Identity.IsAuthenticated)
             {
+                if (Session["user"] == null)
+                {
+                    AppDbContext db = new AppDbContext();
+                    Session["user"] = db.tbl_Users.FirstOrDefault(a => a.UserName == @User.Identity.Name) ?? new tbl_Users();
+                }
+                var u = Session["user"] as tbl_Users;
+
                 <div class="nav navbar navbar-inverse w-100 menu1">
-                    <span class="text-truncate">Welcome @User.Identity.Name</span>
+                    <span class="text-truncate">Welcome @u.DisplayName</span>
                     <a href="/user/myprofile"> <i class="fa fa-user"> My profile </i> </a>
                     <a href="/user/changepassword" style="padding-left:5px;"> <i class="fa fa-key"> Change password  </i>  </a>
                     <a href="/user/logout" class=""> <i class="fa fa-lock"> Logout </i></a>
@@ -93,10 +102,10 @@
             <p>&copy;Copyright Sharp Electronics Viet Nam @DateTime.Now.Year.</p>
         </footer>
     </div>
-    <div style="position:fixed;bottom:0;right:0;border:none; width:400px;height:500px; background-color:none; cursor:pointer;">
-        @{ Html.RenderPartial("chatbox"); }
-        @*<img style="width:50px; height:50px;" src="~/Resources/images/msg-icon.png" title="Chat với Sharp Việt Nam" />*@
-    </div>
+    <!--<div style="position:fixed;bottom:0;right:0;border:none; width:400px;height:500px; background-color:none; cursor:pointer;">-->
+    @*@{ Html.RenderPartial("chatbox"); }*@
+    @*<img style="width:50px; height:50px;" src="~/Resources/images/msg-icon.png" title="Chat với Sharp Việt Nam" />*@
+    <!--</div>-->
 </body>
 </html>
 

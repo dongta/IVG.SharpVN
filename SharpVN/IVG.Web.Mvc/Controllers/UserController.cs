@@ -65,6 +65,14 @@ namespace IVG.Web.Mvc.Controllers
                     roleCkie.Expires = DateTime.Now.AddMonths(1);
                     HttpContext.Response.SetCookie(roleCkie);
 
+                    HttpCookie usercookie = new HttpCookie("user");
+                    usercookie["id"] = user.ID.ToString();
+                    usercookie["name"] = user.DisplayName;
+                    usercookie.Expires = DateTime.Now.AddMonths(1);
+                    HttpContext.Response.SetCookie(usercookie);
+
+                    Session["user"] = user;
+
                     if (input.Remember == "on" || input.Remember == "true")
                     {
                         ck.Expires = tkt.Expiration;
@@ -104,6 +112,7 @@ namespace IVG.Web.Mvc.Controllers
                 string roleData = ticket.UserData;
             }
             HttpContext.Request.Cookies.Clear();
+            Session.Clear();
             FormsAuthentication.SignOut();
 
             return RedirectToAction("Login");

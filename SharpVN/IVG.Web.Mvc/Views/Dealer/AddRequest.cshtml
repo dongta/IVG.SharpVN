@@ -1,7 +1,9 @@
-﻿
+﻿@model IVG.Web.Mvc.Models.AddRequestDto
+@using System.Web.Script.Serialization;
 @{
     ViewBag.Title = "AddRequest";
 }
+<script src="~/Javascripts/Dealer/AddRequest.js"></script>
 <div class="d-flex justify-content-between">
     <div class="">
         <a href="/"><i class="fa fa-home"></i> Home </a>  >
@@ -9,128 +11,222 @@
         <a href="#"> Add New Record</a>
     </div>
 </div>
+<form name="frmCaseRequest">
 
-<div class="row" style="padding:0 !important; display:flex">
-    <div class="col-sm-4">
-        <div class="col-sm-12">
-            <label>Sản phẩm</label>
-            <select name="modelID" class="form-control form-control-sm">
-                <option>Select product type</option>
-                <option>Select product type</option>
-                <option>Select product type</option>
-                <option>Select product type</option>
-            </select>
-        </div>
-        <div class="col-sm-12">
-            <label>Serial No</label>
-            <input name="serialNo" type="text" class="form-control form-control-sm" />
-        </div>
-        <div class="col-sm-12">
-            <label>Ngày sản xuất</label>
-            <input name="madeDate" type="datetime-local" class="form-control form-control-sm" />
-        </div>
-        <div class="col-sm-12">
-            <label>Ngày hết bảo hành</label>
-            <input type="datetime-local" class="form-control form-control-sm" />
-        </div>
-        <div class="col-sm-12">
-            <label>Hình thức bảo hành</label>
-            <select class="form-control form-control-sm">
-                <option>Carry-In</option>
-                <option>In-Home</option>
-                <option>In-Shop</option>
-            </select>
-        </div>
-        <div class="col-sm-12">
-            <label>Tình trạng bảo hành</label>
-            <select class="form-control form-control-sm">
-                <option>Còn bảo hành</option>
-                <option>Hết bảo hành</option>
-            </select>
-        </div>
-        <div class="col-sm-12">
-            <label>Hiện tượng</label>
-            <select class="form-control form-control-sm">
-                <option>Select Inquire description (1)</option>
-                <option>Select Inquire description (1)</option>
-                <option>Select Inquire description (1)</option>
-                <option>Select Inquire description (1)</option>
-            </select>
-        </div>
-    </div>
+    <div class="row" style="padding:0 !important; display:flex">
 
-    <div class="col-sm-4">
         <div class="col-sm-12">
-            <label>Inquire description (2)</label>
-            <select class="form-control form-control-sm">
-                <option>Select Inquire description (2)</option>
-                <option>Select Inquire description (2)</option>
-                <option>Select Inquire description (2)</option>
-                <option>Select Inquire description (2)</option>
-            </select>
-        </div>
-        <div class="col-sm-12">
-            <label>Customer name</label>
-            <input type="text" class="form-control form-control-sm" />
-        </div>
-        <div class="col-sm-12">
-            <label>Address 1</label>
-            <input type="text" class="form-control form-control-sm" />
-        </div>
-        <div class="col-sm-12">
-            <label>Address 2</label>
-            <input type="text" class="form-control form-control-sm" />
-        </div>
-        <div class="col-sm-12">
-            <label>Address 3</label>
-            <input type="text" class="form-control form-control-sm" />
-        </div>
-        <div class="col-sm-12">
-            <label>Postcode</label>
-            <input type="text" class="form-control form-control-sm" />
-        </div>
-        <div class="col-sm-12">
-            <label>Town/City</label>
-            <input type="text" class="form-control form-control-sm" />
-        </div>
-    </div>
-    <div class="col-sm-4">
-        <div class="col-sm-12">
-            <label>State</label>
-            <select class="form-control form-control-sm">
-                <option>Select State</option>
-                <option>Select State</option>
-                <option>Select State</option>
-                <option>Select State</option>
-            </select>
-        </div>
-        <div class="col-sm-12">
-            <label>Telephone no</label>
-            <input type="text" class="form-control form-control-sm" />
-        </div>
-        <div class="col-sm-12">
-            <label> Alternative Telephone No.</label>
-            <input type="text" class="form-control form-control-sm" />
-        </div>
-        <div class="col-sm-12">
-            <label> Email address</label>
-            <input type="email" class="form-control form-control-sm" />
-        </div>
-        <div class="col-sm-12">
-            <label> Alternative Telephone No.</label>
-            <textarea type="text" style="height:150px;resize:none" class="form-control form-control-sm"></textarea>
-        </div>
-    </div>
+            <div class="col-sm-12">
+                <label>Mã phiếu</label>
+                <input name="maPhieu" placeholder="Mã phiếu tự sinh" type="text" class="form-control form-control-sm" disabled />
+            </div>
+            <div class="col-sm-12">
+                <label>Mã tham chiếu</label>
+                <input name="maThamChieu" placeholder="Nhập Mã tham chiếu" type="text" class="form-control form-control-sm" />
+            </div>
+            <div class="col-sm-12">
+                <label>Người tiếp nhận</label>
+                <input name="nguoiTiepNhan" placeholder="Nhập người tiếp nhận" type="text" class="form-control form-control-sm" />
+            </div>
+            <div class="col-sm-12">
+                <label>Ngày tiếp nhận</label>
+                <input name="ngayTiepNhan" value="" type="datetime-local" class="form-control form-control-sm" />
+            </div>
+            <div class="col-sm-12">
+                <label>ASC</label>
+                <select name="ASC" class="form-control form-control-sm" disabled>
+                    <option value="">Chọn ASC</option>
+                    @foreach (var item in Model.AscCombobox)
+                    {
+                        <option value="@item.Id">@item.DisplayName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-12">
+                <label>Kỹ thuật viên</label>
+                <select name="technician" class="form-control form-control-sm" disabled>
+                    <option value="">Chọn kỹ thuật viên</option>
+                    @foreach (var item in Model.TechCombobox)
+                    {
+                        <option value="@item.Id">@item.DisplayName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-12">
+                <label>Ngày KTV kiểm tra</label>
+                <input name="ngayKtvKiemTra" type="datetime-local" class="form-control form-control-sm" />
+            </div>
+            <div class="col-sm-12">
+                <label>Trạng thái (phiếu)</label>
+                <select name="trangThaiPhieu" class="form-control form-control-sm">
+                    <option value="">Chọn Trạng thái</option>
+                    @foreach (var item in Model.TrangThaiPhieuCombobox)
+                    {
+                        <option value="@item.Id">@item.DisplayName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-12">
+                <label>Sản phẩm</label>
+                <select name="sanPham" class="form-control form-control-sm">
+                    <option value="">Chọn sản phẩm</option>
+                    @foreach (var item in Model.ProductCombobox)
+                    {
+                        <option value="@item.Id">@item.DisplayName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-12">
+                <label>Serial No</label>
+                <input name="serialNo" type="text" class="form-control form-control-sm" />
+            </div>
+            <div class="col-sm-12">
+                <label>Ngày sản xuất</label>
+                <input name="ngaySanXuat" type="datetime-local" class="form-control form-control-sm" />
+            </div>
+            <div class="col-sm-12">
+                <label>Ngày mua</label>
+                <input name="ngayMua" type="datetime-local" class="form-control form-control-sm" />
+            </div>
+            <div class="col-sm-12">
+                <label>Ngày hết bảo hành</label>
+                <input name="ngayHetBaoHanh" type="datetime-local" class="form-control form-control-sm" />
+            </div>
+            <div class="col-sm-12">
+                <label>Tình trạng bảo hành</label>
+                <select name="tinhTrangBaoHanh" class="form-control form-control-sm">
+                    <option value="">Chọn tình trạng bảo hành</option>
+                    @foreach (var item in Model.TrangThaiBaoHanhCombobox)
+                    {
+                        <option value="@item.Id">@item.DisplayName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-12">
+                <label>Phương thức bảo hành</label>
+                <select name="hinhThucBaoHanh" class="form-control form-control-sm">
+                    <option value="">Chọn phương thức bảo hành</option>
+                    @foreach (var item in Model.HinhThucBaoHanhCombobox)
+                    {
+                        <option value="@item.Id">@item.DisplayName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-12">
+                <label>Hiện tượng <span class="text-danger">*</span> </label>
+                <select name="hienTuong" class="form-control form-control-sm">
+                    <option value="">Chọn hiện tượng</option>
+                    @foreach (var item in Model.HienTuongCombobox)
+                    {
+                        <option value="@item.Id">@item.DisplayName</option>
+                    }
+                </select>
+            </div>
 
-</div>
-<div class="container" style="padding-top:10px;">
-    <div class="btn-group">
-        <button class="btn btn-sm btn-primary" onclick="ShowToastr();"> <i class="fa fa-save"> Save</i></button>
-        <a href="/dealer/servicerequest" class="btn btn-sm btn-danger"> <i class="fa fa-close"> Cancel</i></a>
+
+            <div class="col-sm-12">
+                <label>Tên khách hàng <span class="text-danger">*</span></label>
+                <input name="tenKhachHang" placeholder="Nhập tên khách hàng" type="text" class="form-control form-control-sm" />
+            </div>
+            <div class="col-sm-12">
+                <label>Điện thoại <span class="text-danger">*</span></label>
+                <input name="soDienThoai" placeholder="Nhập số điện thoại" type="text" class="form-control form-control-sm" />
+            </div>
+            <div class="col-sm-12">
+                <label>Số điện thoại khác</label>
+                <input name="soDienthoaiKhac" placeholder="Nhập số điện thoại" type="text" class="form-control form-control-sm" />
+            </div>
+            <div class="col-sm-12">
+                <label>Email</label>
+                <input name="email" placeholder="Nhập Email liện hệ" type="text" class="form-control form-control-sm" />
+            </div>
+            <div class="col-sm-12">
+                <label>Địa chỉ <span class="text-danger">*</span></label>
+                <input name="diaChi" placeholder="Nhập địa chỉ" type="text" class="form-control form-control-sm" />
+            </div>
+            <div class="col-sm-12">
+                <label>Tỉnh/Thành phố</label>
+                <select name="tinhTP" class="form-control form-control-sm">
+                    <option value="">Chọn tỉnh/thành phố</option>
+                    @foreach (var item in Model.TinhThanhPhoCombobox)
+                    {
+                        <option value="@item.Id">@item.DisplayName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-12">
+                <label>Quận Huyện</label>
+                <select name="quanHuyen" class="form-control form-control-sm" disabled>
+                    <option value="">Chọn quận/huyện</option>
+                    @foreach (var item in Model.QuanHuyenCombobox)
+                    {
+                        <option value="@item.Id">@item.DisplayName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-12">
+                <label>Phường/Xã</label>
+                <select name="phuongXa" class="form-control form-control-sm" disabled>
+                    <option value="">Chọn phường/xã</option>
+                    @foreach (var item in Model.AscCombobox)
+                    {
+                        <option value="@item.Id">@item.DisplayName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-12">
+                <label>Diễn giải</label>
+                <textarea name="dienGiai" placeholder="Nhập nội dung diễn giải, ghi chú..." type="text" style="height:150px;resize:none" class="form-control form-control-sm"></textarea>
+            </div>
+            <div class="col-sm-12">
+                <label>Người Tạo</label>
+                <select name="nguoiTaoPhieu" class="form-control form-control-sm" disabled>
+                    <option value="">Chọn người tạo</option>
+                    @foreach (var item in Model.UserCombobox)
+                    {
+                        <option value="@item.Id" @Html.Raw(item.Selected ? "selected" : "")>@item.DisplayName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-12">
+                <label>Ngày tạo</label>
+                <input name="ngayTaoPhieu" type="datetime-local" class="form-control form-control-sm" disabled />
+            </div>
+            <div class="col-sm-12">
+                <label>Người Sửa</label>
+                <select name="nguoiSuaPhieu" class="form-control form-control-sm" disabled>
+                    <option value="">Chọn người sửa</option>
+                    @foreach (var item in Model.UserCombobox)
+                    {
+                        <option value="@item.Id">@item.DisplayName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-12">
+                <label>Ngày sửa</label>
+                <input name="ngaySuaPhieu" type="datetime-local" class="form-control form-control-sm" disabled />
+            </div>
+            <div class="col-sm-12">
+                <label>Người chuyển thành sự vụ</label>
+                <select name="nguoiChuyenThanhSuVu" class="form-control form-control-sm" disabled>
+                    <option value="">Chọn người chuyển thành sự vụ</option>
+                    @foreach (var item in Model.UserCombobox)
+                    {
+                        <option value="@item.Id">@item.DisplayName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-12">
+                <label>Ngày chuyển thành sự vụ</label>
+                <input name="ngayChuyenThanhSuVu" type="datetime-local" class="form-control form-control-sm" disabled />
+            </div>
+        </div>
+
     </div>
-</div>
-<script>
-    function ShowToastr() {
-        toastr.success("Record Created", "Successfully Created",);
-    };
-</script>
+    <div class="container" style="padding-top:10px;">
+        <div class="btn-group">
+            <button name="save" type="submit" class="btn btn-sm btn-primary"> <i class="fa fa-save"> Save</i></button>
+            <a href="/dealer/servicerequest" class="btn btn-sm btn-danger"> <i class="fa fa-close"> Cancel</i></a>
+        </div>
+    </div>
+</form>

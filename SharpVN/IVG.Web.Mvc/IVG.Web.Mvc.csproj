@@ -155,13 +155,16 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\JsonContentNegotiator.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Common\CaptchaHelper.cs" />
     <Compile Include="Common\Helper.cs" />
     <Compile Include="Controllers\CaseController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\ComboboxController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="EF\AppDbContext.cs" />
     <Compile Include="EF\Query.cs" />
@@ -246,9 +249,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AddRequestDto.cs" />
     <Compile Include="Models\AppEnum.cs" />
     <Compile Include="Controllers\DealerController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
+    <Compile Include="Models\AddRequestInputDto.cs" />
     <Compile Include="Models\FilterServiceLogItemDto.cs" />
     <Compile Include="Models\DropdownItemDto.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -291,6 +296,7 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Javascripts\Dealer\AddRequest.js" />
     <Content Include="Resources\images\avatar.png" />
     <Content Include="Resources\images\banner.jpg" />
     <Content Include="Resources\images\folder-icon.png" />
