@@ -34,7 +34,7 @@ namespace IVG.Web.Mvc.Models
         public Guid? TinhTP { get; set; }
         public Guid? QuanHuyen { get; set; }
         public Guid? PhuongXa { get; set; }
-        public Guid? TinhTrangBaoHanh { get; set; }
+        public int? TinhTrangBaoHanh { get; set; }
         public int? TrangThaiPhieu { get; set; }
     }
 }

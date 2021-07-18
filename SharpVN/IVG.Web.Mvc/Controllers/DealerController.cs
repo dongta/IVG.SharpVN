@@ -1,5 +1,6 @@
 ﻿using IVG.Web.Mvc.EF;
 using IVG.Web.Mvc.Models;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace IVG.Web.Mvc.Controllers
     public class DealerController : Controller
     {
         AppDbContext db = new AppDbContext();
+        tbl_Users _user;
+        Logger logger = LogManager.GetCurrentClassLogger();
         // GET: Dealer
         public ActionResult Home()
         {
@@ -93,12 +96,73 @@ namespace IVG.Web.Mvc.Controllers
             return View(model);
         }
         [HttpPost]
-        public JsonResult AddRequest(AddRequestInputDto input)
+        public JsonResult AddRequest(AddRequestInputDto i)
         {
-            var a = 1;
-            input.MaPhieu = Guid.NewGuid().ToString();
 
-            return Json(input);
+            try
+            {
+                _user = Session["user"] as tbl_Users;
+
+                tbl_Customers cus = new tbl_Customers
+                {
+                    Name = i.TenKhachHang,
+                    HomePhone = i.SoDienthoaiKhac,
+                    MobilePhone = i.SoDienthoai,
+                    Email = i.Email,
+                    Address = i.DiaChi,
+                    ProvinceID = i.TinhTP,
+                    DistrictID = i.QuanHuyen,
+                    WardID = i.PhuongXa,
+                    CustomerID = Guid.NewGuid(),
+                    CreatedBy = _user.ID,
+                    ModifiedBy = _user.ID,
+                    CreatedOn = DateTime.Now,
+                    ModifiedOn = DateTime.Now
+                };
+                db.tbl_Customers.Add(cus);
+                db.SaveChanges();
+
+                tbl_CasesRequest r = new tbl_CasesRequest
+                {
+                    Code = Guid.NewGuid().ToString(),
+                    ReceivedBy = i.NguoiTiepNhan,
+                    RepairType = i.HinhThucBaoHanh,
+                    ReferenceCode = i.MaThamChieu,
+                    ReceivedDate = i.NgayTiepNhan,
+                    Status = i.TrangThaiPhieu,
+                    WarrantyStatus = i.TinhTrangBaoHanh,
+                    TechnicalCheckedOn = i.NgayKtvKiemTra,
+                    PurchaseDate = i.NgayMua,
+                    MadeDate = i.NgaySanXuat,
+                    EndDate = i.NgayHetBaoHanh,
+                    ModelID = i.SanPham,
+                    SerialNo = i.SerialNo,
+                    DefectID = i.HienTuong,
+                    Description = i.DienGiai,
+
+                    CustomerID = cus.CustomerID,
+                    PhoneNumber = i.SoDienthoai,
+                    Address = i.DiaChi,
+                    Email = i.Email,
+                    ProvinceID = i.TinhTP,
+                    DistrictID = i.QuanHuyen,
+                    WardsID = i.PhuongXa,
+
+                    CreatedOn = DateTime.Now,
+                    ModifiedOn = DateTime.Now,
+                    CreatedBy = _user.ID,
+                    ModifiedBy = _user.ID
+                };
+                db.tbl_CasesRequest.Add(r);
+                db.SaveChanges();
+                return Json(r);
+            }
+            catch (Exception ex)
+            {
+                logger.Info(ex);
+            }
+
+            return Json(i);
         }
         public ActionResult ServiceDetail()
         {

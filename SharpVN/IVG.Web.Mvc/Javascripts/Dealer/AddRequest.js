@@ -57,8 +57,9 @@
                 data: formData,
                 dataType: 'json',
                 success: (res) => {
+                    alert(1);
                     console.log(`result`, res);
-                    $(`input[name="maPhieu"]`).val(res.MaPhieu);
+                    $(`input[name="maPhieu"]`).val(res?.MaPhieu);
                     toastr.success("Record Created", "Successfully Created",);
                 },
             });
