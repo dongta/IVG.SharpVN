@@ -1,8 +1,10 @@
-﻿using IVG.Web.Mvc.EF;
+﻿using IVG.Web.Mvc.Common;
+using IVG.Web.Mvc.EF;
 using IVG.Web.Mvc.Models;
 using NLog;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -14,7 +16,6 @@ namespace IVG.Web.Mvc.Controllers
     {
         AppDbContext db = new AppDbContext();
         tbl_Users _user;
-        Logger logger = LogManager.GetCurrentClassLogger();
         // GET: Dealer
         public ActionResult Home()
         {
@@ -124,7 +125,9 @@ namespace IVG.Web.Mvc.Controllers
 
                 tbl_CasesRequest r = new tbl_CasesRequest
                 {
-                    Code = Guid.NewGuid().ToString(),
+                    CaseID = Guid.NewGuid(),
+                    Code = DateTime.Now.ToString("ddMMyyyyHHmmss"),//get from store cũ
+
                     ReceivedBy = i.NguoiTiepNhan,
                     RepairType = i.HinhThucBaoHanh,
                     ReferenceCode = i.MaThamChieu,
@@ -155,12 +158,26 @@ namespace IVG.Web.Mvc.Controllers
                 };
                 db.tbl_CasesRequest.Add(r);
                 db.SaveChanges();
-                return Json(r);
+                return Json(i);
             }
-            catch (Exception ex)
+            catch   (Exception ex)
             {
-                logger.Info(ex);
+                NLogManager.Logger.Error(ex);
             }
+            //catch (DbEntityValidationException e)
+            //{
+            //    foreach (var eve in e.EntityValidationErrors)
+            //    {
+            //        NLogManager.Logger.Info("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+            //            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+            //        foreach (var ve in eve.ValidationErrors)
+            //        {
+            //            NLogManager.Logger.Info("- Property: \"{0}\", Error: \"{1}\"",
+            //                ve.PropertyName, ve.ErrorMessage);
+            //        }
+            //    }
+            //    NLogManager.Logger.Error(e);
+            //}
 
             return Json(i);
         }

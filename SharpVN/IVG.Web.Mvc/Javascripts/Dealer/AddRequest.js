@@ -57,10 +57,13 @@
                 data: formData,
                 dataType: 'json',
                 success: (res) => {
-                    alert(1);
                     console.log(`result`, res);
                     $(`input[name="maPhieu"]`).val(res?.MaPhieu);
                     toastr.success("Record Created", "Successfully Created",);
+                },
+                error: (err) => {
+                    console.log(`err`, err);
+                    toastr.error(err.statusText, "Error");
                 },
             });
         }
