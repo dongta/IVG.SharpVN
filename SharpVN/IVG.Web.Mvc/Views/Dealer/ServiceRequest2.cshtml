@@ -1,0 +1,173 @@
+﻿@model IEnumerable<IVG.Web.Mvc.EF.DanhSachCaseRequest>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ServiceRequest</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MaPhieu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaThamChieu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TenKhachHang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiaChi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SoDienThoai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SoDienThoaiKhac)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TenTrungTam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TenKTV)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaSanPham)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SoSerial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaLoi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DienGiaiLoi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangThaiSuaChua)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LoaiSuaChuaId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CachSuaChua)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayDangKySuaChua)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NguoiTiepNhan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CallCenterGhiChu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ASCGhiChu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ThangTT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayKTVKiemTra)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ASCHoanThanhOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ASCHoanThanhBoi)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaPhieu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaThamChieu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenKhachHang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaChi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoDienThoai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoDienThoaiKhac)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenTrungTam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenKTV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaSanPham)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoSerial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaLoi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DienGiaiLoi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrangThaiSuaChua)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoaiSuaChuaId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CachSuaChua)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayDangKySuaChua)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NguoiTiepNhan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CallCenterGhiChu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ASCGhiChu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ThangTT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayKTVKiemTra)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ASCHoanThanhOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ASCHoanThanhBoi)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.RequestId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.RequestId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.RequestId })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

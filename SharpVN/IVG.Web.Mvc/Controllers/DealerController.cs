@@ -23,7 +23,8 @@ namespace IVG.Web.Mvc.Controllers
         }
         public ActionResult ServiceRequest()
         {
-            return View();
+            var model = db.DanhSachCaseRequest.OrderBy(a => a.MaPhieu).ToList();
+            return View(model);
         }
         public ActionResult AddRequest()
         {
