@@ -11,7 +11,6 @@ namespace IVG.Web.Mvc.API.Models
 
         public GetRequestDto()
         {
-            Draw = 1;
             Start = 0;
             Length = 10;
         }

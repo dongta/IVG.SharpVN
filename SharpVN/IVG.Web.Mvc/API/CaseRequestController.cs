@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System;
 
 namespace IVG.Web.Mvc.API
 {
@@ -17,8 +18,9 @@ namespace IVG.Web.Mvc.API
         [HttpPost]
         public async Task<object> GetRequest(GetRequestDto input)
         {
-            var user = HttpContext.Current.Session["user"] as tbl_Users;
-            var query = db.DanhSachCaseRequest.AsQueryable();
+            var userId = (HttpContext.Current.Session["user"] as tbl_Users)?.CreatedBy;
+           
+            var query = db.DanhSachCaseRequest.Where(a=>a.CreatedBy==userId);
             if (!string.IsNullOrEmpty(input?.filterText))
             {
                 query = query.Where(a => a.MaPhieu.Contains(input.filterText)
@@ -32,9 +34,9 @@ namespace IVG.Web.Mvc.API
             }
             var totalCount = query.Count();
             query = query.OrderByDescending(a => a.CreatedOn);
-            query = query.Skip(input?.Start??0).Take(input?.Length??10);
+            query = query.Skip(input.Start).Take(input.Length);
             var data = query.ToList();
-            return new PagedResultDto { Data = data, Draw = 1, recordsFiltered = query.Count(), RecordsTotal = totalCount};
+            return new PagedResultDto { Data = data, Draw = input.Draw, recordsFiltered = totalCount, RecordsTotal = totalCount};
             // return data;
         }
         // GET: api/CaseRequest

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<IVG.Web.Mvc.EF.DanhSachCaseRequest>
+﻿@*@model IEnumerable<IVG.Web.Mvc.EF.DanhSachCaseRequest>*@
 @{
     ViewBag.Title = "Service Request";
 }
@@ -89,15 +89,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.MaPhieu</td>
-                        <td>@item.MaThamChieu</td>
-                        <td>@item.TenKhachHang</td>
-
-                    </tr>
-                }
+               
             </tbody>
         </table>
     </div>

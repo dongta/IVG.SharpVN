@@ -25,23 +25,23 @@ namespace IVG.Web.Mvc.Controllers
         }
         public ActionResult ServiceRequest(GetRequestDto input)
         {
-            _user = (Session["user"] as tbl_Users) ?? db.tbl_Users.FirstOrDefault(a => a.UserName == User.Identity.Name);
-            var query = db.DanhSachCaseRequest.Where(a => a.CreatedBy == _user.ID && !string.IsNullOrEmpty(a.MaPhieu)).AsQueryable();
-            if (!string.IsNullOrEmpty(input?.filterText))
-            {
-                query = query.Where(a => a.MaPhieu.Contains(input.filterText)
-                                      || a.SoSerial.Contains(input.filterText)
-                                      || a.TenKhachHang.Contains(input.filterText)
-                                      || a.SoDienThoai.Contains(input.filterText)
-                                      || a.MaThamChieu.Contains(input.filterText)
-                                      || a.SoDienThoaiKhac.Contains(input.filterText)
-                                      || a.MaSanPham.Contains(input.filterText));
+            //_user = (Session["user"] as tbl_Users) ?? db.tbl_Users.FirstOrDefault(a => a.UserName == User.Identity.Name);
+            //var query = db.DanhSachCaseRequest.Where(a => a.CreatedBy == _user.ID && !string.IsNullOrEmpty(a.MaPhieu)).AsQueryable();
+            //if (!string.IsNullOrEmpty(input?.filterText))
+            //{
+            //    query = query.Where(a => a.MaPhieu.Contains(input.filterText)
+            //                          || a.SoSerial.Contains(input.filterText)
+            //                          || a.TenKhachHang.Contains(input.filterText)
+            //                          || a.SoDienThoai.Contains(input.filterText)
+            //                          || a.MaThamChieu.Contains(input.filterText)
+            //                          || a.SoDienThoaiKhac.Contains(input.filterText)
+            //                          || a.MaSanPham.Contains(input.filterText));
 
-            }
-            query = query.OrderByDescending(a => a.CreatedOn);
-            var data = query.ToList();
+            //}
+            //query = query.OrderByDescending(a => a.CreatedOn);
+            //var data = query.ToList();
             //IPagedList<DanhSachCaseRequest> data = query.ToPagedList(input.SkipCount, input.MaxResultCount);
-            return View(data);
+            return View();
         }
         public ActionResult AddRequest()
         {
