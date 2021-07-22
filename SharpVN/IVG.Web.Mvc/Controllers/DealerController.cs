@@ -1,7 +1,9 @@
-﻿using IVG.Web.Mvc.Common;
+﻿using IVG.Web.Mvc.API.Models;
+using IVG.Web.Mvc.Common;
 using IVG.Web.Mvc.EF;
 using IVG.Web.Mvc.Models;
 using NLog;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
@@ -21,10 +23,25 @@ namespace IVG.Web.Mvc.Controllers
         {
             return PartialView("Home");
         }
-        public ActionResult ServiceRequest()
+        public ActionResult ServiceRequest(GetRequestDto input)
         {
-            var model = db.DanhSachCaseRequest.OrderBy(a => a.MaPhieu).ToList();
-            return View(model);
+            _user = (Session["user"] as tbl_Users) ?? db.tbl_Users.FirstOrDefault(a => a.UserName == User.Identity.Name);
+            var query = db.DanhSachCaseRequest.Where(a => a.CreatedBy == _user.ID && !string.IsNullOrEmpty(a.MaPhieu)).AsQueryable();
+            if (!string.IsNullOrEmpty(input?.filterText))
+            {
+                query = query.Where(a => a.MaPhieu.Contains(input.filterText)
+                                      || a.SoSerial.Contains(input.filterText)
+                                      || a.TenKhachHang.Contains(input.filterText)
+                                      || a.SoDienThoai.Contains(input.filterText)
+                                      || a.MaThamChieu.Contains(input.filterText)
+                                      || a.SoDienThoaiKhac.Contains(input.filterText)
+                                      || a.MaSanPham.Contains(input.filterText));
+
+            }
+            query = query.OrderByDescending(a => a.CreatedOn);
+            var data = query.ToList();
+            //IPagedList<DanhSachCaseRequest> data = query.ToPagedList(input.SkipCount, input.MaxResultCount);
+            return View(data);
         }
         public ActionResult AddRequest()
         {
@@ -161,7 +178,7 @@ namespace IVG.Web.Mvc.Controllers
                 db.SaveChanges();
                 return Json(i);
             }
-            catch   (Exception ex)
+            catch (Exception ex)
             {
                 NLogManager.Logger.Error(ex);
             }

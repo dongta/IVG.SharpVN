@@ -4,6 +4,7 @@
 }
 <link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
 <script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Javascripts/Dealer/ListServiceRequest.js"></script>
 <div class="d-flex justify-content-between">
     <div class="">
         <a href="/"><i class="fa fa-home"></i> Home </a>  >
@@ -76,41 +77,29 @@
     <a href="/dealer/addrequest" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New Record</a>
 </div>
 @*datatable*@
-<table id="example" class="display" style="width:100%;">
-    <thead>
-        <tr>
-            <th>Mã phiếu</th>
-            <th>Mã tham chiếu</th>
-            <th>Tên khách hàng</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.MaPhieu</td>
-                <td>@item.MaThamChieu</td>
-                <td>@item.TenKhachHang</td>
-            </tr>
-        }
-    </tbody>
-    <tfoot>
-        <tr>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Office</th>
-            <th>Age</th>
-            <th>Start date</th>
-            <th>Salary</th>
-        </tr>
-    </tfoot>
-</table>
 
-<script>
-    $(document).off("click", "tr").on("click", "tr", () => {
-        //window.location.href = "/dealer/servicedetail";
-    });
-    $(document).ready(function () {
-        $('#example').DataTable();
-    });
-</script>
+<div class="w-100">
+    <div style="max-width:100%; overflow-x:auto">
+        <table id="ListCaseRequest" class="table table-striped table-hover table-sm table-bordered" style="width:800px !important">
+            <thead>
+                <tr class="bg-light">
+                    <th>Mã phiếu</th>
+                    <th>Mã tham chiếu</th>
+                    <th>Tên khách hàng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.MaPhieu</td>
+                        <td>@item.MaThamChieu</td>
+                        <td>@item.TenKhachHang</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

@@ -34,5 +34,7 @@ namespace IVG.Web.Mvc.EF
         public string NgayKTVKiemTra { get; set; }
         public string ASCHoanThanhOn { get; set; }
         public string ASCHoanThanhBoi { get; set; }
+        public Guid? CreatedBy { get; set; }
+        public DateTime? CreatedOn { get; set; }
     }
 }
