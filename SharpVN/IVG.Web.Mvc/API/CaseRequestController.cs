@@ -18,9 +18,10 @@ namespace IVG.Web.Mvc.API
         [HttpPost]
         public async Task<object> GetRequest(GetRequestDto input)
         {
-            var userId = (HttpContext.Current.Session["user"] as tbl_Users)?.CreatedBy;
+            var userId = (HttpContext.Current.Session["user"] as tbl_Users)?.ID;
            
             var query = db.DanhSachCaseRequest.Where(a=>a.CreatedBy==userId);
+            var totalCount = query.Count();
             if (!string.IsNullOrEmpty(input?.filterText))
             {
                 query = query.Where(a => a.MaPhieu.Contains(input.filterText)
@@ -32,12 +33,10 @@ namespace IVG.Web.Mvc.API
                                       || a.MaSanPham.Contains(input.filterText));
 
             }
-            var totalCount = query.Count();
             query = query.OrderByDescending(a => a.CreatedOn);
             query = query.Skip(input.Start).Take(input.Length);
             var data = query.ToList();
-            return new PagedResultDto { Data = data, Draw = input.Draw, recordsFiltered = totalCount, RecordsTotal = totalCount};
-            // return data;
+            return new PagedResultDto(draw: input.Draw, totalRecords: totalCount, filteredRecords: data.Count, data: data);
         }
         // GET: api/CaseRequest
         public IEnumerable<string> Get()

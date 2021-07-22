@@ -1,10 +1,15 @@
 ﻿
 $(function () {
+    var tbl;
     $(document).ready(function () {
-        $('#ListCaseRequest').DataTable({
+      tbl=  $('#ListCaseRequest').DataTable({
             processing: false,
             serverSide: true,
             paging: true,
+            sDom: 'lrtip',
+            bFilter: false,
+            //bInfo: false,
+            dom: '<"top"i>rt<"bottom"flp><"clear">',
             ajax: {
                 url: `/api/CaseRequest/GetRequest`,
                 type: "POST",
@@ -16,7 +21,7 @@ $(function () {
                         "filterText": $(`[name="textsearch"]`).val(),
                         orderBy: orderBy
                     });
-                    console.log(`inut`,d);
+                    console.log(`inut`, d);
                     return JSON.stringify(d);
                 },
                 dataSrc: 'data'
@@ -24,23 +29,20 @@ $(function () {
             columns: [
                 {
                     data: "requestId",
-                    defaultContent:''
                 },
                 {
                     data: "maThamChieu",
-                    defaultContent:''
                 },
                 {
                     data: "tenKhachHang",
-                    defaultContent:''
                 },
             ],
             //drawCallback: function (data) {
             //    console.log(`drawCallback`,data);
             //},
-            //rowCallback:(row, data, displayNum, displayIndex, dataIndex)=> {
-            //    console.log(`row`, data);
-            //}
+            rowCallback:(row, data, displayNum, displayIndex, dataIndex)=> {
+                console.log(`row`, data);
+            }
             //"infoCallback": function (settings, start, end, max, total, pre) {
             //    console.log();
             //    return start + " to " + end;
@@ -48,15 +50,9 @@ $(function () {
         });
     });
 
-    function getFilter(d) {
-        console.log(`dataaa`, d);
-        return $.extend({}, d, {
-            "filterText": $(`name="textsearch"`).val()
-        });
-        return {
-            filterText: $(`name="textsearch"`).val()
-        }
-    }
+    $(`[name="textsearch"]`).on('change', () => {
+        tbl.ajax.reload();
+    });
 
     function getData() {
         $.ajax({
