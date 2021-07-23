@@ -33,10 +33,11 @@ namespace IVG.Web.Mvc.API
                                       || a.MaSanPham.Contains(input.filterText));
 
             }
+            var filterCount = query.Count();
             query = query.OrderByDescending(a => a.CreatedOn);
             query = query.Skip(input.Start).Take(input.Length);
             var data = query.ToList();
-            return new PagedResultDto(draw: input.Draw, totalRecords: totalCount, filteredRecords: data.Count, data: data);
+            return new PagedResultDto(draw: input.Draw, totalRecords: totalCount, filteredRecords: filterCount, data: data);
         }
         // GET: api/CaseRequest
         public IEnumerable<string> Get()
