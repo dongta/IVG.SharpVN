@@ -1,0 +1,45 @@
+2021-07-23 21:33:39.5031|ERROR|IVG.Web.Mvc.Common.NLogManager|System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at IVG.Web.Mvc.Controllers.DealerController.AddRequest(AddRequestInputDto i) in D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\Controllers\DealerController.cs:line 142
+2021-07-23 21:34:04.6679|ERROR|IVG.Web.Mvc.Common.NLogManager|System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at IVG.Web.Mvc.Controllers.DealerController.AddRequest(AddRequestInputDto i) in D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\Controllers\DealerController.cs:line 142
+2021-07-23 21:34:05.5145|ERROR|IVG.Web.Mvc.Common.NLogManager|System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at IVG.Web.Mvc.Controllers.DealerController.AddRequest(AddRequestInputDto i) in D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\Controllers\DealerController.cs:line 142
+2021-07-23 21:34:05.7175|ERROR|IVG.Web.Mvc.Common.NLogManager|System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at IVG.Web.Mvc.Controllers.DealerController.AddRequest(AddRequestInputDto i) in D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\Controllers\DealerController.cs:line 142
+2021-07-23 21:34:05.9112|ERROR|IVG.Web.Mvc.Common.NLogManager|System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at IVG.Web.Mvc.Controllers.DealerController.AddRequest(AddRequestInputDto i) in D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\Controllers\DealerController.cs:line 142
+2021-07-23 21:34:06.1036|ERROR|IVG.Web.Mvc.Common.NLogManager|System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at IVG.Web.Mvc.Controllers.DealerController.AddRequest(AddRequestInputDto i) in D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\Controllers\DealerController.cs:line 142
+2021-07-23 21:34:06.2576|ERROR|IVG.Web.Mvc.Common.NLogManager|System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at IVG.Web.Mvc.Controllers.DealerController.AddRequest(AddRequestInputDto i) in D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\Controllers\DealerController.cs:line 142
+2021-07-23 21:34:44.6587|ERROR|IVG.Web.Mvc.Common.NLogManager|System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at IVG.Web.Mvc.Controllers.DealerController.AddRequest(AddRequestInputDto i) in D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\Controllers\DealerController.cs:line 142
+2021-07-23 21:35:09.4113|ERROR|IVG.Web.Mvc.Common.NLogManager|System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at IVG.Web.Mvc.Controllers.DealerController.AddRequest(AddRequestInputDto i) in D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\Controllers\DealerController.cs:line 142

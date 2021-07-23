@@ -72,7 +72,6 @@
     $(".form").on('submit', function (event) {
         var formArray = $(this).serializeArray();
         var formData = {};
-        alert(1);
         $.map(formArray, function (n, i) {
             formData[n['name']] = n['value'];
         });

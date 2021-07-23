@@ -169,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\CaseRequestController.cs" />
+    <Compile Include="API\Models\Class1.cs" />
     <Compile Include="API\Models\GetRequestDto.cs" />
     <Compile Include="API\Models\PagedResultDto.cs" />
     <Compile Include="API\Models\Paging.cs" />
@@ -277,6 +278,7 @@
     <Compile Include="Models\AddRequestInputDto.cs" />
     <Compile Include="Models\FilterServiceLogItemDto.cs" />
     <Compile Include="Models\DropdownItemDto.cs" />
+    <Compile Include="Models\SCOptionSet.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -526,7 +528,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Javascripts\Dealer\ListServiceRequest.js" />
+    <Content Include="Javascripts\Dealer\ServiceRequest.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

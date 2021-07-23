@@ -19,6 +19,7 @@ select
 	'' as CachSuaChua,
 	'' as NgayDangKySuaChua,
 	ca.ReceivedBy as NguoiTiepNhan,
+	ca.ReceivedDate as NgayTiepNhan,
 	'' as CallCenterGhiChu,
 	'' as ASCGhiChu,
 	'' as ThangTT,

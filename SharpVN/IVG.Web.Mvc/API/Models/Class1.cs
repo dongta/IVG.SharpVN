@@ -5,9 +5,13 @@ using System.Web;
 
 namespace IVG.Web.Mvc.API.Models
 {
-    public class GetRequestDto:Paging
+    public class Rootobject
     {
+        public int      Draw { get; set; }
+        public int      Start { get; set; }
+        public int      Length { get; set; }
         public string FilterText { get; set; }
+        public string OrderBy { get; set; }
         public string Ma { get; set; }
         public string MaThamChieu { get; set; }
         public string SoSerial { get; set; }
@@ -15,16 +19,11 @@ namespace IVG.Web.Mvc.API.Models
         public string SoDienThoai { get; set; }
         public string DiaChi { get; set; }
         public string SanPham { get; set; }
-        public DateTime? NgayTiepNhanTu { get; set; }
-        public DateTime? NgayTiepNhanToi { get; set; }
-        public int? TrangThaiSuachua { get; set; }
-        public DateTime? NgayTaoTu { get; set; }
-        public DateTime? NgayTaoToi { get; set; }
-
-        public GetRequestDto()
-        {
-            Start = 0;
-            Length = 10;
-        }
+        public string NgayTiepNhanTu { get; set; }
+        public string NgayTiepNhanToi { get; set; }
+        public string TrangThaiSuachua { get; set; }
+        public string NgayTaoTu { get; set; }
+        public string NgayTaoToi { get; set; }
     }
+
 }
