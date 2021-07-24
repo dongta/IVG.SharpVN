@@ -18,7 +18,8 @@ namespace IVG.Web.Mvc.Controllers
             tbl_Users u = db.tbl_Users.FirstOrDefault(a=>a.UserName==User.Identity.Name);
             FormsIdentity formsIdentity = User.Identity as FormsIdentity;
             FormsAuthenticationTicket ticket = formsIdentity.Ticket;
-            string roleName = ticket.UserData;
+            var roleCookie = Request.Cookies["role"];
+            var roleName = roleCookie?.Values["rolename"] ?? string.Empty;
             if (roleName.ToLower()==AppEnum.Role.Staff.ToString().ToLower())
             {
                 return RedirectToAction("Home", "Staff");

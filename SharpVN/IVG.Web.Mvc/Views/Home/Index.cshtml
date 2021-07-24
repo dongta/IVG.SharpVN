@@ -1,13 +1,15 @@
-﻿@using IVG.Web.Mvc.EF;
-@model tbl_Users
+﻿@using IVG.Web.Mvc.Models;
 @{
     ViewBag.Title = "Home Page";
+    var roleCookie = Request.Cookies["role"];
+    var roleName = roleCookie?.Values["rolename"] ?? string.Empty;
 }
-@if ((Model.UserType ?? 0) == 1)
+
+@if (roleName==AppEnum.Role.Staff.ToString())
 {
     Html.RenderAction("Home", "Staff");
 }
-@if ((Model.UserType ?? 0) == 2)
+@if (roleName == AppEnum.Role.Dealer.ToString())
 {
     Html.RenderAction("Home", "Dealer");
 }

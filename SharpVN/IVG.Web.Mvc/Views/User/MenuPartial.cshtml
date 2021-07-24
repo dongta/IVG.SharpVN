@@ -2,9 +2,8 @@
 @using IVG.Web.Mvc.Models;
 @model tbl_Users
 @{
-    FormsIdentity formsIdentity = User.Identity as FormsIdentity;
-    FormsAuthenticationTicket ticket = formsIdentity.Ticket;
-    string roleData = ticket.UserData;
+    var roleCookie = Request.Cookies["role"];
+    var roleName = roleCookie?.Values["rolename"] ?? string.Empty;
 }
 <style>
     .menu-group > a {
@@ -16,7 +15,7 @@
     }
 </style>
 <link href="~/Content/mycss/Menu.css" rel="stylesheet" />
-@if (roleData.ToLower() == AppEnum.Role.Staff.ToString().ToLower())//nếu là staff
+@if (roleName.ToLower() == AppEnum.Role.Staff.ToString().ToLower())//nếu là staff
 {
     <div class="nav navbar navbar-inverse btn-light" style="padding:0">
         <div class="btn-group menu-group">
@@ -38,7 +37,7 @@
         </div>
     </div>
 }
-else if (roleData.ToLower() == AppEnum.Role.Dealer.ToString().ToLower())//nếu là dealer
+else if (roleName.ToLower() == AppEnum.Role.Dealer.ToString().ToLower())//nếu là dealer
 {
     <div class="nav navbar navbar-inverse btn-light" style="padding:0">
         <div class="btn-group menu-group">

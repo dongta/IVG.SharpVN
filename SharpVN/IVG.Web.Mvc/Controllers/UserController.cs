@@ -27,20 +27,76 @@ namespace IVG.Web.Mvc.Controllers
             {
                 ReturnUrl = returnUrl ?? "/"
             };
-            var userCoookie = HttpContext.Request.Cookies["login"];
-            if (userCoookie != null)
-            {
-                loginInfo.UserName = userCoookie["username"];
-                loginInfo.Password = userCoookie["password"];
-                loginInfo.UserType = string.IsNullOrEmpty(userCoookie["usertype"]) ? AppEnum.Role.Dealer : (AppEnum.Role)Enum.Parse(typeof(AppEnum.Role), userCoookie["usertype"], true);
-            }
+            //var userCoookie = HttpContext.Request.Cookies["login"];
+            //if (userCoookie != null)
+            //{
+            //    loginInfo.UserName = userCoookie["username"];
+            //    //loginInfo.Password = userCoookie["password"];
+            //    loginInfo.UserType = string.IsNullOrEmpty(userCoookie["usertype"]) ? AppEnum.Role.Dealer : (AppEnum.Role)Enum.Parse(typeof(AppEnum.Role), userCoookie["usertype"], true);
+            //}
 
             return View(loginInfo);
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult Login(Login input)
+        {
+            string errorMessages = string.Empty;
+            if (ModelState.IsValid)
+            {
+                var passMd5 = Helper.VerifyMD5.GetMd5Hash(input.Password);
+                tbl_Users user = db.tbl_Users.FirstOrDefault(a => a.UserName == input.UserName && a.Password == passMd5);
+                var role = db.tbl_Roles.FirstOrDefault(a => a.Role == input.UserType.ToString());
+                if (user != null && db.tbl_UserRoles.Any(a => a.UserID == user.ID && a.RoleID == role.ID))
+                {
+                    int timeout = 2880;//2 ngày
+                    input.Remember = (input.Remember ?? string.Empty).ToLower();
+                    var rememberMe = (input.Remember == "on" || input.Remember == "true") ? true : false;
+
+                    timeout = rememberMe ? 525600 : timeout; // Timeout in minutes, 525600 = 365 days.
+                    {
+                        //form authentication check cookie để login
+                        var ticket = new FormsAuthenticationTicket(user.UserName, rememberMe, timeout);
+                        string encrypted = FormsAuthentication.Encrypt(ticket);
+                        var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
+                        cookie.Expires = DateTime.Now.AddMinutes(timeout);
+                        cookie.HttpOnly = true; 
+                        Response.Cookies.Add(cookie);
+                    }
+                    {//set các cookie,session tiện cho check dữ liệu
+                        HttpCookie roleCkie = new HttpCookie("role");
+                        roleCkie["rolename"] = input.UserType.ToString();
+                        roleCkie.Expires = DateTime.Now.AddMinutes(timeout);
+                        HttpContext.Response.SetCookie(roleCkie);
+
+                        HttpCookie usercookie = new HttpCookie("user");
+                        usercookie["id"] = user.ID.ToString();
+                        usercookie["name"] = user.DisplayName;
+                        usercookie.Expires = DateTime.Now.AddMinutes(timeout);
+                        HttpContext.Response.SetCookie(usercookie);
+
+                        Session["user"] = user;
+                    }
+                    return Redirect(input.ReturnUrl ?? "/");
+                }
+                else
+                {
+                    errorMessages = "Login failed.";
+                }
+            }
+            else
+            {
+                errorMessages = string.Join(" <br /> ", this.ModelState.Values
+                .SelectMany(v => v.Errors)
+                .Select(e => e.ErrorMessage));
+            }
+            ViewBag.Errors = errorMessages;
+            return View(input);
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Login(Login input)
+        public ActionResult Login1(Login input)
         {
             string errorMessages = string.Empty;
             if (ModelState.IsValid)
@@ -110,6 +166,11 @@ namespace IVG.Web.Mvc.Controllers
                 FormsIdentity formsIdentity = User.Identity as FormsIdentity;
                 FormsAuthenticationTicket ticket = formsIdentity.Ticket;
                 string roleData = ticket.UserData;
+            }
+            string[] allCookies = Request.Cookies.AllKeys;
+            foreach (string cookie in allCookies)
+            {
+                Response.Cookies[cookie].Expires = DateTime.Now.AddMinutes(-1);
             }
             HttpContext.Request.Cookies.Clear();
             Session.Clear();
