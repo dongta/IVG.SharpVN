@@ -34,3 +34,40 @@
    at System.Data.Entity.Internal.Linq.DbQueryProvider.Execute[TResult](Expression expression)
    at System.Linq.Queryable.Count[TSource](IQueryable`1 source)
    at IVG.Web.Mvc.API.CaseRequestController.<GetRequest>d__1.MoveNext() in D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\API\CaseRequestController.cs:line 87
+2021-07-24 23:06:45.0694|ERROR|IVG.Web.Mvc.Common.NLogManager|System.NullReferenceException: Object reference not set to an instance of an object.
+   at IVG.Web.Mvc.Controllers.DealerController.Update(CreateOrEditCaseRequestDto i) in D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\Controllers\DealerController.cs:line 238
+2021-07-24 23:06:52.6488|ERROR|IVG.Web.Mvc.Common.NLogManager|System.NullReferenceException: Object reference not set to an instance of an object.
+   at IVG.Web.Mvc.Controllers.DealerController.Update(CreateOrEditCaseRequestDto i) in D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\Controllers\DealerController.cs:line 238
+2021-07-24 23:11:44.3824|ERROR|IVG.Web.Mvc.Common.NLogManager|System.NullReferenceException: Object reference not set to an instance of an object.
+   at IVG.Web.Mvc.Controllers.DealerController.Update(CreateOrEditCaseRequestDto i) in D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\Controllers\DealerController.cs:line 238
+2021-07-24 23:19:34.0551|ERROR|IVG.Web.Mvc.Common.NLogManager|System.NullReferenceException: Object reference not set to an instance of an object.
+   at IVG.Web.Mvc.Controllers.DealerController.Update(CreateOrEditCaseRequestDto i) in D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\Controllers\DealerController.cs:line 238
+2021-07-24 23:19:37.1102|ERROR|IVG.Web.Mvc.Common.NLogManager|System.NullReferenceException: Object reference not set to an instance of an object.
+   at IVG.Web.Mvc.Controllers.DealerController.Update(CreateOrEditCaseRequestDto i) in D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\Controllers\DealerController.cs:line 238
+2021-07-24 23:28:36.6746|ERROR|IVG.Web.Mvc.Common.NLogManager|System.NullReferenceException: Object reference not set to an instance of an object.
+   at IVG.Web.Mvc.Controllers.DealerController.Update(CreateOrEditCaseRequestDto i) in D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\Controllers\DealerController.cs:line 239
+2021-07-24 23:40:48.1519|ERROR|IVG.Web.Mvc.Common.NLogManager|System.NullReferenceException: Object reference not set to an instance of an object.
+   at IVG.Web.Mvc.Controllers.DealerController.Update(CreateOrEditCaseRequestDto i) in D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\Controllers\DealerController.cs:line 241
+2021-07-24 23:40:51.4841|ERROR|IVG.Web.Mvc.Common.NLogManager|System.NullReferenceException: Object reference not set to an instance of an object.
+   at IVG.Web.Mvc.Controllers.DealerController.Update(CreateOrEditCaseRequestDto i) in D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\Controllers\DealerController.cs:line 241
+2021-07-24 23:40:55.3669|ERROR|IVG.Web.Mvc.Common.NLogManager|System.NullReferenceException: Object reference not set to an instance of an object.
+   at IVG.Web.Mvc.Controllers.DealerController.Update(CreateOrEditCaseRequestDto i) in D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\Controllers\DealerController.cs:line 241
+2021-07-24 23:45:04.3148|ERROR|IVG.Web.Mvc.Common.NLogManager|System.NullReferenceException: Object reference not set to an instance of an object.
+   at IVG.Web.Mvc.Controllers.DealerController.Update(CreateOrEditCaseRequestDto i) in D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\Controllers\DealerController.cs:line 241
+2021-07-24 23:47:44.8058|ERROR|IVG.Web.Mvc.Common.NLogManager|System.NullReferenceException: Object reference not set to an instance of an object.
+   at IVG.Web.Mvc.Controllers.DealerController.Update(CreateOrEditCaseRequestDto i) in D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\Controllers\DealerController.cs:line 241
+2021-07-24 23:50:31.8321|ERROR|IVG.Web.Mvc.Common.NLogManager|System.InvalidOperationException: The property 'CustomerID' is part of the object's key information and cannot be modified. 
+   at System.Data.Entity.Core.Objects.EntityEntry.DetectChangesInProperty(Int32 ordinal, Boolean detectOnlyComplexProperties, Boolean detectOnly)
+   at System.Data.Entity.Core.Objects.EntityEntry.DetectChangesInProperties(Boolean detectOnlyComplexProperties)
+   at System.Data.Entity.Core.Objects.ObjectStateManager.DetectChangesInScalarAndComplexProperties(IList`1 entries)
+   at System.Data.Entity.Core.Objects.ObjectStateManager.DetectChanges()
+   at System.Data.Entity.Core.Objects.ObjectContext.DetectChanges()
+   at System.Data.Entity.Internal.InternalContext.DetectChanges(Boolean force)
+   at System.Data.Entity.Internal.InternalContext.GetStateEntries(Func`2 predicate)
+   at System.Data.Entity.Internal.InternalContext.GetStateEntries()
+   at System.Data.Entity.Infrastructure.DbChangeTracker.Entries()
+   at System.Data.Entity.DbContext.GetValidationErrors()
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at IVG.Web.Mvc.Controllers.DealerController.Update(CreateOrEditCaseRequestDto i) in D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\Controllers\DealerController.cs:line 253

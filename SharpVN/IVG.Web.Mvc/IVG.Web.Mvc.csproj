@@ -271,11 +271,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AddRequestDto.cs" />
+    <Compile Include="Models\AllOptionSet.cs" />
     <Compile Include="Models\AppEnum.cs" />
     <Compile Include="Controllers\DealerController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
-    <Compile Include="Models\AddRequestInputDto.cs" />
+    <Compile Include="Models\CreateOrEditCaseRequestDto.cs" />
+    <Compile Include="Models\GetRequestForCreateOrEditDto.cs" />
     <Compile Include="Models\FilterServiceLogItemDto.cs" />
     <Compile Include="Models\DropdownItemDto.cs" />
     <Compile Include="Models\SCOptionSet.cs" />

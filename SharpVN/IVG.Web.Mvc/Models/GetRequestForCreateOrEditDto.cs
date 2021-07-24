@@ -1,0 +1,24 @@
+﻿using IVG.Web.Mvc.EF;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace IVG.Web.Mvc.Models
+{
+    public class GetRequestForCreateOrEditDto
+    {
+        public tbl_CasesRequest Tbl_CasesRequest { get; set; }
+        public tbl_Customers Tbl_Customers { get; set; }
+
+        public AllOptionSet AllOptionSet { get; set; }
+
+        public GetRequestForCreateOrEditDto()
+        {
+            Tbl_CasesRequest = new tbl_CasesRequest();
+            Tbl_Customers = new tbl_Customers();
+            AllOptionSet = new AllOptionSet();
+        }
+
+    }
+}

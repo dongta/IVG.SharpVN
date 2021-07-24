@@ -6,8 +6,9 @@ using System.Web;
 
 namespace IVG.Web.Mvc.Models
 {
-    public class AddRequestInputDto
+    public class CreateOrEditCaseRequestDto
     {
+        public Guid Id { get; set; }
         public string MaPhieu{ get; set; }
         public string NguoiTiepNhan { get; set; }
         [Required]
@@ -29,6 +30,7 @@ namespace IVG.Web.Mvc.Models
         public string SoDienthoaiKhac { get; set; }
         [Required]
         public string TenKhachHang { get; set; }
+        public Guid? KhachHangId { get; set; }
         public Guid? ASC { get; set; }
         public Guid? Technician { get; set; }
         public Guid? TinhTP { get; set; }

@@ -109,9 +109,17 @@ $(function () {
         });
     });
 
-    $(`[name="textsearch"]`).on('change', () => {
-        $('#collapseFilter').find("input[type=text], input[type=date], textarea, select").val("");
-        tbl.ajax.reload();
+    $('#ListCaseRequest tbody').on('dblclick', 'tr', function () {
+        var data = tbl.row(this).data();
+        var id = data.requestId;
+        window.location = `/dealer/addrequest?id=${id}`;
+    });
+
+    $(`[name="textsearch"]`).on('keyup', function (e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            $('#collapseFilter').find("input[type=text], input[type=date], textarea, select").val("");
+            tbl.ajax.reload();
+        }
     });
     $("#quickSearch").on('click', () => {
         $('#collapseFilter').find("input[type=text], input[type=date], textarea, select").val("");
@@ -129,20 +137,4 @@ $(function () {
         tbl.ajax.reload();
     });
 
-    function getData() {
-        $.ajax({
-            method: 'post',
-            cache: false,
-            url: apiBaseUrl + '/CaseRequest/GetRequest',
-            data: { pageIndex: 1, pageSize: 155 },
-            dataType: 'json',
-            contentType: "application/json;charset=utf-8",
-            success: (res) => {
-                console.log(`result`, res);
-            },
-            error: (err) => {
-                console.log(`err`, err);
-            },
-        });
-    };
 });

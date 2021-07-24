@@ -4,10 +4,13 @@
     };
     $(document).ready(function () {
         $("select").select2();
-        $(`input[type="datetime-local"]`).each(function () {
-            SetDateNow($(this));
-        });
-        SetDateNow($('[name="NgayTiepNhan"]'));
+        if ($(`input[name="id"]`).val() == "00000000-0000-0000-0000-000000000000") {
+            //$(`input[type="date"]`).each(function () {
+            //    SetDateNow($(this));
+            //});
+            SetDateNow($(`input[name="ngayTiepNhan"`));
+            SetDateNow($(`input[name="ngayTaoPhieu"`));
+        }
     });
 
     function SetDateNow($selector) {
@@ -22,7 +25,8 @@
 
         //var today = now.getFullYear() + "-" + (month) + "-" + (day) + "T" + hour+":";
         //var timeFull = `${now.getFullYear()}-${(month)}-${(day)}T${hour}:${minute}:${second}.${milisecond}`
-        var dateTime = `${now.getFullYear()}-${(month)}-${(day)}T${hour}:${minute}`
+        //var dateTime = `${now.getFullYear()}-${(month)}-${(day)}T${hour}:${minute}`;
+        var dateTime = `${now.getFullYear()}-${(month)}-${(day)}`;
 
         $selector.val(dateTime);
     }
@@ -34,13 +38,21 @@
             },
             soDienThoai: "required",
             tenKhachHang: "required",
-            hienTuong: 'required'
+            hienTuong: 'required',
+            tinhTP: 'required',
+            quanHuyen: 'required',
+            phuongXa: 'required',
+            sanPham: 'required',
         },
         messages: {
             diaChi: "Vui lòng nhập địa chỉ.",
             soDienThoai: "Vui lòng nhập số điện thoại.",
             tenKhachHang: "Vui lòng nhập tên khách hàng.",
-            hienTuong: 'Vui lòng chọn hiện tượng.'
+            hienTuong: 'Vui lòng chọn hiện tượng.',
+            tinhTP: 'Vui lòng chọn Tỉnh/thành phố.',
+            quanHuyen: 'Vui lòng chọn Quận/huyện.',
+            phuongXa: 'Vui lòng chọn Phường/xã.',
+            sanPham: 'Vui lòng chọn sản phẩm.',
         },
         submitHandler: function (form) {
             console.log(`form`, form);
@@ -59,7 +71,13 @@
                 success: (res) => {
                     console.log(`result`, res);
                     $(`input[name="maPhieu"]`).val(res?.MaPhieu);
-                    toastr.success("Record Created", "Successfully Created",);
+                    $(`input[name="khacHangId"]`).val(res?.KhachHangId);
+                    $(`input[name="id"]`).val(res?.Id);
+                    if ($(`input[name="id"]`).val() == "00000000-0000-0000-0000-000000000000") {
+                        toastr.success("Successfully Created","Record Created",);
+                    } else {
+                        toastr.success("Successfully Updated","Record Updated", );
+                    }
                 },
                 error: (err) => {
                     console.log(`err`, err);
@@ -68,27 +86,7 @@
             });
         }
     });
-    //Save form
-    $(".form").on('submit', function (event) {
-        var formArray = $(this).serializeArray();
-        var formData = {};
-        $.map(formArray, function (n, i) {
-            formData[n['name']] = n['value'];
-        });
-        console.log(formData);
-        $.ajax({
-            method: 'post',
-            cache: false,
-            url: '/Dealer/AddRequest',
-            data: formData,
-            dataType: 'json',
-            success: (data) => {
-                $(`input[name="maPhieu"]`).val(data.maPhieu);
-                toastr.success("Record Created", "Successfully Created",);
-            },
-        });
-        event.preventDefault();
-    });
+
 
     //name="ASC"
     $(document).off(`change`, `select[name="ASC"]`).on("change", `select[name="ASC"]`, () => {
@@ -146,8 +144,8 @@
             },
         });
     });
-    //Hiện tượng change
-    $(`select[name="hienTuong"]`).on('select2:select', function (e) {
+    //select change
+    $(`select`).on('select2:select', function (e) {
         $('form').valid();
     });
 });

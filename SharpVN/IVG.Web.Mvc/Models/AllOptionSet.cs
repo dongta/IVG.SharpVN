@@ -5,7 +5,7 @@ using System.Web;
 
 namespace IVG.Web.Mvc.Models
 {
-    public class AddRequestDto
+    public class AllOptionSet
     {
        public List<DropdownItemDto> AscCombobox { get; set; }
        public List<DropdownItemDto> TechCombobox { get; set; }
@@ -19,7 +19,7 @@ namespace IVG.Web.Mvc.Models
        public List<DropdownItemDto> PhuongXaCombobox { get; set; }
        public List<DropdownItemDto> UserCombobox { get; set; }
 
-        public AddRequestDto()
+        public AllOptionSet()
         {
             AscCombobox = new List<DropdownItemDto>();
             TechCombobox = new List<DropdownItemDto>();
