@@ -9,7 +9,8 @@ $(function () {
             sDom: 'lrtip',
             bFilter: false,
             //bInfo: false,
-            dom: '<"top"i>rt<"bottom"flp><"clear">',
+            //dom: '<"top"i>rt<"bottom"flp><"clear">',
+            dom: 'Bfrtip',
             ajax: {
                 url: `/api/CaseRequest/GetRequest`,
                 type: "POST",

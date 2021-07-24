@@ -11,6 +11,9 @@
             SetDateNow($(`input[name="ngayTiepNhan"`));
             SetDateNow($(`input[name="ngayTaoPhieu"`));
         }
+        if (formDisable) {
+            $("form[name='frmCaseRequest'] :input").prop("disabled", true);
+        }
     });
 
     function SetDateNow($selector) {

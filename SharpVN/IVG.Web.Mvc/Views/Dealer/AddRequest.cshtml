@@ -2,6 +2,13 @@
 @using System.Web.Script.Serialization;
 @{
     ViewBag.Title = "AddRequest";
+
+}
+@if (Model.NoEdit)
+{
+    <script>
+        var formDisable = true;
+    </script>
 }
 <script src="~/Javascripts/Dealer/AddRequest.js"></script>
 <div class="d-flex justify-content-between">
@@ -84,7 +91,7 @@
             </div>
             <div class="col-sm-12">
                 <label>Ngày sản xuất</label>
-                <input name="ngaySanXuat"  value="@Html.Raw(Model.Tbl_CasesRequest.MadeDate?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" />
+                <input name="ngaySanXuat" value="@Html.Raw(Model.Tbl_CasesRequest.MadeDate?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" />
             </div>
             <div class="col-sm-12">
                 <label>Ngày mua</label>
@@ -130,15 +137,15 @@
             <div class="col-sm-12">
                 <label>Tên khách hàng <span class="text-danger">*</span></label>
                 <input name="khachHangId" type="text" value="@Model.Tbl_CasesRequest.CustomerID" style="display:none" />
-                <input name="tenKhachHang"  value="@Html.Raw(Model.Tbl_Customers.Name)" placeholder="Nhập tên khách hàng" type="text" class="form-control form-control-sm" />
+                <input name="tenKhachHang" value="@Html.Raw(Model.Tbl_Customers.Name)" placeholder="Nhập tên khách hàng" type="text" class="form-control form-control-sm" />
             </div>
             <div class="col-sm-12">
                 <label>Điện thoại <span class="text-danger">*</span></label>
-                <input name="soDienThoai"  value="@Html.Raw(Model.Tbl_Customers?.Mainphone)" placeholder="Nhập số điện thoại" type="text" class="form-control form-control-sm" />
+                <input name="soDienThoai" value="@Html.Raw(Model.Tbl_Customers?.Mainphone)" placeholder="Nhập số điện thoại" type="text" class="form-control form-control-sm" />
             </div>
             <div class="col-sm-12">
                 <label>Số điện thoại khác</label>
-                <input name="soDienthoaiKhac"  value="@Html.Raw(Model.Tbl_Customers.MobilePhone)" placeholder="Nhập số điện thoại" type="text" class="form-control form-control-sm" />
+                <input name="soDienthoaiKhac" value="@Html.Raw(Model.Tbl_Customers.MobilePhone)" placeholder="Nhập số điện thoại" type="text" class="form-control form-control-sm" />
             </div>
             <div class="col-sm-12">
                 <label>Email</label>
@@ -146,7 +153,7 @@
             </div>
             <div class="col-sm-12">
                 <label>Địa chỉ <span class="text-danger">*</span></label>
-                <input name="diaChi"  value="@Html.Raw(Model.Tbl_Customers.Address)" placeholder="Nhập địa chỉ" type="text" class="form-control form-control-sm" />
+                <input name="diaChi" value="@Html.Raw(Model.Tbl_Customers.Address)" placeholder="Nhập địa chỉ" type="text" class="form-control form-control-sm" />
             </div>
             <div class="col-sm-12">
                 <label>Tỉnh/Thành phố <span class="text-danger">*</span></label>
@@ -160,7 +167,7 @@
             </div>
             <div class="col-sm-12">
                 <label>Quận Huyện <span class="text-danger">*</span></label>
-                <select name="quanHuyen" class="form-control form-control-sm" disabled>
+                <select name="quanHuyen" class="form-control form-control-sm" @Html.Raw((Model.Tbl_CasesRequest.ProvinceID.HasValue) ? "" : "disabled")>
                     <option value="">Chọn quận/huyện</option>
                     @foreach (var item in Model.AllOptionSet.QuanHuyenCombobox)
                     {
@@ -170,9 +177,9 @@
             </div>
             <div class="col-sm-12">
                 <label>Phường/Xã <span class="text-danger">*</span></label>
-                <select name="phuongXa" class="form-control form-control-sm" disabled>
+                <select name="phuongXa" class="form-control form-control-sm" @Html.Raw((Model.Tbl_CasesRequest.DistrictID.HasValue) ? "" : "disabled")>
                     <option value="">Chọn phường/xã</option>
-                    @foreach (var item in Model.AllOptionSet.AscCombobox)
+                    @foreach (var item in Model.AllOptionSet.PhuongXaCombobox)
                     {
                         <option value="@item.Id" @Html.Raw((Model.Tbl_CasesRequest?.WardsID == Guid.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
                     }
@@ -203,7 +210,7 @@
             </div>
             <div class="col-sm-12">
                 <label>Ngày tạo</label>
-                <input name="ngayTaoPhieu"value="@Html.Raw(Model.Tbl_CasesRequest.ReceivedDate?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" disabled />
+                <input name="ngayTaoPhieu" value="@Html.Raw(Model.Tbl_CasesRequest.ReceivedDate?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" disabled />
             </div>
             <div class="col-sm-12">
                 <label>Người Sửa</label>

@@ -42,12 +42,16 @@ namespace IVG.Web.Mvc.Controllers
         public ActionResult AddRequest(Guid? id)
         {
             GetRequestForCreateOrEditDto createOrEditRequest = new GetRequestForCreateOrEditDto();
-            createOrEditRequest.AllOptionSet = GetAllOptionSet();
             if (id.HasValue)
             {
                 createOrEditRequest.Tbl_CasesRequest = db.tbl_CasesRequest.FirstOrDefault(a => a.CaseID == id);
                 createOrEditRequest.Tbl_Customers = db.tbl_Customers.FirstOrDefault(a => a.CustomerID == createOrEditRequest.Tbl_CasesRequest.CustomerID);
+                createOrEditRequest.NoEdit = (createOrEditRequest.Tbl_CasesRequest.Status == (int)AppEnum.TransactionStatus.DaHoanThanh
+                                             || createOrEditRequest.Tbl_CasesRequest.Status == (int)AppEnum.TransactionStatus.DaHuy) ? true : false;
             }
+            createOrEditRequest.AllOptionSet = GetAllOptionSet(createOrEditRequest.Tbl_CasesRequest.ServiceCenterID, createOrEditRequest.Tbl_CasesRequest.ProvinceID, createOrEditRequest.Tbl_CasesRequest.DistrictID);
+            
+
             return View(createOrEditRequest);
         }
         private AllOptionSet GetAllOptionSet(Guid? AscId = null, Guid? TinhThanhId = null, Guid? QuanHuyenId = null)
@@ -60,7 +64,7 @@ namespace IVG.Web.Mvc.Controllers
                 DisplayName = a.Name,
             }).ToList();
             //Kỹ thuật viên
-            optionObject.TechCombobox = AscId.HasValue? db.tbl_TechnicalStaffs.OrderBy(a => a.Name).Select(a => new DropdownItemDto
+            optionObject.TechCombobox = AscId.HasValue? db.tbl_TechnicalStaffs.Where(a=>a.ServiceCenterID==AscId).OrderBy(a => a.Name).Select(a => new DropdownItemDto
             {
                 Id = a.TechnicalStaffID.ToString(),
                 LookupId = a.ServiceCenterID.ToString(),
@@ -96,14 +100,14 @@ namespace IVG.Web.Mvc.Controllers
                 Id = a.ProvinceID.ToString(),
                 DisplayName = a.Name,
             }).ToList();
-            optionObject.QuanHuyenCombobox = TinhThanhId.HasValue? db.tbl_Districts.OrderBy(a => a.Name).Select(a => new DropdownItemDto
+            optionObject.QuanHuyenCombobox = TinhThanhId.HasValue? db.tbl_Districts.Where(a=>a.ProvinceID==TinhThanhId).OrderBy(a => a.Name).Select(a => new DropdownItemDto
             {
                 Id = a.DistrictID.ToString(),
                 LookupId = a.ProvinceID.ToString(),
                 DisplayName = a.Name,
             }).ToList():new List<DropdownItemDto>();
 
-            optionObject.PhuongXaCombobox = QuanHuyenId.HasValue? db.tbl_Wards.OrderBy(a => a.Name).Select(a => new DropdownItemDto
+            optionObject.PhuongXaCombobox = QuanHuyenId.HasValue? db.tbl_Wards.Where(a => a.DistrictID == QuanHuyenId).OrderBy(a => a.Name).Select(a => new DropdownItemDto
             {
                 Id = a.WardID.ToString(),
                 LookupId = a.DistrictID.ToString(),

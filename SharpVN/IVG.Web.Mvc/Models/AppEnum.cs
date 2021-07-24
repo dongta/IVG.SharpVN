@@ -13,6 +13,13 @@ namespace IVG.Web.Mvc.Models
             Staff=1,
             Dealer=2
         }
+        public enum TransactionStatus
+        {
+            ChuaXuLy=1,
+            DaChuyenThanhJob=2,
+            DaHuy =3,
+            DaHoanThanh=6,
+        }
         public enum OptionSetId
         {
             /// <summary>

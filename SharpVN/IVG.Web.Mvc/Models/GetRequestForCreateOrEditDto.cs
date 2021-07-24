@@ -13,11 +13,13 @@ namespace IVG.Web.Mvc.Models
 
         public AllOptionSet AllOptionSet { get; set; }
 
+        public bool NoEdit { get; set; }
         public GetRequestForCreateOrEditDto()
         {
             Tbl_CasesRequest = new tbl_CasesRequest();
             Tbl_Customers = new tbl_Customers();
             AllOptionSet = new AllOptionSet();
+            NoEdit = false;
         }
 
     }
