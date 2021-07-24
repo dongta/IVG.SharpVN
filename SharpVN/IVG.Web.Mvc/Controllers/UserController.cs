@@ -27,14 +27,6 @@ namespace IVG.Web.Mvc.Controllers
             {
                 ReturnUrl = returnUrl ?? "/"
             };
-            //var userCoookie = HttpContext.Request.Cookies["login"];
-            //if (userCoookie != null)
-            //{
-            //    loginInfo.UserName = userCoookie["username"];
-            //    //loginInfo.Password = userCoookie["password"];
-            //    loginInfo.UserType = string.IsNullOrEmpty(userCoookie["usertype"]) ? AppEnum.Role.Dealer : (AppEnum.Role)Enum.Parse(typeof(AppEnum.Role), userCoookie["usertype"], true);
-            //}
-
             return View(loginInfo);
         }
         [HttpPost]
@@ -78,71 +70,6 @@ namespace IVG.Web.Mvc.Controllers
                         Session["user"] = user;
                     }
                     return Redirect(input.ReturnUrl ?? "/");
-                }
-                else
-                {
-                    errorMessages = "Login failed.";
-                }
-            }
-            else
-            {
-                errorMessages = string.Join(" <br /> ", this.ModelState.Values
-                .SelectMany(v => v.Errors)
-                .Select(e => e.ErrorMessage));
-            }
-            ViewBag.Errors = errorMessages;
-            return View(input);
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        public ActionResult Login1(Login input)
-        {
-            string errorMessages = string.Empty;
-            if (ModelState.IsValid)
-            {
-                var passMd5 = Helper.VerifyMD5.GetMd5Hash(input.Password);
-                tbl_Users user = db.tbl_Users.FirstOrDefault(a => a.UserName == input.UserName && a.Password == passMd5);
-                var role = db.tbl_Roles.FirstOrDefault(a => a.Role == input.UserType.ToString());
-                if (user != null && db.tbl_UserRoles.Any(a => a.UserID == user.ID && a.RoleID == role.ID))
-                {
-                    var UserJsonString = role.Role;//JsonConvert.SerializeObject(role, Formatting.Indented);
-                    FormsAuthentication.SetAuthCookie(user.UserName, false);
-                    FormsAuthenticationTicket tkt;
-                    string cookiestr;
-                    HttpCookie ck;
-                    tkt = new FormsAuthenticationTicket(1, user.UserName, DateTime.Now,
-                    DateTime.Now.AddHours(8), input.Remember == "on" ? true : false, UserJsonString);
-                    cookiestr = FormsAuthentication.Encrypt(tkt);
-                    ck = new HttpCookie(FormsAuthentication.FormsCookieName, cookiestr);
-
-                    HttpCookie roleCkie = new HttpCookie("role");
-                    roleCkie["rolename"] = input.UserType.ToString();
-                    roleCkie.Expires = DateTime.Now.AddMonths(1);
-                    HttpContext.Response.SetCookie(roleCkie);
-
-                    HttpCookie usercookie = new HttpCookie("user");
-                    usercookie["id"] = user.ID.ToString();
-                    usercookie["name"] = user.DisplayName;
-                    usercookie.Expires = DateTime.Now.AddMonths(1);
-                    HttpContext.Response.SetCookie(usercookie);
-
-                    Session["user"] = user;
-
-                    if (input.Remember == "on" || input.Remember == "true")
-                    {
-                        ck.Expires = tkt.Expiration;
-                        HttpCookie loginRemember = new HttpCookie("login");
-                        loginRemember["username"] = input.UserName;
-                        loginRemember["password"] = input.Password;
-                        loginRemember["usertype"] = input.UserType.ToString();
-                        loginRemember.Expires = DateTime.Now.AddMonths(1);
-                        HttpContext.Response.SetCookie(loginRemember);
-                    }
-                    ck.Path = FormsAuthentication.FormsCookiePath;
-                    Response.Cookies.Add(ck);
-                    return Redirect(input.ReturnUrl ?? "/");
-                    //return RedirectToAction("Index", "Home");
                 }
                 else
                 {
