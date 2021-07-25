@@ -260,7 +260,14 @@
     <div class="container" style="padding-top:10px;">
         <div class="btn-group">
             <button name="save" type="submit" class="btn btn-sm btn-primary"> <i class="fa fa-save"> Save</i></button>
-            <a href="/dealer/servicerequest" class="btn btn-sm btn-danger"> <i class="fa fa-close"> Cancel</i></a>
+            @if (Model.Tbl_CasesRequest.CaseID == Guid.Empty)
+            {
+                <a href="/dealer/servicerequest" class="btn btn-sm btn-danger"> <i class="fa fa-close"> Cancel</i></a>
+            }
+            else
+            {
+                <a href="@Html.Raw($"/dealer/servicedetail?id={Model.Tbl_CasesRequest.CaseID}")" class="btn btn-sm btn-danger"> <i class="fa fa-close"> Cancel</i></a>
+            }
         </div>
     </div>
 </form>

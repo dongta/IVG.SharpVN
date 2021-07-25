@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IVG.Web.Mvc.Models.GetRequestForCreateOrEditDto
+@{
     ViewBag.Title = "Request Details";
 }
 <style>
@@ -13,8 +14,8 @@
         <a href="#"> Request detail</a>
     </div>
     <div class="col-sm-2 btn-group" style="padding-right:0 !important;padding-top:2px !important">
-            <a class="btn btn-sm btn-primary" href="/dealer/addrequest"><i class="fa fa-edit"> Edit </i></a>
-            <a class="btn btn-sm btn-danger" href="/dealer/ServiceRequest"><i class="fa fa-edit"> Back </i></a>
+        <a class="btn btn-sm btn-primary" href="@Html.Raw($"/dealer/addrequest?id={Model.Tbl_CasesRequest.CaseID}")"><i class="fa fa-edit"> Edit </i></a>
+        <a class="btn btn-sm btn-danger" href="/dealer/ServiceRequest"><i class="fa fa-edit"> Back </i></a>
     </div>
 </div>
 <div id="accordion" style="padding-top:5px">
@@ -33,19 +34,19 @@
                         <label>Code :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>TP167-280521-004</span>
+                        <span>@Model.Tbl_CasesRequest.Code</span>
                     </div>
                     <div class="col-sm-2">
                         <label>Reference code :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>1118330174</span>
+                        <span>@Model.Tbl_CasesRequest.ReferenceCode</span>
                     </div>
                     <div class="col-sm-2">
                         <label>Status :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label class="text-warning">Pending ASC</label>
+                        <label class="text-warning">@Model.Tbl_CasesRequest.Status</label>
                     </div>
                 </div>
                 <div class="row">
@@ -53,19 +54,21 @@
                         <label>Created By :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>Nguyễn Văn Đông</label>
+                        <label>
+                            @Html.Raw(Model.AllOptionSet.UserCombobox.FirstOrDefault(a=>Guid.Parse(a.Id)==Model.Tbl_CasesRequest.CreatedBy)?.DisplayName)
+                        </label>
                     </div>
                     <div class="col-sm-2">
                         <label>Created On :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>09/06/2021</label>
+                        <label>@Html.Raw(Model.Tbl_CasesRequest.CreatedOn?.ToString("dd-MM-yyyy HH:mm"))</label>
                     </div>
                     <div class="col-sm-2">
                         <label>Received By :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>Nguyễn Văn Đông</label>
+                        <label>@Model.Tbl_CasesRequest.ReceivedBy</label>
                     </div>
                 </div>
                 <div class="row">
@@ -73,19 +76,21 @@
                         <label>Issue :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>H402 - Lỗi chức năng vi sóng</label>
+                        <label>
+                            @Html.Raw(Model.AllOptionSet.HienTuongCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_CasesRequest.DefectID)?.DisplayName)
+                        </label>
                     </div>
                     <div class="col-sm-2">
                         <label>Description 1 :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>Mở hoài không nóng...</label>
+                        <label>@Model.Tbl_CasesRequest.Description</label>
                     </div>
                     <div class="col-sm-2">
                         <label>Description 2 :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>khách báo lò không nóng ,kỹ thuật kiểm tra...</label>
+                        <label>@Model.Tbl_CasesRequest.SVNDescript</label>
                     </div>
                 </div>
             </div>
@@ -106,19 +111,19 @@
                         <label>Product :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>R-208VN-WS - MWO</span>
+                        <span>@Html.Raw(Model.AllOptionSet.ProductCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_CasesRequest.ModelID)?.DisplayName)</span>
                     </div>
                     <div class="col-sm-2">
                         <label>Srial No :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>2019120783</span>
+                        <span>@Model.Tbl_CasesRequest.SerialNo</span>
                     </div>
                     <div class="col-sm-2">
                         <label>Purchase Date :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>12/04/2020</label>
+                        <label>@Html.Raw(Model.Tbl_CasesRequest.PurchaseDate?.ToString("dd-MM-yyyy"))</label>
                     </div>
                 </div>
                 <div class="row">
@@ -126,13 +131,14 @@
                         <label>Model Code :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>0000011</span>
+                        <span>
+                        @Html.Raw(Model.AllOptionSet.ProductCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_CasesRequest.ModelID)?.DisplayName)</span>
                     </div>
                     <div class="col-sm-2">
                         <label>Warranty :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>In Warranty</span>
+                        <span>@Model.Tbl_CasesRequest.WarrantyStatus</span>
                     </div>
                 </div>
             </div>
@@ -153,19 +159,19 @@
                         <label>Customer Name :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>Hoàng Lý Thông</span>
+                        <span>@Model.Tbl_Customers.Name</span>
                     </div>
                     <div class="col-sm-2">
                         <label>Telephone 1</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>0888869333</span>
+                        <span>@Model.Tbl_Customers.Mainphone</span>
                     </div>
                     <div class="col-sm-2">
                         <label>Telephone 2 :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>0974503199</label>
+                        <label>@Model.Tbl_Customers.MobilePhone</label>
                     </div>
                 </div>
                 <div class="row">
@@ -173,19 +179,21 @@
                         <label>Address 1 :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>141 Hoàng Quốc Việt, Cầu Giấy, HN</span>
+                        <span>@Model.Tbl_Customers.MobilePhone</span>
                     </div>
                     <div class="col-sm-2">
                         <label>Address 2 :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>P.Đức Thắng, Đông Ngạc, Bắc Từ Liêm, HN</span>
+                        <span></span>
                     </div>
                     <div class="col-sm-2">
                         <label>State :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>Hà Nội</label>
+                        <label>
+                            @Html.Raw(Model.AllOptionSet.TinhThanhPhoCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_Customers.ProvinceID)?.DisplayName)
+                        </label>
                     </div>
                 </div>
             </div>
@@ -206,19 +214,23 @@
                         <label>ASC :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>SVN - Công ty điện tử Sharp</span>
+                        <span>
+                            @Html.Raw(Model.AllOptionSet.AscCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_CasesRequest.ServiceCenterID)?.DisplayName)
+                        </span>
                     </div>
                     <div class="col-sm-2">
                         <label>Technician</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>Nguyễn Trường Sinh</span>
+                        <span>
+                            @Html.Raw(Model.AllOptionSet.TechCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_CasesRequest.TechnicalStaffID)?.DisplayName)
+                        </span>
                     </div>
                     <div class="col-sm-2">
                         <label>Description :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>Lò vi sóng bị ẩm ướt</label>
+                        <label>@Model.Tbl_CasesRequest.SVNDescript</label>
                     </div>
                 </div>
                 <div class="row">
@@ -226,13 +238,15 @@
                         <label>Cancel By :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span></span>
+                        <span>
+                            @Html.Raw(Model.AllOptionSet.TechCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_CasesRequest.ModifiedBy)?.DisplayName)
+                        </span>
                     </div>
                     <div class="col-sm-2">
                         <label>Canceled Reason</label>
                     </div>
                     <div class="col-sm-2">
-                        <span></span>
+                        <span>@Model.Tbl_CasesRequest.RejectReason</span>
                     </div>
                 </div>
             </div>

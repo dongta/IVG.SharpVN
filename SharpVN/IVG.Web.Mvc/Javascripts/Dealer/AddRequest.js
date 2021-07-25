@@ -46,6 +46,9 @@
             quanHuyen: 'required',
             phuongXa: 'required',
             sanPham: 'required',
+            email: {
+                email:true
+            }
         },
         messages: {
             diaChi: "Vui lòng nhập địa chỉ.",

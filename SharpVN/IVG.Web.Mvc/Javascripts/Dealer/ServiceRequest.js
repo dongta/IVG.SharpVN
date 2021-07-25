@@ -113,7 +113,7 @@ $(function () {
     $('#ListCaseRequest tbody').on('dblclick', 'tr', function () {
         var data = tbl.row(this).data();
         var id = data.requestId;
-        window.location = `/dealer/addrequest?id=${id}`;
+        window.location = `/dealer/servicedetail?id=${id}`;
     });
 
     $(`[name="textsearch"]`).on('keyup', function (e) {

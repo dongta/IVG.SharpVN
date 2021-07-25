@@ -43,12 +43,27 @@
         }
     });
 
+    //Form MyProfile
+    $("form[name='MyProfile']").validate({
+        rules: {
+            DisplayName: {
+                required: true,
+            },
+        },
+        messages: {
+            DisplayName: "Name is required.",
+        },
+        submitHandler: function (form) {
+            form.submit();
+        }
+    });
+
     //Form forgot password
     $("form[name='forgotPassword']").validate({
         rules: {
             Email: {
                 required: true,
-                email:true,
+                email: true,
             },
             CaptCha: "required",
         },

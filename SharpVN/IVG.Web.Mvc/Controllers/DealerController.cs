@@ -50,7 +50,7 @@ namespace IVG.Web.Mvc.Controllers
                                              || createOrEditRequest.Tbl_CasesRequest.Status == (int)AppEnum.TransactionStatus.DaHuy) ? true : false;
             }
             createOrEditRequest.AllOptionSet = GetAllOptionSet(createOrEditRequest.Tbl_CasesRequest.ServiceCenterID, createOrEditRequest.Tbl_CasesRequest.ProvinceID, createOrEditRequest.Tbl_CasesRequest.DistrictID);
-            
+
 
             return View(createOrEditRequest);
         }
@@ -64,12 +64,12 @@ namespace IVG.Web.Mvc.Controllers
                 DisplayName = a.Name,
             }).ToList();
             //Kỹ thuật viên
-            optionObject.TechCombobox = AscId.HasValue? db.tbl_TechnicalStaffs.Where(a=>a.ServiceCenterID==AscId).OrderBy(a => a.Name).Select(a => new DropdownItemDto
+            optionObject.TechCombobox = AscId.HasValue ? db.tbl_TechnicalStaffs.Where(a => a.ServiceCenterID == AscId).OrderBy(a => a.Name).Select(a => new DropdownItemDto
             {
                 Id = a.TechnicalStaffID.ToString(),
                 LookupId = a.ServiceCenterID.ToString(),
                 DisplayName = a.Name,
-            }).ToList():new List<DropdownItemDto>();
+            }).ToList() : new List<DropdownItemDto>();
             optionObject.TrangThaiPhieuCombobox = db.tbl_OptionSetValues.Where(a => a.OptionSetID == (int)AppEnum.OptionSetId.TransactionStatus).OrderBy(a => a.Value).Select(a => new DropdownItemDto
             {
                 Id = a.Value.ToString(),
@@ -100,14 +100,14 @@ namespace IVG.Web.Mvc.Controllers
                 Id = a.ProvinceID.ToString(),
                 DisplayName = a.Name,
             }).ToList();
-            optionObject.QuanHuyenCombobox = TinhThanhId.HasValue? db.tbl_Districts.Where(a=>a.ProvinceID==TinhThanhId).OrderBy(a => a.Name).Select(a => new DropdownItemDto
+            optionObject.QuanHuyenCombobox = TinhThanhId.HasValue ? db.tbl_Districts.Where(a => a.ProvinceID == TinhThanhId).OrderBy(a => a.Name).Select(a => new DropdownItemDto
             {
                 Id = a.DistrictID.ToString(),
                 LookupId = a.ProvinceID.ToString(),
                 DisplayName = a.Name,
-            }).ToList():new List<DropdownItemDto>();
+            }).ToList() : new List<DropdownItemDto>();
 
-            optionObject.PhuongXaCombobox = QuanHuyenId.HasValue? db.tbl_Wards.Where(a => a.DistrictID == QuanHuyenId).OrderBy(a => a.Name).Select(a => new DropdownItemDto
+            optionObject.PhuongXaCombobox = QuanHuyenId.HasValue ? db.tbl_Wards.Where(a => a.DistrictID == QuanHuyenId).OrderBy(a => a.Name).Select(a => new DropdownItemDto
             {
                 Id = a.WardID.ToString(),
                 LookupId = a.DistrictID.ToString(),
@@ -155,9 +155,20 @@ namespace IVG.Web.Mvc.Controllers
             //}
         }
 
-        public ActionResult ServiceDetail()
+        public ActionResult ServiceDetail(Guid? id)
         {
-            return View();
+            GetRequestForCreateOrEditDto createOrEditRequest = new GetRequestForCreateOrEditDto();
+            if (id.HasValue)
+            {
+                createOrEditRequest.Tbl_CasesRequest = db.tbl_CasesRequest.FirstOrDefault(a => a.CaseID == id);
+                createOrEditRequest.Tbl_Customers = db.tbl_Customers.FirstOrDefault(a => a.CustomerID == createOrEditRequest.Tbl_CasesRequest.CustomerID);
+                createOrEditRequest.NoEdit = (createOrEditRequest.Tbl_CasesRequest.Status == (int)AppEnum.TransactionStatus.DaHoanThanh
+                                             || createOrEditRequest.Tbl_CasesRequest.Status == (int)AppEnum.TransactionStatus.DaHuy) ? true : false;
+            }
+            createOrEditRequest.AllOptionSet = GetAllOptionSet(createOrEditRequest.Tbl_CasesRequest.ServiceCenterID, createOrEditRequest.Tbl_CasesRequest.ProvinceID, createOrEditRequest.Tbl_CasesRequest.DistrictID);
+
+
+            return View(createOrEditRequest);
         }
 
         private CreateOrEditCaseRequestDto Create(CreateOrEditCaseRequestDto i)
@@ -223,7 +234,7 @@ namespace IVG.Web.Mvc.Controllers
                     ModifiedBy = _user.ID
                 };
                 db.tbl_CasesRequest.Add(r);
-                
+
                 db.SaveChanges();
                 i.Id = r.CaseID;
                 return i;
@@ -280,7 +291,7 @@ namespace IVG.Web.Mvc.Controllers
                     request.ProvinceID = i.TinhTP;
                     request.DistrictID = i.QuanHuyen;
                     request.WardsID = i.PhuongXa;
-                    
+
                     request.ModifiedOn = DateTime.Now;
                     request.ModifiedBy = _user.ID;
                 }
