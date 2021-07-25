@@ -1,4 +1,16 @@
-create view DanhSachCaseRequest
+USE [SharpWarranty]
+GO
+
+/****** Object:  View [dbo].[DanhSachCaseRequest]    Script Date: 7/25/2021 8:47:59 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+ALTER view [dbo].[DanhSachCaseRequest]
 as
 select 
 	ca.CaseID as RequestId,
@@ -26,9 +38,13 @@ select
 	'' as NgayKTVKiemTra,
 	'' as ASCHoanThanhOn,
 	'' as ASCHoanThanhBoi
+	,ca.CreatedBy as CreatedBy
+	,ca.CreatedOn
 from tbl_CasesRequest ca
 left join tbl_Customers cus on ca.CustomerID =cus.CustomerID
 left join tbl_ServiceCenters svc on ca.ServiceCenterID = svc.ServiceCenterID
 left join tbl_TechnicalStaffs tech on ca.TechnicalStaffID=tech.TechnicalStaffID
 left join tbl_Model m on ca.ModelID = m.ModelID
 left join tbl_DefectCodes def on ca.DefectID = def.DefectCodeID
+GO
+

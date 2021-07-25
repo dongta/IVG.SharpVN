@@ -27,43 +27,50 @@ namespace IVG.Web.Mvc.Controllers
         }
         public ActionResult ServiceLog()
         {
-            FilterServiceLogItemDto dto = new FilterServiceLogItemDto();
-            //dto.tbl_EscalationDicision = db.tbl_EscalationDicision.OrderBy(a => a.Name).ToList();
-            //dto.tbl_TransactionChannel = db.tbl_TransactionChannel.OrderBy(a => a.Name).ToList();
-            //dto.tbl_Provinces = db.tbl_Provinces.OrderBy(a => a.Name).ToList();
-            //dto.tbl_EscalateTo= db.tbl_EscalateTo.OrderBy(a => a.Name).ToList();
-            //dto.tbl_QualityAssuranceChecking = db.tbl_QualityAssuranceChecking.OrderBy(a => a.Name).ToList();
-            //dto.tbl_TypeOfInquiry = db.tbl_TypeOfInquiry.OrderBy(a => a.Name).ToList();
-            //dto.tbl_ProductType = db.tbl_ProductType.OrderBy(a => a.Name).ToList();
-            //dto.tbl_TransactionStatus = db.tbl_TransactionStatus.OrderBy(a => a.Name).ToList();
+            SCOptionSet sCOptionSet = new SCOptionSet();
+            var trạngTháiSửaChữa = db.tbl_OptionSetValues
+                            .Where(a => a.OptionSetID == (int)AppEnum.OptionSetId.RepairStatus).ToList();
+            var listValue = trạngTháiSửaChữa.Select(a => a.Value).ToList();
+            var trangThaiPhieu = db.tbl_OptionSetValues
+                .Where(a => a.OptionSetID == (int)AppEnum.OptionSetId.TransactionStatus && !listValue.Contains(a.Value)).ToList();
 
-            dto.SortBy = new List<SortBy>();
-            dto.SortBy.Add(new SortBy { Value = 1, Text = "Reference No. (A-Z)" });
-            dto.SortBy.Add(new SortBy { Value = 2, Text = "Reference No. (Z-A)" });
-
-            dto.SortBy.Add(new SortBy { Value = 3, Text = "Report ID (A-Z)" });
-            dto.SortBy.Add(new SortBy { Value = 4, Text = "Report ID (Z-A)" });
-
-            dto.SortBy.Add(new SortBy { Value = 5, Text = "Customer Name (A-Z)" });
-            dto.SortBy.Add(new SortBy { Value = 6, Text = "Customer Name (Z-A)" });
-
-            dto.SortBy.Add(new SortBy { Value = 7, Text = "Customer telephone No. (A-Z)" });
-            dto.SortBy.Add(new SortBy { Value = 8, Text = "Customer telephone No. (Z-A)" });
-
-            dto.SortBy.Add(new SortBy { Value = 9, Text = "Request from (A-Z)" });
-            dto.SortBy.Add(new SortBy { Value = 10, Text = "Request from (Z-A)" });
-
-            dto.SortBy.Add(new SortBy { Value = 11, Text = "Request to (A-Z)" });
-            dto.SortBy.Add(new SortBy { Value = 12, Text = "Request to (Z-A)" });
-            return View(dto);
+            sCOptionSet.TrangThaiSuaChua = trạngTháiSửaChữa.Union(trangThaiPhieu).OrderBy(a => a.Value)
+                            .OrderBy(a => a.Value).Select(a => new DropdownItemDto
+                            {
+                                DisplayName = a.Text,
+                                Id = a.Value.ToString(),
+                                Name = a.Text,
+                                LookupId = a.OptionSetID.ToString()
+                            }).ToList();
+            return View(sCOptionSet);
         }
         public ActionResult JobDetail()
         {
             return View();
         }
-        public ActionResult AssignJob()
+        public ActionResult UpdateJob(Guid? id)
         {
-            return View();
+            GetJobForStaffEditDto model = new GetJobForStaffEditDto();
+            model.JobAndRequest = db.AllJobAndRequests.FirstOrDefault(a => a.CaseID == id);
+            model.Tbl_Customers = db.tbl_Customers.FirstOrDefault(a => a.CustomerID == model.JobAndRequest.CustomerID);
+            model.AllOptionSet = GetAllOptionSet(model.JobAndRequest.ServiceCenterID, model.Tbl_Customers.ProvinceID, model.Tbl_Customers.DistrictID);
+
+            var trạngTháiSửaChữa = db.tbl_OptionSetValues
+                            .Where(a => a.OptionSetID == (int)AppEnum.OptionSetId.RepairStatus).ToList();
+            var listValue = trạngTháiSửaChữa.Select(a => a.Value).ToList();
+            var trangThaiPhieu = db.tbl_OptionSetValues
+                .Where(a => a.OptionSetID == (int)AppEnum.OptionSetId.TransactionStatus && !listValue.Contains(a.Value)).ToList();
+
+            model.AllOptionSet.TrangThaiJobCombobox = trạngTháiSửaChữa.Union(trangThaiPhieu).OrderBy(a => a.Value)
+                            .OrderBy(a => a.Value).Select(a => new DropdownItemDto
+                            {
+                                DisplayName = a.Text,
+                                Id = a.Value.ToString(),
+                                Name = a.Text,
+                                LookupId = a.OptionSetID.ToString()
+                            }).ToList();
+
+            return View(model);
         }
 
         public ActionResult PrintOrder()
@@ -77,6 +84,78 @@ namespace IVG.Web.Mvc.Controllers
         public PartialViewResult Chatbox()
         {
             return PartialView();
+        }
+        private AllOptionSet GetAllOptionSet(Guid? AscId = null, Guid? TinhThanhId = null, Guid? QuanHuyenId = null)
+        {
+            AllOptionSet optionObject = new AllOptionSet();
+            //trung tâm sửa chữa
+            optionObject.AscCombobox = db.tbl_ServiceCenters.OrderBy(a => a.Name).Select(a => new DropdownItemDto
+            {
+                Id = a.ServiceCenterID.ToString(),
+                DisplayName = a.Name,
+            }).ToList();
+            //Kỹ thuật viên
+            optionObject.TechCombobox = AscId.HasValue ? db.tbl_TechnicalStaffs.Where(a => a.ServiceCenterID == AscId).OrderBy(a => a.Name).Select(a => new DropdownItemDto
+            {
+                Id = a.TechnicalStaffID.ToString(),
+                LookupId = a.ServiceCenterID.ToString(),
+                DisplayName = a.Name,
+            }).ToList() : new List<DropdownItemDto>();
+            optionObject.TrangThaiPhieuCombobox = db.tbl_OptionSetValues.Where(a => a.OptionSetID == (int)AppEnum.OptionSetId.TransactionStatus).OrderBy(a => a.Value).Select(a => new DropdownItemDto
+            {
+                Id = a.Value.ToString(),
+                DisplayName = a.Text,
+            }).ToList();
+            optionObject.ProductCombobox = db.tbl_Model.Where(a => a.Status == 1).OrderBy(a => a.Name).Select(a => new DropdownItemDto
+            {
+                Id = a.ModelID.ToString(),
+                DisplayName = a.Code + " - " + a.Name + " | " + a.Description,
+            }).ToList();
+            optionObject.TrangThaiBaoHanhCombobox = db.tbl_OptionSetValues.Where(a => a.OptionSetID == (int)AppEnum.OptionSetId.TrangThaiBaoHanh).OrderBy(a => a.Value).Select(a => new DropdownItemDto
+            {
+                Id = a.Value.ToString(),
+                DisplayName = a.Text,
+            }).ToList();
+            optionObject.HinhThucBaoHanhCombobox = db.tbl_OptionSetValues.Where(a => a.OptionSetID == (int)AppEnum.OptionSetId.HinhThucBaoHanh).OrderBy(a => a.Value).Select(a => new DropdownItemDto
+            {
+                Id = a.Value.ToString(),
+                DisplayName = a.Text,
+            }).ToList();
+            optionObject.HienTuongCombobox = db.tbl_DefectCodes.OrderBy(a => a.Code).Select(a => new DropdownItemDto
+            {
+                Id = a.DefectCodeID.ToString(),
+                DisplayName = a.Description + " | " + a.DescriptionVN
+            }).ToList();
+            optionObject.TinhThanhPhoCombobox = db.tbl_Provinces.OrderBy(a => a.Name).Select(a => new DropdownItemDto
+            {
+                Id = a.ProvinceID.ToString(),
+                DisplayName = a.Name,
+            }).ToList();
+            optionObject.QuanHuyenCombobox = TinhThanhId.HasValue ? db.tbl_Districts.Where(a => a.ProvinceID == TinhThanhId).OrderBy(a => a.Name).Select(a => new DropdownItemDto
+            {
+                Id = a.DistrictID.ToString(),
+                LookupId = a.ProvinceID.ToString(),
+                DisplayName = a.Name,
+            }).ToList() : new List<DropdownItemDto>();
+
+            optionObject.PhuongXaCombobox = QuanHuyenId.HasValue ? db.tbl_Wards.Where(a => a.DistrictID == QuanHuyenId).OrderBy(a => a.Name).Select(a => new DropdownItemDto
+            {
+                Id = a.WardID.ToString(),
+                LookupId = a.DistrictID.ToString(),
+                DisplayName = a.Name,
+            }).ToList() : new List<DropdownItemDto>();
+            var userCoookie = HttpContext.Request.Cookies["user"];
+            if (userCoookie != null)
+            {
+                Guid uid = Guid.Parse(userCoookie["id"]);
+                optionObject.UserCombobox = db.tbl_Users.OrderBy(a => a.DisplayName).Select(a => new DropdownItemDto
+                {
+                    Id = a.ID.ToString(),
+                    DisplayName = a.DisplayName,
+                    Selected = a.ID == uid ? true : false
+                }).ToList();
+            }
+            return optionObject;
         }
     }
 }

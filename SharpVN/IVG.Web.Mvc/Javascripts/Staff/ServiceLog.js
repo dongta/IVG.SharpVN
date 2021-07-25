@@ -1,8 +1,7 @@
-﻿
-$(function () {
+﻿$(function () {
     var tbl;
     $(document).ready(function () {
-        tbl = $('#ListCaseRequest').DataTable({
+        tbl = $('#ListCase').DataTable({
             processing: false,
             serverSide: true,
             paging: true,
@@ -12,7 +11,7 @@ $(function () {
             //dom: '<"top"i>rt<"bottom"flp><"clear">',
             dom: 'Bfrtip',
             ajax: {
-                url: `/api/CaseRequest/GetRequest`,
+                url: `/api/Case/GetAll`,
                 type: "POST",
                 dataType: 'json',
                 contentType: "application/json;charset=utf-8",
@@ -22,7 +21,7 @@ $(function () {
                         "filterText": $(`[name="textsearch"]`).val(),
                         orderBy: orderBy
                     });
-                    var formArray = $("#formFilter").serializeArray();
+                    var formArray = $(`form[name='frmFilter']`).serializeArray();
                     var formData = {};
                     $.map(formArray, function (n, i) {
                         formData[n['name']] = n['value'];
@@ -38,30 +37,30 @@ $(function () {
             },
             columns: [
                 {
-                    data: "maPhieu",
+                    data: "caseCode",
                     width: '120px',
                 },
                 {
-                    data: "maThamChieu",
+                    data: "referenceCode",
                     width: '120px'
                 },
                 {
-                    data: "soSerial",
+                    data: "referenceCode",
                     width: '120px'
                 },
                 {
-                    data: "tenKhachHang",
+                    data: "customerName",
                     className: 'text-truncate col-1',
                     width: '120px'
                 }, {
-                    data: "diaChi",
+                    data: "customerAddress",
                     width: '120px'
                 }, {
-                    data: "soDienThoai",
+                    data: "customerPhone",
                     width: '120px'
                 },
                 {
-                    data: "soDienThoaiKhac",
+                    data: "customerOtherPhone",
                     width: '120px'
                 },
                 {
@@ -69,31 +68,32 @@ $(function () {
                     width: '120px'
                 },
                 {
-                    data: "maLoi",
+                    data: "defectCode",
                     width: '120px'
                 },
                 {
-                    data: "tenTrungTam",
+                    data: "ascName",
                     width: '120px'
                 },
                 {
-                    data: "tenKTV",
+                    data: "technicianName",
                     width: '120px'
                 },
                 {
-                    data: "nguoiTiepNhan",
+                    data: "receivedBy",
                     width: '120px'
                 },
                 {
-                    data: "ngayTiepNhan",
+                    data: "receivedDate",
                     width: '120px'
                 },
                 {
-                    data: "trangThaiSuaChua",
+                    data: "repairStatusName",
+                    defaultContent:'Chưa xử lý',
                     width: '120px'
                 },
                 {
-                    data: "dienGiaiLoi",
+                    data: "description",
                     width: '120px'
                 },
             ],
@@ -110,32 +110,22 @@ $(function () {
         });
     });
 
-    $('#ListCaseRequest tbody').on('dblclick', 'tr', function () {
+    $('#ListCase tbody').on('dblclick', 'tr', function () {
         var data = tbl.row(this).data();
-        var id = data.requestId;
-        window.location = `/dealer/servicedetail?id=${id}`;
+        var id = data.caseID;
+        window.location = `/Staff/UpdateJob?id=${id}`;
     });
 
-    $(`[name="textsearch"]`).on('keyup', function (e) {
-        if (e.key === 'Enter' || e.keyCode === 13) {
-            $('#collapseFilter').find("input[type=text], input[type=date], textarea, select").val("");
-            tbl.ajax.reload();
-        }
+    $(document).off("click", "#filter").on("click", "#filter", (a) => {
+        $("form[name='frmFilter']").toggle("fade");
+        $("#frmFilterAction").toggle('slow');
     });
-    $("#quickSearch").on('click', () => {
-        $('#collapseFilter').find("input[type=text], input[type=date], textarea, select").val("");
+    $(document).off("click", "#btnClearSearch").on("click", "#btnClearSearch", (a) => {
+        
+        $(`form[name='frmFilter']`).find("input[type=text], input[type=date], textarea, select").val("");
         tbl.ajax.reload();
     });
-    $("#btnCollapseFilter").on('click', () => {
-        $('[name="textsearch"]').val("");
-    });
-
-    $("#btnClearFilter").on('click', () => {
-        $('#collapseFilter').find("input[type=text], input[type=date], textarea, select").val("");
+    $(document).off("click", "#btnSearch").on("click", "#btnSearch", (a) => {
         tbl.ajax.reload();
     });
-    $("#btnFilter").on('click', () => {
-        tbl.ajax.reload();
-    });
-
 });

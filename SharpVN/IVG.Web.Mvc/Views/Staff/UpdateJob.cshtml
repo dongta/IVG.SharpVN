@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IVG.Web.Mvc.Models.GetJobForStaffEditDto
+@{
     ViewBag.Title = "Assign ASC";
 }
 <style>
@@ -31,19 +32,21 @@
                         <label>Code :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>TP167-280521-004</span>
+                        <span>@Model.JobAndRequest.CaseCode</span>
                     </div>
                     <div class="col-sm-2">
                         <label>Reference code :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>1118330174</span>
+                        <span>@Model.JobAndRequest.ReferenceCode</span>
                     </div>
                     <div class="col-sm-2">
                         <label>Status :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label class="text-warning">Pending ASC</label>
+                        <label class="text-info">
+                            @Html.Raw(@Model.AllOptionSet.TrangThaiJobCombobox.FirstOrDefault(a => int.Parse(a.Id) == Model.JobAndRequest.RepairStatus)?.DisplayName)
+                        </label>
                     </div>
                 </div>
                 <div class="row">
@@ -51,19 +54,23 @@
                         <label>Created By :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>Nguyễn Văn Đông</label>
+                        <label>
+                            @Html.Raw(@Model.AllOptionSet.UserCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.JobAndRequest.CreatedBy)?.DisplayName)
+                        </label>
                     </div>
                     <div class="col-sm-2">
                         <label>Created On :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>09/06/2021</label>
+                        <label>@Html.Raw(Model.JobAndRequest.CreatedOn?.ToString("dd/MM/yyyy HH:mm"))</label>
                     </div>
                     <div class="col-sm-2">
                         <label>Received By :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>Nguyễn Văn Đông</label>
+                        <label>
+                            @Model.JobAndRequest.ReceivedBy
+                        </label>
                     </div>
                 </div>
                 <div class="row">
@@ -71,19 +78,21 @@
                         <label>Issue :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>H402 - Lỗi chức năng vi sóng</label>
+                        <label>
+                            @Html.Raw(@Model.AllOptionSet.HienTuongCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.JobAndRequest.DefectCodeID)?.DisplayName)
+                        </label>
                     </div>
                     <div class="col-sm-2">
                         <label>Description 1 :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>Mở hoài không nóng...</label>
+                        <label>@Model.JobAndRequest.Description</label>
                     </div>
                     <div class="col-sm-2">
                         <label>Description 2 :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>khách báo lò không nóng ,kỹ thuật kiểm tra...</label>
+                        <label>@Model.JobAndRequest.Description1</label>
                     </div>
                 </div>
             </div>
@@ -104,19 +113,23 @@
                         <label>Product :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>R-208VN-WS - MWO</span>
+                        <span>
+                            @Html.Raw(@Model.AllOptionSet.ProductCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.JobAndRequest.ModelID)?.DisplayName)
+                        </span>
                     </div>
                     <div class="col-sm-2">
                         <label>Srial No :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>2019120783</span>
+                        <span>@Model.JobAndRequest.SerialNo</span>
                     </div>
                     <div class="col-sm-2">
-                        <label>Purchase Date :</label>
+                        <label>Made Date :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>12/04/2020</label>
+                        <label>
+                            @Model.JobAndRequest.MadeDate
+                        </label>
                     </div>
                 </div>
                 <div class="row">
@@ -124,13 +137,15 @@
                         <label>Model Code :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>0000011</span>
+                        <span>@Model.JobAndRequest.MaSanPham</span>
                     </div>
                     <div class="col-sm-2">
                         <label>Warranty :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>In Warranty</span>
+                        <span>
+                            @Model.JobAndRequest.WarrantyStatus
+                        </span>
                     </div>
                 </div>
             </div>
@@ -151,19 +166,19 @@
                         <label>Customer Name :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>Hoàng Lý Thông</span>
+                        <span>@Model.JobAndRequest.CustomerName</span>
                     </div>
                     <div class="col-sm-2">
                         <label>Telephone 1</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>0888869333</span>
+                        <span>@Model.JobAndRequest.CustomerPhone</span>
                     </div>
                     <div class="col-sm-2">
                         <label>Telephone 2 :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>0974503199</label>
+                        <label>@Model.JobAndRequest.CustomerOtherPhone</label>
                     </div>
                 </div>
                 <div class="row">
@@ -171,19 +186,16 @@
                         <label>Address 1 :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>141 Hoàng Quốc Việt, Cầu Giấy, HN</span>
+                        <span>@Model.JobAndRequest.CustomerAddress</span>
                     </div>
-                    <div class="col-sm-2">
-                        <label>Address 2 :</label>
-                    </div>
-                    <div class="col-sm-2">
-                        <span>P.Đức Thắng, Đông Ngạc, Bắc Từ Liêm, HN</span>
-                    </div>
+                    
                     <div class="col-sm-2">
                         <label>State :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>Hà Nội</label>
+                        <label>
+                            @Html.Raw(Model.AllOptionSet.TinhThanhPhoCombobox.FirstOrDefault(a=>Guid.Parse(a.Id)==Model.Tbl_Customers.ProvinceID)?.Name)
+                        </label>
                     </div>
                 </div>
             </div>
@@ -204,19 +216,19 @@
                         <label>ASC :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>SVN - Công ty điện tử Sharp</span>
+                        <span>@Model.JobAndRequest.ASCName</span>
                     </div>
                     <div class="col-sm-2">
                         <label>Technician</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>Nguyễn Trường Sinh</span>
+                        <span>@Model.JobAndRequest.TechnicianName</span>
                     </div>
                     <div class="col-sm-2">
                         <label>Description :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>Lò vi sóng bị ẩm ướt</label>
+                        <label>@Model.JobAndRequest.Description</label>
                     </div>
                 </div>
                 <div class="row">
@@ -230,13 +242,13 @@
                         <label>Transportation Charges</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>12.00 KM - 120,000.00VNĐ</span>
+                        <span>@Model.JobAndRequest.Km KM - @Model.JobAndRequest.TransCost VNĐ</span>
                     </div>
                     <div class="col-sm-2">
                         <label>Labour Cost : </label>
                     </div>
                     <div class="col-sm-2">
-                        <span>500,000.00VNĐ</span>
+                        <span> @Model.JobAndRequest.LabourCost VNĐ</span>
                     </div>
                 </div>
             </div>
@@ -255,7 +267,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="col-sm-12">
-                            <label>ASC : </label> <label style="font-weight:bold">SVN - Công ty điện tử Sharp</label>
+                            <label>ASC : </label> <label style="font-weight:bold">@Model.JobAndRequest.ASCName</label>
                         </div>
                         <div class="col-sm-12">
                             <label>Type Of Inquiry :</label>

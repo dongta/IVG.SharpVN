@@ -11,6 +11,7 @@ namespace IVG.Web.Mvc.EF
             : base("name=AppDbContext")
         {
         }
+        public virtual DbSet<AllJobAndRequest> AllJobAndRequests { get; set; }
         public virtual DbSet<DanhSachCaseRequest> DanhSachCaseRequest { get; set; }
         public virtual DbSet<tbl_Areas> tbl_Areas { get; set; }
         public virtual DbSet<tbl_Attribute> tbl_Attribute { get; set; }

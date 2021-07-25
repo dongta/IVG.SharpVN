@@ -24,8 +24,13 @@ namespace IVG.Web.Mvc.Models
         {
             /// <summary>
             /// trạng thái phiếu yêu cầu | tình trạng sửa chữa| TransactionSataus
+            /// dữ liệu này áp dụng cho phiếu yêu cầu
             /// </summary>
             TransactionStatus = 9,
+            /// <summary>
+            /// trạng thái sửa chữa -> trên 1 job 
+            /// </summary>
+            RepairStatus = 10,
             /// <summary>
             /// Tình trạng sản phẩm còn bảo hành | hết BH
             /// </summary>
