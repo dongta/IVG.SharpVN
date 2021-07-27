@@ -6,8 +6,16 @@
 }
 @if (Model.NoEdit)
 {
+
+
     <script>
         var formDisable = true;
+    </script>
+}
+else
+{
+    <script>
+        var formDisable = false;
     </script>
 }
 <script src="~/Javascripts/Dealer/AddRequest.js"></script>
