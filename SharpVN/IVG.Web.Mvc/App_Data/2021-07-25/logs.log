@@ -1,2 +1,0 @@
-2021-07-25 12:51:10.4493|ERROR|IVG.Web.Mvc.Common.NLogManager|System.NullReferenceException: Object reference not set to an instance of an object.
-   at IVG.Web.Mvc.API.CaseRequestController.<GetRequest>d__1.MoveNext() in D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\API\CaseRequestController.cs:line 62

@@ -169,13 +169,13 @@
                         <span>@Model.JobAndRequest.CustomerName</span>
                     </div>
                     <div class="col-sm-2">
-                        <label>Telephone 1</label>
+                        <label>Main phone</label>
                     </div>
                     <div class="col-sm-2">
                         <span>@Model.JobAndRequest.CustomerPhone</span>
                     </div>
                     <div class="col-sm-2">
-                        <label>Telephone 2 :</label>
+                        <label>Mobile phone :</label>
                     </div>
                     <div class="col-sm-2">
                         <label>@Model.JobAndRequest.CustomerOtherPhone</label>
@@ -188,13 +188,13 @@
                     <div class="col-sm-2">
                         <span>@Model.JobAndRequest.CustomerAddress</span>
                     </div>
-                    
+
                     <div class="col-sm-2">
                         <label>State :</label>
                     </div>
                     <div class="col-sm-2">
                         <label>
-                            @Html.Raw(Model.AllOptionSet.TinhThanhPhoCombobox.FirstOrDefault(a=>Guid.Parse(a.Id)==Model.Tbl_Customers.ProvinceID)?.Name)
+                            @Html.Raw(Model.AllOptionSet.TinhThanhPhoCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_Customers.ProvinceID)?.Name)
                         </label>
                     </div>
                 </div>
@@ -270,34 +270,40 @@
                             <label>ASC : </label> <label style="font-weight:bold">@Model.JobAndRequest.ASCName</label>
                         </div>
                         <div class="col-sm-12">
-                            <label>Type Of Inquiry :</label>
+                            <label>Sản phẩm :</label>
                             <select class="form-control form-control-sm">
-                                <option>Operations Inquiry</option>
+                                <option value="">Chọn sản phẩm</option>
+                                @foreach (var item in Model.AllOptionSet.ProductCombobox)
+                                {
+                                    <option value="@item.Id" @Html.Raw(Model.JobAndRequest.CaseID == Guid.Parse(item.Id) ? "selected" : "")>@item.DisplayName</option>
+                                }
                             </select>
                         </div>
                         <div class="col-sm-12">
-                            <label>Desction 1: </label>
+                            <label>Hiện tượng: </label>
                             <select class="form-control form-control-sm">
-                                <option>TV Set</option>
+                                <option value="">Chọn hiện tượng</option>
+                                @foreach (var item in Model.AllOptionSet.HienTuongCombobox)
+                                {
+                                    <option value="@item.Id" @Html.Raw(Model.JobAndRequest.DealerID == Guid.Parse(item.Id) ? "selected" : "")>@item.DisplayName</option>
+                                }
                             </select>
                         </div>
                         <div class="col-sm-12">
-                            <label>Desction 2: </label>
-                            <select class="form-control form-control-sm">
-                                <option>No sound</option>
-                            </select>
+                            <label>Diễn giải : </label>
+                            <textarea name="techDescription" class="form-control form-control-sm" style="height:90px;">
+                                    
+                            </textarea>
                         </div>
                         <div class="col-sm-12">
-                            <label>Labour Cost : </label>
-                            <select disabled class="form-control form-control-sm">
-                                <option>0</option>
-                            </select>
+                            <label>Chi phí : </label>
+                            <input data-LabourCost="0" type="number" name="chiPhi" class="form-control form-control-sm" />
                         </div>
-                        <div class="col-sm-12">
+                        @*<div class="col-sm-12">
                             <label>Attachment : </label>
                             <input type="file" class="w-100 form-control-file" />
                             <small class="text-info">(File must be type of images and less than 5Mb)</small>
-                        </div>
+                        </div>*@
                     </div>
                     <div class="col-sm-6">
                         <div class="col-sm-12">
