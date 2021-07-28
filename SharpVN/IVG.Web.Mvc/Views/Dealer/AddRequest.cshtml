@@ -35,7 +35,7 @@ else
                 <label>Mã phiếu</label>
                 <input name="maPhieu" value="@Model.Tbl_CasesRequest.Code" placeholder="Mã phiếu tự sinh" type="text" class="form-control form-control-sm" disabled />
             </div>
-            <div class="col-sm-12">
+            <div class="col-sm-12" style="display:none">
                 <label>Mã tham chiếu</label>
                 <input name="maThamChieu" value="@Model.Tbl_CasesRequest.ReferenceCode" placeholder="Nhập Mã tham chiếu" type="text" class="form-control form-control-sm" />
             </div>
@@ -47,7 +47,7 @@ else
                 <label>Ngày tiếp nhận</label>
                 <input name="ngayTiepNhan" value="@Html.Raw(Model.Tbl_CasesRequest.ReceivedDate?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" />
             </div>
-            <div class="col-sm-12">
+            <div class="col-sm-12" style="display:none">
                 <label>ASC</label>
                 <select name="ASC" class="form-control form-control-sm" disabled>
                     <option value="">Chọn ASC</option>
@@ -57,7 +57,7 @@ else
                     }
                 </select>
             </div>
-            <div class="col-sm-12">
+            <div class="col-sm-12" style="display:none">
                 <label>Kỹ thuật viên</label>
                 <select name="technician" class="form-control form-control-sm" disabled>
                     <option value="">Chọn kỹ thuật viên</option>
@@ -67,19 +67,40 @@ else
                     }
                 </select>
             </div>
-            <div class="col-sm-12">
+            <div class="col-sm-12" style="display:none">
                 <label>Ngày KTV kiểm tra</label>
                 <input name="ngayKtvKiemTra" value="@Html.Raw(Model.Tbl_CasesRequest.TechnicalCheckedOn?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" />
             </div>
             <div class="col-sm-12">
-                <label>Trạng thái (phiếu)</label>
-                <select name="trangThaiPhieu" class="form-control form-control-sm">
+                <label>Trạng thái</label>
+                <select name="trangThaiPhieu" class="form-control form-control-sm" disabled>
                     <option value="">Chọn Trạng thái</option>
                     @foreach (var item in Model.AllOptionSet.TrangThaiPhieuCombobox)
                     {
                         <option value="@item.Id" @Html.Raw((Model.Tbl_CasesRequest?.Status == int.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
                     }
                 </select>
+            </div>
+            <div class="col-sm-12">
+                <label>Người Tạo</label>
+                <select name="nguoiTaoPhieu" class="form-control form-control-sm" disabled>
+                    <option value="">Chọn người tạo</option>
+                    @foreach (var item in Model.AllOptionSet.UserCombobox)
+                    {
+                        if (Model.Tbl_CasesRequest.CreatedBy.HasValue)
+                        {
+                            <option value="@item.Id" @Html.Raw((Model.Tbl_CasesRequest?.CreatedBy == Guid.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Id" @Html.Raw(item.Selected ? "selected" : "")>@item.DisplayName</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-sm-12">
+                <label>Ngày tạo</label>
+                <input name="ngayTaoPhieu" value="@Html.Raw(Model.Tbl_CasesRequest.ReceivedDate?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" disabled />
             </div>
         </div>
         <div class="col-sm-3">
@@ -199,27 +220,7 @@ else
                 <label>Diễn giải</label>
                 <textarea name="dienGiai" placeholder="Nhập nội dung diễn giải, ghi chú..." type="text" style="height:90px;resize:none" class="form-control form-control-sm">@Html.Raw(Model.Tbl_CasesRequest.Description)</textarea>
             </div>
-            <div class="col-sm-12">
-                <label>Người Tạo</label>
-                <select name="nguoiTaoPhieu" class="form-control form-control-sm" disabled>
-                    <option value="">Chọn người tạo</option>
-                    @foreach (var item in Model.AllOptionSet.UserCombobox)
-                    {
-                        if (Model.Tbl_CasesRequest.CreatedBy.HasValue)
-                        {
-                            <option value="@item.Id" @Html.Raw((Model.Tbl_CasesRequest?.CreatedBy == Guid.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
-                        }
-                        else
-                        {
-                            <option value="@item.Id" @Html.Raw(item.Selected ? "selected" : "")>@item.DisplayName</option>
-                        }
-                    }
-                </select>
-            </div>
-            <div class="col-sm-12">
-                <label>Ngày tạo</label>
-                <input name="ngayTaoPhieu" value="@Html.Raw(Model.Tbl_CasesRequest.ReceivedDate?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" disabled />
-            </div>
+            
             <div class="col-sm-12">
                 <label>Người Sửa</label>
                 <select name="nguoiSuaPhieu" class="form-control form-control-sm" disabled>
