@@ -123,5 +123,6 @@ namespace IVG.Web.Mvc.EF
         public Guid? ConvertBy { get; set; }
 
         public DateTime? ConvertOn { get; set; }
+        public Guid? CancelReasonId { get; set; }
     }
 }

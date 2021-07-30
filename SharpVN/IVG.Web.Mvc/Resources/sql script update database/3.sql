@@ -1,15 +1,4 @@
-USE [SharpWarranty]
-GO
-
-/****** Object:  View [dbo].[StaffViewJob]    Script Date: 7/25/2021 8:47:21 PM ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE view [dbo].[StaffViewJob]
+alter  view [dbo].[StaffViewJob]
 as
 select 
 	re.CaseID,
@@ -74,7 +63,8 @@ select
 	null as CompletedASCBy, 
 	null as CreatedCustomerOn, 
 	null as CreatedCustomerBy,
-	0 as IsJob
+	0 as IsJob,
+	re.CancelReasonId
 
 from tbl_CasesRequest re
 where not exists (select CaseID from tbl_Cases ca where ca.CaseID=re.CaseID)
@@ -143,7 +133,9 @@ select
 	CompletedASCBy, 
 	CreatedCustomerOn, 
 	CreatedCustomerBy,
-	1 as IsJob
+	1 as IsJob,
+	CancelReasonId
+
 from tbl_Cases
 --union 
 

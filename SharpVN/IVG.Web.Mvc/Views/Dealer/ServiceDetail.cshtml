@@ -23,7 +23,7 @@
         <div class="card-header" id="headingOne">
             <h5 class="mb-0">
                 <button class="btn btn-link" data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                    Report details
+                    Thông tin tiếp nhận
                 </button>
             </h5>
         </div>
@@ -31,41 +31,43 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-2">
-                        <label>Code :</label>
+                        <label>Mã :</label>
                     </div>
                     <div class="col-sm-2">
                         <span>@Model.Tbl_CasesRequest.Code</span>
                     </div>
+                    @*<div class="col-sm-2">
+                            <label>Reference code :</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <span>@Model.Tbl_CasesRequest.ReferenceCode</span>
+                        </div>*@
                     <div class="col-sm-2">
-                        <label>Reference code :</label>
+                        <label>Trạng thái :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>@Model.Tbl_CasesRequest.ReferenceCode</span>
-                    </div>
-                    <div class="col-sm-2">
-                        <label>Status :</label>
-                    </div>
-                    <div class="col-sm-2">
-                        <label class="text-warning">@Model.Tbl_CasesRequest.Status</label>
+                        <label class="text-warning">
+                            @Html.Raw(Model.AllOptionSet.TrangThaiPhieuCombobox.FirstOrDefault(a => int.Parse(a.Id) == (Model.Tbl_CasesRequest.Status ?? 1))?.DisplayName)
+                        </label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-2">
-                        <label>Created By :</label>
+                        <label>Người tạo :</label>
                     </div>
                     <div class="col-sm-2">
                         <label>
-                            @Html.Raw(Model.AllOptionSet.UserCombobox.FirstOrDefault(a=>Guid.Parse(a.Id)==Model.Tbl_CasesRequest.CreatedBy)?.DisplayName)
+                            @Html.Raw(Model.AllOptionSet.UserCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_CasesRequest.CreatedBy)?.DisplayName)
                         </label>
                     </div>
                     <div class="col-sm-2">
-                        <label>Created On :</label>
+                        <label>Ngày tạo :</label>
                     </div>
                     <div class="col-sm-2">
                         <label>@Html.Raw(Model.Tbl_CasesRequest.CreatedOn?.ToString("dd-MM-yyyy HH:mm"))</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>Received By :</label>
+                        <label>Người tiếp nhận :</label>
                     </div>
                     <div class="col-sm-2">
                         <label>@Model.Tbl_CasesRequest.ReceivedBy</label>
@@ -73,7 +75,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-2">
-                        <label>Issue :</label>
+                        <label>Hiện tượng :</label>
                     </div>
                     <div class="col-sm-2">
                         <label>
@@ -81,13 +83,13 @@
                         </label>
                     </div>
                     <div class="col-sm-2">
-                        <label>Description 1 :</label>
+                        <label>Diễn giải :</label>
                     </div>
                     <div class="col-sm-2">
                         <label>@Model.Tbl_CasesRequest.Description</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>Description 2 :</label>
+                        <label>Ghi chú :</label>
                     </div>
                     <div class="col-sm-2">
                         <label>@Model.Tbl_CasesRequest.SVNDescript</label>
@@ -100,7 +102,7 @@
         <div class="card-header" id="headingTwo">
             <h5 class="mb-0">
                 <button class="btn btn-link collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Product Details
+                    Thông tin sản phẩm
                 </button>
             </h5>
         </div>
@@ -108,19 +110,19 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-2">
-                        <label>Product :</label>
+                        <label>Mã|Tên sản phẩm :</label>
                     </div>
                     <div class="col-sm-2">
                         <span>@Html.Raw(Model.AllOptionSet.ProductCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_CasesRequest.ModelID)?.DisplayName)</span>
                     </div>
                     <div class="col-sm-2">
-                        <label>Srial No :</label>
+                        <label>Số serial :</label>
                     </div>
                     <div class="col-sm-2">
                         <span>@Model.Tbl_CasesRequest.SerialNo</span>
                     </div>
                     <div class="col-sm-2">
-                        <label>Purchase Date :</label>
+                        <label>Ngày mua :</label>
                     </div>
                     <div class="col-sm-2">
                         <label>@Html.Raw(Model.Tbl_CasesRequest.PurchaseDate?.ToString("dd-MM-yyyy"))</label>
@@ -128,17 +130,28 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-2">
-                        <label>Model Code :</label>
+                        <label>Ngày sản xuất :</label>
                     </div>
                     <div class="col-sm-2">
                         <span>
-                        @Html.Raw(Model.AllOptionSet.ProductCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_CasesRequest.ModelID)?.DisplayName)</span>
+                            @Html.Raw(Model.Tbl_CasesRequest.MadeDate?.ToString("dd-MM-yyyy"))
+                        </span>
                     </div>
                     <div class="col-sm-2">
-                        <label>Warranty :</label>
+                        <label>Ngày hết bảo hành :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>@Model.Tbl_CasesRequest.WarrantyStatus</span>
+                        <span>
+                            @Html.Raw(Model.Tbl_CasesRequest.EndDate?.ToString("dd-MM-yyyy"))
+                        </span>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Trạng thái bảo hành :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <span>
+                            @Html.Raw(Model.AllOptionSet.TrangThaiBaoHanhCombobox.FirstOrDefault(a => int.Parse(a.Id) == Model.Tbl_CasesRequest.WarrantyStatus)?.DisplayName)
+                        </span>
                     </div>
                 </div>
             </div>
@@ -148,7 +161,7 @@
         <div class="card-header" id="headingThree">
             <h5 class="mb-0">
                 <button class="btn btn-link collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    Customer Details
+                    Thông tin khách hàng
                 </button>
             </h5>
         </div>
@@ -156,19 +169,19 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-2">
-                        <label>Customer Name :</label>
+                        <label>Tên khách hàng :</label>
                     </div>
                     <div class="col-sm-2">
                         <span>@Model.Tbl_Customers.Name</span>
                     </div>
                     <div class="col-sm-2">
-                        <label>Telephone 1</label>
+                        <label>Số điện thoại:</label>
                     </div>
                     <div class="col-sm-2">
                         <span>@Model.Tbl_Customers.Mainphone</span>
                     </div>
                     <div class="col-sm-2">
-                        <label>Telephone 2 :</label>
+                        <label>Số điện thoại khác :</label>
                     </div>
                     <div class="col-sm-2">
                         <label>@Model.Tbl_Customers.MobilePhone</label>
@@ -176,23 +189,43 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-2">
-                        <label>Address 1 :</label>
+                        <label>Tỉnh/Thành phố :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>
+                            @Html.Raw(Model.AllOptionSet.TinhThanhPhoCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_Customers.ProvinceID)?.DisplayName)
+                        </label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Quận/huyện :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>
+                            @Html.Raw(Model.AllOptionSet.QuanHuyenCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_Customers.DistrictID)?.DisplayName)
+                        </label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Phường/xã:</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>
+                            @Html.Raw(Model.AllOptionSet.PhuongXaCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_Customers.WardID)?.DisplayName)
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Địa chỉ :</label>
                     </div>
                     <div class="col-sm-2">
                         <span>@Model.Tbl_Customers.MobilePhone</span>
                     </div>
                     <div class="col-sm-2">
-                        <label>Address 2 :</label>
-                    </div>
-                    <div class="col-sm-2">
-                        <span></span>
-                    </div>
-                    <div class="col-sm-2">
-                        <label>State :</label>
+                        <label>Email:</label>
                     </div>
                     <div class="col-sm-2">
                         <label>
-                            @Html.Raw(Model.AllOptionSet.TinhThanhPhoCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_Customers.ProvinceID)?.DisplayName)
+                            <label>@Model.Tbl_Customers.Email</label>
                         </label>
                     </div>
                 </div>
@@ -203,7 +236,7 @@
         <div class="card-header" id="headingFour">
             <h5 class="mb-0">
                 <button class="btn btn-link collapsed" data-toggle="collapse" href="#collapseFour" aria-expanded="false" aria-controls="headingFour">
-                    Techician
+                    Thông tin kỹ thuật viên
                 </button>
             </h5>
         </div>
@@ -211,7 +244,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-2">
-                        <label>ASC :</label>
+                        <label>Trung tâm :</label>
                     </div>
                     <div class="col-sm-2">
                         <span>
@@ -219,7 +252,7 @@
                         </span>
                     </div>
                     <div class="col-sm-2">
-                        <label>Technician</label>
+                        <label>Kỹ thuật viên:</label>
                     </div>
                     <div class="col-sm-2">
                         <span>
@@ -227,7 +260,7 @@
                         </span>
                     </div>
                     <div class="col-sm-2">
-                        <label>Description :</label>
+                        <label>Ghi chú kỹ thuật viên :</label>
                     </div>
                     <div class="col-sm-2">
                         <label>@Model.Tbl_CasesRequest.SVNDescript</label>
@@ -235,7 +268,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-2">
-                        <label>Cancel By :</label>
+                        <label>Người hủy (nếu bị hủy) :</label>
                     </div>
                     <div class="col-sm-2">
                         <span>
@@ -243,7 +276,7 @@
                         </span>
                     </div>
                     <div class="col-sm-2">
-                        <label>Canceled Reason</label>
+                        <label>Lý do hủy :</label>
                     </div>
                     <div class="col-sm-2">
                         <span>@Model.Tbl_CasesRequest.RejectReason</span>

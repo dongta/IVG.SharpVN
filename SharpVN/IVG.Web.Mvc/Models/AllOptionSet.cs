@@ -14,7 +14,8 @@ namespace IVG.Web.Mvc.Models
         public List<DropdownItemDto> ProductCombobox { get; set; }
        public List<DropdownItemDto> TrangThaiBaoHanhCombobox { get; set; }
        public List<DropdownItemDto> HinhThucBaoHanhCombobox { get; set; }
-       public List<DropdownItemDto> HienTuongCombobox { get; set; }
+       public List<DropdownItemDto> CancelReasonCombobox { get; set; }
+        public List<DropdownItemDto> HienTuongCombobox { get; set; }
        public List<DropdownItemDto> TinhThanhPhoCombobox { get; set; }
        public List<DropdownItemDto> QuanHuyenCombobox { get; set; }
        public List<DropdownItemDto> PhuongXaCombobox { get; set; }

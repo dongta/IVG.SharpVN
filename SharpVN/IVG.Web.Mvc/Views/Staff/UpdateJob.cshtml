@@ -1,4 +1,5 @@
 ﻿@model IVG.Web.Mvc.Models.GetJobForStaffEditDto
+@using IVG.Web.Mvc.Models;
 @{
     ViewBag.Title = "Assign ASC";
 }
@@ -6,7 +7,20 @@
     .card-header {
         padding: 0 !important;
     }
+
+    .disabledbutton {
+        pointer-events: none;
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
 </style>
+
+<script src="~/Javascripts/Staff/UpdateJob.js"></script>
+
+<script>
+    var caseId = '@Model.JobAndRequest.CaseID';
+</script>
+
 <div class="d-flex justify-content-between">
     <div class="">
         <i class="fa fa-home"></i><a href="/staff/home"> Home </a>
@@ -21,7 +35,7 @@
         <div class="card-header" id="headingOne">
             <h5 class="mb-0">
                 <button class="btn btn-link" data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                    Report details
+                    Thông tin tiếp nhận
                 </button>
             </h5>
         </div>
@@ -29,67 +43,65 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-2">
-                        <label>Code :</label>
+                        <label>Mã :</label>
                     </div>
                     <div class="col-sm-2">
                         <span>@Model.JobAndRequest.CaseCode</span>
                     </div>
+                    @*<div class="col-sm-2">
+                            <label>Reference code :</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <span>@Model.Tbl_CasesRequest.ReferenceCode</span>
+                        </div>*@
                     <div class="col-sm-2">
-                        <label>Reference code :</label>
+                        <label>Trạng thái :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>@Model.JobAndRequest.ReferenceCode</span>
-                    </div>
-                    <div class="col-sm-2">
-                        <label>Status :</label>
-                    </div>
-                    <div class="col-sm-2">
-                        <label class="text-info">
-                            @Html.Raw(@Model.AllOptionSet.TrangThaiJobCombobox.FirstOrDefault(a => int.Parse(a.Id) == Model.JobAndRequest.RepairStatus)?.DisplayName)
+                        <label class="text-warning trangThaiSuaChuaText">
+                            @Html.Raw(Model.AllOptionSet.TrangThaiPhieuCombobox.FirstOrDefault(a => int.Parse(a.Id) == (Model.JobAndRequest.RepairStatus ?? 1))?.DisplayName)
                         </label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-2">
-                        <label>Created By :</label>
+                        <label>Người tạo :</label>
                     </div>
                     <div class="col-sm-2">
                         <label>
-                            @Html.Raw(@Model.AllOptionSet.UserCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.JobAndRequest.CreatedBy)?.DisplayName)
+                            @Html.Raw(Model.AllOptionSet.UserCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.JobAndRequest.CreatedBy)?.DisplayName)
                         </label>
                     </div>
                     <div class="col-sm-2">
-                        <label>Created On :</label>
+                        <label>Ngày tạo :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>@Html.Raw(Model.JobAndRequest.CreatedOn?.ToString("dd/MM/yyyy HH:mm"))</label>
+                        <label>@Html.Raw(Model.JobAndRequest.CreatedOn?.ToString("dd-MM-yyyy HH:mm"))</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>Received By :</label>
+                        <label>Người tiếp nhận :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>
-                            @Model.JobAndRequest.ReceivedBy
-                        </label>
+                        <label>@Model.JobAndRequest.ReceivedBy</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-2">
-                        <label>Issue :</label>
+                        <label>Hiện tượng :</label>
                     </div>
                     <div class="col-sm-2">
                         <label>
-                            @Html.Raw(@Model.AllOptionSet.HienTuongCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.JobAndRequest.DefectCodeID)?.DisplayName)
+                            @Html.Raw(Model.AllOptionSet.HienTuongCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.JobAndRequest.DefectCodeID)?.DisplayName)
                         </label>
                     </div>
                     <div class="col-sm-2">
-                        <label>Description 1 :</label>
+                        <label>Diễn giải :</label>
                     </div>
                     <div class="col-sm-2">
                         <label>@Model.JobAndRequest.Description</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>Description 2 :</label>
+                        <label>Ghi chú :</label>
                     </div>
                     <div class="col-sm-2">
                         <label>@Model.JobAndRequest.Description1</label>
@@ -102,7 +114,7 @@
         <div class="card-header" id="headingTwo">
             <h5 class="mb-0">
                 <button class="btn btn-link collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Product Details
+                    Thông tin sản phẩm
                 </button>
             </h5>
         </div>
@@ -110,41 +122,47 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-2">
-                        <label>Product :</label>
+                        <label>Mã|Tên sản phẩm :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>
-                            @Html.Raw(@Model.AllOptionSet.ProductCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.JobAndRequest.ModelID)?.DisplayName)
-                        </span>
+                        <span>@Html.Raw(Model.AllOptionSet.ProductCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.JobAndRequest.ModelID)?.DisplayName)</span>
                     </div>
                     <div class="col-sm-2">
-                        <label>Srial No :</label>
+                        <label>Số serial :</label>
                     </div>
                     <div class="col-sm-2">
                         <span>@Model.JobAndRequest.SerialNo</span>
                     </div>
                     <div class="col-sm-2">
-                        <label>Made Date :</label>
+                        <label>Ngày mua :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>
-                            @Model.JobAndRequest.MadeDate
-                        </label>
+                        @*<label>@Html.Raw(Model.JobAndRequest.PurchaseDate?.ToString("dd-MM-yyyy"))</label>*@
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-2">
-                        <label>Model Code :</label>
-                    </div>
-                    <div class="col-sm-2">
-                        <span>@Model.JobAndRequest.MaSanPham</span>
-                    </div>
-                    <div class="col-sm-2">
-                        <label>Warranty :</label>
+                        <label>Ngày sản xuất :</label>
                     </div>
                     <div class="col-sm-2">
                         <span>
-                            @Model.JobAndRequest.WarrantyStatus
+                            @Html.Raw(Model.JobAndRequest.MadeDate?.ToString("dd-MM-yyyy"))
+                        </span>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Ngày hết bảo hành :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <span>
+                            @Html.Raw(Model.JobAndRequest.EndDate?.ToString("dd-MM-yyyy"))
+                        </span>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Trạng thái bảo hành :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <span>
+                            @Html.Raw(Model.AllOptionSet.TrangThaiBaoHanhCombobox.FirstOrDefault(a => int.Parse(a.Id) == Model.JobAndRequest.WarrantyStatus)?.DisplayName)
                         </span>
                     </div>
                 </div>
@@ -155,7 +173,7 @@
         <div class="card-header" id="headingThree">
             <h5 class="mb-0">
                 <button class="btn btn-link collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    Customer Details
+                    Thông tin khách hàng
                 </button>
             </h5>
         </div>
@@ -163,38 +181,63 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-2">
-                        <label>Customer Name :</label>
+                        <label>Tên khách hàng :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>@Model.JobAndRequest.CustomerName</span>
+                        <span>@Model.Tbl_Customers.Name</span>
                     </div>
                     <div class="col-sm-2">
-                        <label>Main phone</label>
+                        <label>Số điện thoại:</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>@Model.JobAndRequest.CustomerPhone</span>
+                        <span>@Model.Tbl_Customers.Mainphone</span>
                     </div>
                     <div class="col-sm-2">
-                        <label>Mobile phone :</label>
+                        <label>Số điện thoại khác :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>@Model.JobAndRequest.CustomerOtherPhone</label>
+                        <label>@Model.Tbl_Customers.MobilePhone</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-2">
-                        <label>Address 1 :</label>
-                    </div>
-                    <div class="col-sm-2">
-                        <span>@Model.JobAndRequest.CustomerAddress</span>
-                    </div>
-
-                    <div class="col-sm-2">
-                        <label>State :</label>
+                        <label>Tỉnh/Thành phố :</label>
                     </div>
                     <div class="col-sm-2">
                         <label>
-                            @Html.Raw(Model.AllOptionSet.TinhThanhPhoCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_Customers.ProvinceID)?.Name)
+                            @Html.Raw(Model.AllOptionSet.TinhThanhPhoCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_Customers.ProvinceID)?.DisplayName)
+                        </label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Quận/huyện :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>
+                            @Html.Raw(Model.AllOptionSet.QuanHuyenCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_Customers.DistrictID)?.DisplayName)
+                        </label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Phường/xã:</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>
+                            @Html.Raw(Model.AllOptionSet.PhuongXaCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_Customers.WardID)?.DisplayName)
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Địa chỉ :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <span>@Model.Tbl_Customers.MobilePhone</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Email:</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>
+                            <label>@Model.Tbl_Customers.Email</label>
                         </label>
                     </div>
                 </div>
@@ -205,7 +248,7 @@
         <div class="card-header" id="headingFour">
             <h5 class="mb-0">
                 <button class="btn btn-link collapsed" data-toggle="collapse" href="#collapseFour" aria-expanded="false" aria-controls="headingFour">
-                    Techician Details
+                    Thông tin kỹ thuật viên
                 </button>
             </h5>
         </div>
@@ -213,42 +256,44 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-2">
-                        <label>ASC :</label>
+                        <label>Trung tâm :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>@Model.JobAndRequest.ASCName</span>
+                        <span class="tenTrungTamDuocAssign">
+                            @Html.Raw(Model.AllOptionSet.AscCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.JobAndRequest.ServiceCenterID)?.DisplayName)
+                        </span>
                     </div>
                     <div class="col-sm-2">
-                        <label>Technician</label>
+                        <label>Kỹ thuật viên:</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>@Model.JobAndRequest.TechnicianName</span>
+                        <span>
+                            @Html.Raw(Model.AllOptionSet.TechCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.JobAndRequest.TechnicalStaffID)?.DisplayName)
+                        </span>
                     </div>
                     <div class="col-sm-2">
-                        <label>Description :</label>
+                        <label>Ghi chú kỹ thuật viên :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>@Model.JobAndRequest.Description</label>
+                        <label>@Model.JobAndRequest.Description1</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-2">
-                        <label>Status Reason : </label>
+                        <label>Người hủy (nếu bị hủy) :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span></span>
+                        <span class="text-danger">
+                            @Html.Raw(Model.AllOptionSet.UserCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.JobAndRequest.ModifiedBy)?.DisplayName)
+                        </span>
                     </div>
                     <div class="col-sm-2">
-                        <label>Transportation Charges</label>
+                        <label>Lý do hủy :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>@Model.JobAndRequest.Km KM - @Model.JobAndRequest.TransCost VNĐ</span>
-                    </div>
-                    <div class="col-sm-2">
-                        <label>Labour Cost : </label>
-                    </div>
-                    <div class="col-sm-2">
-                        <span> @Model.JobAndRequest.LabourCost VNĐ</span>
+                        <span class="text-danger">
+                            @Html.Raw(Model.AllOptionSet.CancelReasonCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.JobAndRequest.CancelReasonId)?.DisplayName)
+                        </span>
                     </div>
                 </div>
             </div>
@@ -258,7 +303,7 @@
         <div class="card-header" id="headingFour">
             <h5 class="mb-0">
                 <button class="btn btn-link collapsed" data-toggle="collapse" href="#collapseFour" aria-expanded="false" aria-controls="headingFour">
-                    Techician Update
+                    Phân công sửa chữa
                 </button>
             </h5>
         </div>
@@ -266,133 +311,25 @@
             <form name="update">
                 <div class="row">
                     <div class="col-sm-6">
-                        <div class="col-sm-12">
-                            <label>ASC : </label> <label style="font-weight:bold">@Model.JobAndRequest.ASCName</label>
-                        </div>
-                        <div class="col-sm-12">
-                            <label>Sản phẩm :</label>
-                            <select class="form-control form-control-sm">
-                                <option value="">Chọn sản phẩm</option>
-                                @foreach (var item in Model.AllOptionSet.ProductCombobox)
-                                {
-                                    <option value="@item.Id" @Html.Raw(Model.JobAndRequest.CaseID == Guid.Parse(item.Id) ? "selected" : "")>@item.DisplayName</option>
-                                }
-                            </select>
-                        </div>
-                        <div class="col-sm-12">
-                            <label>Hiện tượng: </label>
-                            <select class="form-control form-control-sm">
-                                <option value="">Chọn hiện tượng</option>
-                                @foreach (var item in Model.AllOptionSet.HienTuongCombobox)
-                                {
-                                    <option value="@item.Id" @Html.Raw(Model.JobAndRequest.DealerID == Guid.Parse(item.Id) ? "selected" : "")>@item.DisplayName</option>
-                                }
-                            </select>
-                        </div>
-                        <div class="col-sm-12">
-                            <label>Diễn giải : </label>
-                            <textarea name="techDescription" class="form-control form-control-sm" style="height:90px;">
-                                    
-                            </textarea>
-                        </div>
-                        <div class="col-sm-12">
-                            <label>Chi phí : </label>
-                            <input data-LabourCost="0" type="number" name="chiPhi" class="form-control form-control-sm" />
-                        </div>
-                        @*<div class="col-sm-12">
-                            <label>Attachment : </label>
-                            <input type="file" class="w-100 form-control-file" />
-                            <small class="text-info">(File must be type of images and less than 5Mb)</small>
-                        </div>*@
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="col-sm-12">
-                            <label>Last Updated : </label> <label style="font-weight:bold"></label>
-                        </div>
-                        <div class="col-sm-12">
-                            <label>Transaction Status :</label>
-                            <select class="form-control form-control-sm">
-                                <option>ASC Assigned</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-12">
-                            <label>Status Reason : </label>
-                            <select class="form-control form-control-sm">
-                                <option>Select Reason</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-12">
-                            <label>Mileage (Km) : </label>
-                            <input type="text" disabled value="0" class="form-control form-control-sm " />
-                        </div>
-                        <div class="col-sm-12">
-                            <label>Transportation Charges (VNĐ) : </label>
-                            <label class=" form-control form-control-sm font-weight-bold">0.00</label>
-                        </div>
+                        <label>Trung tâm : </label>
+                        <select id="assignedServiceCenterId" class="form-control form-control-sm">
+                            <option value="">Chọn trung tâm</option>
+                            @foreach (var item in Model.AllOptionSet.AscCombobox)
+                            {
+                                <option value="@item.Id" @Html.Raw(Model.JobAndRequest.ServiceCenterID == Guid.Parse(item.Id) ? "selected" : "")>@item.DisplayName</option>
+                            }
+                        </select>
                     </div>
                     <div class="w-100" style="padding-top:10px !important">
                         <div class="col-sm-12">
-                            <input type="checkbox" />
-                            <label> To remain in same screen after saved</label>
+                            @*<input type="checkbox" />
+                                <label> To remain in same screen after saved</label>*@
                             <a name="btn-tech-save" class="btn btn-sm btn-primary"><i class="fa fa-save"> Save</i></a>
                             <a name="btn-tech-cancel" class="btn btn-sm btn-danger"><i class="fa fa-close"> Back</i></a>
                         </div>
                     </div>
                 </div>
             </form>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-header" id="headingFive">
-            <h5 class="mb-0">
-                <button class="btn btn-link collapsed" data-toggle="collapse" href="#collapseFive" aria-expanded="false" aria-controls="headingFive">
-                    Service Details
-                </button>
-            </h5>
-        </div>
-        <div id="collapseFive" class="collapse show">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-2">
-                        <label>Request Date :</label>
-                    </div>
-                    <div class="col-sm-2">
-                        <span>12/04/2020 14:45</span>
-                    </div>
-                    <div class="col-sm-2">
-                        <label>Action By Service :</label>
-                    </div>
-                    <div class="col-sm-2">
-                        <span>Request to Call</span>
-                    </div>
-                    <div class="col-sm-2">
-                        <label>Appointment date :</label>
-                    </div>
-                    <div class="col-sm-2">
-                        <label>15/04/2020 08:00</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-2">
-                        <label>Branch : </label>
-                    </div>
-                    <div class="col-sm-2">
-                        <span>SEMKU</span>
-                    </div>
-                    <div class="col-sm-2">
-                        <label>Last Updated : </label>
-                    </div>
-                    <div class="col-sm-2">
-                        <span>15/04/2020 10:08 By Nguyễn Trường Sinh</span>
-                    </div>
-                    <div class="col-sm-2">
-                        <label>Case Note (Follow Up Update) : </label>
-                    </div>
-                    <div class="col-sm-2">
-                        <span></span>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -406,84 +343,42 @@
         </div>
         <div id="collapseFive" class="collapse show">
             <div class="card-body">
-                <div class="col-sm-12">
-                    <label>Cancel Reason : </label>
-                    <select class="form-control form-control-sm">
-                        <option>Select Reason</option>
+                <div class="col-sm-6">
+                    <label>Lý do hủy : </label>
+                    <select id="cancelReasonId" class="form-control form-control-sm">
+                        <option>Chọn lý do</option>
+                        @foreach (var item in Model.AllOptionSet.CancelReasonCombobox)
+                        {
+                            <option value="@item.Id" @Html.Raw(Guid.Parse(item.Id) == Model.JobAndRequest.CancelReasonId ? "selected" : "")>@item.DisplayName</option>
+                        }
                     </select>
                 </div>
             </div>
 
             <div class="w-100" style="padding-top:10px !important">
                 <div class="col-sm-12">
-                    <input type="checkbox" />
-                    <label> To remain in same screen after saved</label>
+                    @*<input type="checkbox" />
+                        <label> To remain in same screen after saved</label>*@
                     <a name="btn-tech-savecancel" class="btn btn-sm btn-primary"><i class="fa fa-save"> Save</i></a>
                     <a name="btn-tech-back-cancel" class="btn btn-sm btn-danger"><i class="fa fa-close"> Back</i></a>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="card">
-        <div class="card-header" id="headingSix">
-            <h5 class="mb-0">
-                <button class="btn btn-link collapsed" data-toggle="collapse" href="#collapseSix" aria-expanded="false" aria-controls="headingSix">
-                    Other Details
-                </button>
-            </h5>
-        </div>
-        <div id="collapseSix" class="collapse show">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-2">
-                        <label>QA Checked By :</label>
-                    </div>
-                    <div class="col-sm-2">
-                        <span>Lý Thanh Nhàn</span>
-                    </div>
-                    <div class="col-sm-2">
-                        <label>Happy Call By</label>
-                    </div>
-                    <div class="col-sm-2">
-                        <span>Tạ Thị Hoa</span>
-                    </div>
-                    <div class="col-sm-2">
-                        <label>Completed By :</label>
-                    </div>
-                    <div class="col-sm-2">
-                        <label></label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-2">
-                        <label>Canceled By : </label>
-                    </div>
-                    <div class="col-sm-2">
-                        <span></span>
-                    </div>
-                    <div class="col-sm-2">
-                        <label>Close By : </label>
-                    </div>
-                    <div class="col-sm-2">
-                        <span></span>
-                    </div>
-                    <div class="col-sm-2">
-                        <label>Cancelled Reason : </label>
-                    </div>
-                    <div class="col-sm-2">
-                        <span></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    @{
+        string disableClass = string.Empty;
+        if (Model.JobAndRequest.RepairStatus == (int)AppEnum.RepairStatus.DaHuy
+            || Model.JobAndRequest.RepairStatus == (int)AppEnum.RepairStatus.HoanThanhBoiSVN
+            || Model.JobAndRequest.RepairStatus == (int)AppEnum.RepairStatus.KhongChapNhanPhieu)
+        {
+            disableClass = "disabledbutton";
+        }
+    }
     <div class="w-100 " style="padding-top:10px !important;">
-        <div id="btnUpdate" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Update Status</div>
-        <div class="btn btn-sm btn-light"><i class="fa fa-motorcycle"></i> Goods Delivery</div>
+        <div id="btnUpdate" class="btn btn-sm btn-primary @disableClass"><i class="fa fa-edit"></i> Update</div>
+        <div id="btnCancelJob" class="btn btn-sm btn-dark @disableClass"><i class="fa fa-edit"></i> Cancel Case</div>
+        <div class="btn btn-sm btn-light @disableClass"><i class="fa fa-motorcycle"></i> Goods Delivery</div>
         <div class="btn btn-sm btn-info" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-print"></i> Print Order</div>
-        <div id="btnCancelJob" class="btn btn-sm btn-dark"><i class="fa fa-edit"></i> Cancel Case</div>
         <a class="btn btn-sm btn-danger" href="/staff/ServiceLog"><i class="fa fa-close"></i> Back</a>
     </div>
 </div>
@@ -494,30 +389,3 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).off("click", "#btnUpdate").on("click", "#btnUpdate", () => {
-        $("#techUpdate").show();
-    });
-    $(document).off("click", "#btnCancelJob").on("click", "#btnCancelJob", () => {
-        $("#canceljobContainer").show();
-    });
-
-    $(document).off("click", `a[name="btn-tech-save"]`).on("click", `a[name="btn-tech-save"]`, () => {
-        toastr.success("Case Update", "Successfully Updated",);
-        $("#techUpdate").hide();
-    });
-    $(document).off("click", `a[name="btn-tech-cancel"]`).on("click", `a[name="btn-tech-cancel"]`, () => {
-        $("#techUpdate").hide();
-    });
-
-    $(document).off("click", `a[name="btn-tech-savecancel"]`).on("click", `a[name="btn-tech-savecancel"]`, () => {
-        if (window.confirm("do you sure cancel this job?")) {
-            toastr.success("Case Update", "Successfully Cancelled",);
-            $("#canceljobContainer").hide();
-        }
-    });
-    $(document).off("click", `a[name="btn-tech-back-cancel"]`).on("click", `a[name="btn-tech-back-cancel"]`, () => {
-        $("#canceljobContainer").hide();
-    });
-
-</script>

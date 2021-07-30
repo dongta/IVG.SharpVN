@@ -141,5 +141,6 @@ namespace IVG.Web.Mvc.EF
         public DateTime? CreatedCustomerOn { get; set; }
 
         public Guid? CreatedCustomerBy { get; set; }
+        public Guid? CancelReasonId { get; set; }
     }
 }

@@ -13,12 +13,24 @@ namespace IVG.Web.Mvc.Models
             Staff=1,
             Dealer=2
         }
-        public enum TransactionStatus
+        public enum TrangThaiPhieuYeuCau
         {
             ChuaXuLy=1,
             DaChuyenThanhJob=2,
             DaHuy =3,
             DaHoanThanh=6,
+        }
+        public enum RepairStatus
+        {
+            ChuaXuLy = 1,
+            DaChuyenThanhJobOrChoASCXacNhan = 2,
+            DaHuy = 3,
+            AscDangXuLy = 4,
+            HoanThanhBoiASC =5,
+            HoanThanhBoiSVN=6,
+            ChuyenLenCapTrenGiaiQuyet =8,
+            KhongChapNhanPhieu =9,
+            HoldingBoiSVN =10
         }
         public enum OptionSetId
         {

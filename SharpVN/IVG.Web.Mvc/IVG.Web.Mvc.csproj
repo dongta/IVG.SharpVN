@@ -198,6 +198,7 @@
     <Compile Include="EF\tbl_AuditLogs.cs" />
     <Compile Include="EF\tbl_AutoNumbers.cs" />
     <Compile Include="EF\tbl_CalendarJobs.cs" />
+    <Compile Include="EF\tbl_CancelReason.cs" />
     <Compile Include="EF\tbl_Cases.cs" />
     <Compile Include="EF\tbl_CasesBackup.cs" />
     <Compile Include="EF\tbl_CasesRequest.cs" />
@@ -277,6 +278,7 @@
     <Compile Include="Models\AppEnum.cs" />
     <Compile Include="Controllers\DealerController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
+    <Compile Include="Models\AssignJobDto.cs" />
     <Compile Include="Models\CreateOrEditCaseRequestDto.cs" />
     <Compile Include="Models\GetJobForStaffEditDto.cs" />
     <Compile Include="Models\GetRequestForCreateOrEditDto.cs" />
@@ -329,6 +331,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Javascripts\Dealer\AddRequest.js" />
     <Content Include="Javascripts\Staff\ServiceLog.js" />
+    <Content Include="Javascripts\Staff\UpdateJob.js" />
     <Content Include="Resources\images\avatar.png" />
     <Content Include="Resources\images\banner.jpg" />
     <Content Include="Resources\images\folder-icon.png" />
@@ -344,6 +347,8 @@
     <Content Include="Resources\sql script update database\4.sql" />
     <Content Include="Resources\sql script update database\3.sql" />
     <Content Include="Resources\sql script update database\2.sql" />
+    <Content Include="Resources\sql script update database\6.sql" />
+    <Content Include="Resources\sql script update database\5.sql" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />

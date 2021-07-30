@@ -46,8 +46,8 @@ namespace IVG.Web.Mvc.Controllers
             {
                 createOrEditRequest.Tbl_CasesRequest = db.tbl_CasesRequest.FirstOrDefault(a => a.CaseID == id);
                 createOrEditRequest.Tbl_Customers = db.tbl_Customers.FirstOrDefault(a => a.CustomerID == createOrEditRequest.Tbl_CasesRequest.CustomerID);
-                createOrEditRequest.NoEdit = (createOrEditRequest.Tbl_CasesRequest.Status == (int)AppEnum.TransactionStatus.DaHoanThanh
-                                             || createOrEditRequest.Tbl_CasesRequest.Status == (int)AppEnum.TransactionStatus.DaHuy) ? true : false;
+                createOrEditRequest.NoEdit = (createOrEditRequest.Tbl_CasesRequest.Status == (int)AppEnum.TrangThaiPhieuYeuCau.DaHoanThanh
+                                             || createOrEditRequest.Tbl_CasesRequest.Status == (int)AppEnum.TrangThaiPhieuYeuCau.DaHuy) ? true : false;
             }
             createOrEditRequest.AllOptionSet = GetAllOptionSet(createOrEditRequest.Tbl_CasesRequest.ServiceCenterID, createOrEditRequest.Tbl_CasesRequest.ProvinceID, createOrEditRequest.Tbl_CasesRequest.DistrictID);
 
@@ -162,8 +162,8 @@ namespace IVG.Web.Mvc.Controllers
             {
                 createOrEditRequest.Tbl_CasesRequest = db.tbl_CasesRequest.FirstOrDefault(a => a.CaseID == id);
                 createOrEditRequest.Tbl_Customers = db.tbl_Customers.FirstOrDefault(a => a.CustomerID == createOrEditRequest.Tbl_CasesRequest.CustomerID);
-                createOrEditRequest.NoEdit = (createOrEditRequest.Tbl_CasesRequest.Status == (int)AppEnum.TransactionStatus.DaHoanThanh
-                                             || createOrEditRequest.Tbl_CasesRequest.Status == (int)AppEnum.TransactionStatus.DaHuy) ? true : false;
+                createOrEditRequest.NoEdit = (createOrEditRequest.Tbl_CasesRequest.Status == (int)AppEnum.TrangThaiPhieuYeuCau.DaHoanThanh
+                                             || createOrEditRequest.Tbl_CasesRequest.Status == (int)AppEnum.TrangThaiPhieuYeuCau.DaHuy) ? true : false;
             }
             createOrEditRequest.AllOptionSet = GetAllOptionSet(createOrEditRequest.Tbl_CasesRequest.ServiceCenterID, createOrEditRequest.Tbl_CasesRequest.ProvinceID, createOrEditRequest.Tbl_CasesRequest.DistrictID);
 

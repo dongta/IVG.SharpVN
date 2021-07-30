@@ -74,7 +74,7 @@ else
             <div class="col-sm-12">
                 <label>Trạng thái</label>
                 <select name="trangThaiPhieu" class="form-control form-control-sm" disabled>
-                    <option value="">Chọn Trạng thái</option>
+                    @*<option value="">Chọn Trạng thái</option>*@
                     @foreach (var item in Model.AllOptionSet.TrangThaiPhieuCombobox)
                     {
                         <option value="@item.Id" @Html.Raw((Model.Tbl_CasesRequest?.Status == int.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>

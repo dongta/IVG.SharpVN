@@ -126,6 +126,11 @@ namespace IVG.Web.Mvc.Controllers
                 Id = a.DefectCodeID.ToString(),
                 DisplayName = a.Description + " | " + a.DescriptionVN
             }).ToList();
+            optionObject.CancelReasonCombobox = db.tbl_CancelReason.OrderBy(a=>a.Reason).Select(a => new DropdownItemDto
+            {
+                Id = a.Id.ToString(),
+                DisplayName = a.Reason
+            }).ToList();
             optionObject.TinhThanhPhoCombobox = db.tbl_Provinces.OrderBy(a => a.Name).Select(a => new DropdownItemDto
             {
                 Id = a.ProvinceID.ToString(),

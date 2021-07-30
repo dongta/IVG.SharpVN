@@ -151,5 +151,6 @@ namespace IVG.Web.Mvc.EF
         public string TechnicianName { get; set; }
         public string DefectCode { get; set; }
         public string RepairStatusName { get; set; }
+        public Guid? CancelReasonId { get; set; }
     }
 }

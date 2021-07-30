@@ -3,7 +3,10 @@
         toastr.success("Record Created", "Successfully Created",);
     };
     $(document).ready(function () {
-        $("select").select2();
+        $("select").select2({
+            theme: "classic",
+            width: 'resolve'
+        });
         if ($(`input[name="id"]`).val() == "00000000-0000-0000-0000-000000000000") {
             //$(`input[type="date"]`).each(function () {
             //    SetDateNow($(this));

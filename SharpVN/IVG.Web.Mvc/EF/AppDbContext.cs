@@ -1,6 +1,8 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace IVG.Web.Mvc.EF
@@ -11,6 +13,7 @@ namespace IVG.Web.Mvc.EF
             : base("name=AppDbContext")
         {
         }
+        public virtual DbSet<tbl_CancelReason> tbl_CancelReason { get; set; }
         public virtual DbSet<AllJobAndRequest> AllJobAndRequests { get; set; }
         public virtual DbSet<DanhSachCaseRequest> DanhSachCaseRequest { get; set; }
         public virtual DbSet<tbl_Areas> tbl_Areas { get; set; }
@@ -211,5 +214,70 @@ namespace IVG.Web.Mvc.EF
                 .Property(e => e.CompletedASCOn)
                 .HasPrecision(3);
         }
+        ///// <summary>
+        ///// Thực thi StoreProcedure
+        ///// </summary>
+        ///// <example>
+        ///// <code lang="CS">
+        /////     SqlParameterCollection objParas = new SqlParameterCollection();
+        /////     objParas.Add(new SqlParameter("@TenParameter1", GiaTriParameter1));
+        /////     objParas.Add(new SqlParameter("@TenParameter2", GiaTriParameter2));
+        /////     //...
+        /////     var returnValue = ExcuteStoreProcdureOrFunction&lt;KieuDulieu&gt;("TenStore", objParas.ToArray());
+        ///// </code>
+        ///// </example>
+        ///// <typeparam name="T">Trả về theo kiểu dữ liệu được xác định</typeparam>
+        ///// <param name="storeName">Tên Store cần thực thi</param>
+        ///// <param name="parameters">Dánh sách tham số và giá trị truyền vào của Store</param>
+        ///// <returns></returns>
+        //public IEnumerable<T> ExcuteStoreProcdureOrFunction<T>(string storeName, params SqlParameter[] parameters)
+        //{
+        //    return this.Database.SqlQuery<T>("exec " + storeName, parameters);
+        //}
+        //public int ExcuteStoreProcdureOrFunction(string storeName, params SqlParameter[] parameters)
+        //{
+        //    return this.Database.ExecuteSqlCommand("exec " + storeName, parameters);
+        //}
+        ///// <summary>
+        ///// Thực thi câu sql.
+        ///// VD: ExcuteSqlQuery("SELECT * FROM dbo.Posts WHERE Author = @author", new SqlParameter("@author", userSuppliedAuthor))
+        ///// </summary>
+        ///// <example>
+        ///// <code>
+        /////     SqlParameterCollection objParas = new SqlParameterCollection();
+        /////     objParas.Add(new SqlParameter("@TenParameter1", GiaTriParameter1));
+        /////     objParas.Add(new SqlParameter("@TenParameter2", GiaTriParameter2));
+        /////     //...
+        /////     var returnValue = ExcuteSqlQuery&lt;KieuDulieu&gt;("CauLenhSQL", objParas.ToArray());
+        ///// </code>
+        ///// </example>
+        ///// <typeparam name="T">Trả về theo kiểu dữ liệu được xác định</typeparam>
+        ///// <param name="sqlCommandText">Câu truy vấn cần thực thi</param>
+        ///// <param name="parameters">Dánh sách tham số và giá trị truyền vào</param>
+        ///// <returns>Trả về theo kiểu dữ liệu được xác định</returns>
+        //public IEnumerable<T> ExcuteSqlQuery<T>(string sqlQuery, params SqlParameter[] parameters)
+        //{
+        //    return this.Database.SqlQuery<T>(sqlQuery, parameters);
+        //}
+        ///// <summary>
+        ///// Thực thi câu sql, trả về số bản ghi bị tác động.
+        ///// VD: ExcuteSqlCommandText("UPDATE dbo.Posts SET Rating = 5 WHERE Author = @author", new SqlParameter("@author", userSuppliedAuthor))
+        ///// </summary>
+        ///// <example>
+        ///// <code>
+        /////     SqlParameterCollection objParas = new SqlParameterCollection();
+        /////     objParas.Add(new SqlParameter("@TenParameter1", GiaTriParameter1));
+        /////     objParas.Add(new SqlParameter("@TenParameter2", GiaTriParameter2));
+        /////     //...
+        /////     var returnValue = ExcuteSqlCommandText("CauLenhSQL", objParas.ToArray());
+        ///// </code>
+        ///// </example>
+        ///// <param name="sqlCommandText">Tên Store cần thực thi</param>
+        ///// <param name="parameters">Dánh sách tham số và giá trị truyền vào</param>
+        ///// <returns>Trả về số bản ghi bị tác động</returns>
+        //public int ExcuteSqlCommandText(string sqlCommandText, params SqlParameter[] parameters)
+        //{
+        //    return this.Database.ExecuteSqlCommand(sqlCommandText, parameters);
+        //}
     }
 }
