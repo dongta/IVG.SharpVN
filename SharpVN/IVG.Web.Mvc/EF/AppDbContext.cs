@@ -13,6 +13,7 @@ namespace IVG.Web.Mvc.EF
             : base("name=AppDbContext")
         {
         }
+        public virtual DbSet<AdminUsersView> AdminUsersViews { get; set; }
         public virtual DbSet<tbl_CancelReason> tbl_CancelReason { get; set; }
         public virtual DbSet<AllJobAndRequest> AllJobAndRequests { get; set; }
         public virtual DbSet<DanhSachCaseRequest> DanhSachCaseRequest { get; set; }

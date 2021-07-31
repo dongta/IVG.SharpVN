@@ -1,0 +1,110 @@
+﻿@model IVG.Web.Mvc.Models.CreateUserOutputDto
+@using IVG.Web.Mvc.Models;
+@{
+    ViewBag.Title = "AddUser";
+}
+<script src="~/Javascripts/Admin/AddUser.js"></script>
+<div class="d-flex justify-content-between">
+    <div class="">
+        <a href="/"><i class="fa fa-home"></i> Home </a>  >
+        <a href="/admin/users"> Users</a> >
+        <a href="#"> @Html.Raw(Model.AdminUserView?.ID == Guid.Empty ? " Add New Record" : "Edit Record")</a>
+    </div>
+</div>
+<form name="frmAddUser">
+    <input type="text" name="id" style="display:none" value="@Model.AdminUserView.ID" />
+    <div class="row" style="padding:0 !important; display:flex">
+        <div class="col-sm-4">
+            <div class="col-sm-12">
+                <label>Tên đăng nhập</label>
+                <input name="userName" value="@Model.AdminUserView.UserName" placeholder="Tên đăng nhập" type="text" class="form-control form-control-sm" />
+            </div>
+            <div class="col-sm-12">
+                <label>Họ và tên</label>
+                <input name="displayName" value="@Model.AdminUserView.DisplayName" placeholder="Họ và tên" type="text" class="form-control form-control-sm" />
+            </div>
+            <div class="col-sm-12">
+                <label>Địa chỉ</label>
+                <input name="address" value="@Model.AdminUserView.Address" placeholder="Địa chỉ" type="text" class="form-control form-control-sm" />
+            </div>
+            <div class="col-sm-12">
+                <label>Email</label>
+                <input name="email" value="@Html.Raw(Model.AdminUserView.Email)" type="email" class="form-control form-control-sm" />
+            </div>
+            <div class="col-sm-12">
+                <label>Số điện thoại</label>
+                <input name="phone" placeholder="Số liên hệ chính" value="@Html.Raw(Model.AdminUserView.Phone)" type="text" class="form-control form-control-sm" />
+            </div>
+            <div class="col-sm-12">
+                <label>Số điện thoại khác</label>
+                <input name="mobilePhone" placeholder="Số khác" value="@Html.Raw(Model.AdminUserView.MobilePhone)" type="text" class="form-control form-control-sm" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="col-sm-12">
+                <label>Mô tả</label>
+                <textarea name="description" placeholder="Nhập nội dung mô tả" type="text" style="height:206px;resize:none" class="form-control form-control-sm">@Html.Raw(Model.AdminUserView.Description)</textarea>
+            </div>
+            <div class="col-sm-12">
+                <label>Trung tâm</label>
+                <select name="serviceCenterId" class="form-control form-control-sm">
+                    <option value="">Chọn trung tâm</option>
+                    @foreach (var item in Model.ASCCombobox)
+                    {
+                        <option value="@item.Id" @Html.Raw((Model.AdminUserView?.ServicecenterID == Guid.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-12">
+                <label>Trạng thái</label>
+                <select name="active" class="form-control form-control-sm">
+                    <option value="">Chọn trạng thái</option>
+                    @foreach (var item in Model.ActiveCombobox)
+                    {
+                        if (Model.AdminUserView.ID == Guid.Empty)
+                        {
+                            <option value="@item.Id" @Html.Raw(item.Selected ? "selected" : "")>@item.DisplayName</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Id" @Html.Raw((Model.AdminUserView?.Active == bool.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            @{
+                var dealerChecked = Model.RoleNames.Any(a => a.ToLower() == AppEnum.Role.Dealer.ToString().ToLower()) ? "checked" : "";
+                var staffChecked = Model.RoleNames.Any(a => a.ToLower() == AppEnum.Role.Staff.ToString().ToLower()) ? "checked" : "";
+                var administratorChecked = Model.RoleNames.Any(a => a.ToLower() == AppEnum.Role.Administrator.ToString().ToLower()) ? "checked" : "";
+            }
+            <label>User Type</label>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" @dealerChecked value="@AppEnum.Role.Dealer.ToString()" id="@AppEnum.Role.Dealer.ToString()">
+                <label class="form-check-label" for="@AppEnum.Role.Dealer.ToString()">
+                    @AppEnum.Role.Dealer.ToString()
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" @staffChecked value="@AppEnum.Role.Staff.ToString()" id="@AppEnum.Role.Staff.ToString()">
+                <label class="form-check-label" for="@AppEnum.Role.Staff.ToString()">
+                    @AppEnum.Role.Staff.ToString()
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" @administratorChecked value="@AppEnum.Role.Administrator.ToString()" id="@AppEnum.Role.Administrator.ToString()">
+                <label class="form-check-label" for="@AppEnum.Role.Administrator.ToString()">
+                    @AppEnum.Role.Administrator.ToString()
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="padding-top:10px;">
+        <div class="btn-group">
+            <button name="save" type="submit" class="btn btn-sm btn-primary"> <i class="fa fa-save"> Save</i></button>
+            <a href="/admin/users" class="btn btn-sm btn-danger"> <i class="fa fa-close"> Cancel</i></a>
+        </div>
+    </div>
+</form>
+

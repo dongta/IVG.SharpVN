@@ -28,6 +28,10 @@ namespace IVG.Web.Mvc.Controllers
             {
                 return RedirectToAction("ServiceRequest", "Dealer");
             }
+            else if (roleName.ToLower() == AppEnum.Role.Administrator.ToString().ToLower())
+            {
+                return RedirectToAction("Users", "Admin");
+            }
             return View(u);
         }
 

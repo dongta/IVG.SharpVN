@@ -168,8 +168,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\AdminController.cs" />
     <Compile Include="API\CaseController.cs" />
     <Compile Include="API\CaseRequestController.cs" />
+    <Compile Include="API\Models\CreateOrEditUserInput.cs" />
+    <Compile Include="API\Models\BasicFilter.cs" />
     <Compile Include="API\Models\Class1.cs" />
     <Compile Include="API\Models\GetRequestDto.cs" />
     <Compile Include="API\Models\PagedResultDto.cs" />
@@ -182,12 +185,14 @@
     <Compile Include="Common\CaptchaHelper.cs" />
     <Compile Include="Common\Helper.cs" />
     <Compile Include="Common\NLogManager.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CaseController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\ComboboxController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="EF\AdminUsersView.cs" />
     <Compile Include="EF\AllJobAndRequest.cs" />
     <Compile Include="EF\AppDbContext.cs" />
     <Compile Include="EF\DanhSachCaseRequest.cs" />
@@ -280,6 +285,7 @@
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Models\AssignJobDto.cs" />
     <Compile Include="Models\CreateOrEditCaseRequestDto.cs" />
+    <Compile Include="Models\CreateUserOutputDto.cs" />
     <Compile Include="Models\GetJobForStaffEditDto.cs" />
     <Compile Include="Models\GetRequestForCreateOrEditDto.cs" />
     <Compile Include="Models\FilterServiceLogItemDto.cs" />
@@ -329,6 +335,8 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Javascripts\Admin\AddUser.js" />
+    <Content Include="Javascripts\Admin\Users.js" />
     <Content Include="Javascripts\Dealer\AddRequest.js" />
     <Content Include="Javascripts\Staff\ServiceLog.js" />
     <Content Include="Javascripts\Staff\UpdateJob.js" />
@@ -601,6 +609,8 @@
     <Content Include="Views\Staff\Chat.cshtml" />
     <Content Include="Views\Staff\Chatbox.cshtml" />
     <Content Include="Views\Dealer\ServiceRequest2.cshtml" />
+    <Content Include="Views\Admin\Users.cshtml" />
+    <Content Include="Views\Admin\AddUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

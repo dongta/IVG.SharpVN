@@ -58,4 +58,26 @@ else if (roleName.ToLower() == AppEnum.Role.Dealer.ToString().ToLower())//nếu 
         </div>
     </div>
 }
+else if (roleName.ToLower() == AppEnum.Role.Administrator.ToString().ToLower())//nếu là admin
+{
+<div class="nav navbar navbar-inverse btn-light" style="padding:0">
+    <div class="btn-group menu-group">
+        <a class="btn btn-sm btn-light" href="#"><i class="fa fa-newspaper"> About Us </i></a>
+        <a class="btn btn-sm btn-light" href="#"><i class="fa fa-newspaper"> Complaints/Inquiries </i></a>
+        <a class="btn btn-sm btn-light" href="#"><i class="fa fa-newspaper"> eSharp Online Store </i></a>
+        <a class="btn btn-sm btn-light" href="#"><i class="fa fa-newspaper"> Products </i></a>
+        <a class="btn btn-sm btn-light" href="/admin/users"><i class="fa fa-users"> User management </i></a>
+        <div class="btn btn-sm btn-light" style="cursor:default !important">
+            <a class="btn btn-light dropdown-toggle" style="padding:0;font-size:14px; border:none !important" id="MyProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-user"> My Profile </i>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="MyProfile">
+                <a class="dropdown-item" href="/user/myprofile"><i class="fa fa-edit"> Edit profile</i></a>
+                <a class="dropdown-item" href="/user/changepassword"> <i class="fa fa-lock"> Change password</i></a>
+                <a class="dropdown-item" href="/user/pdpa"><i class="fa fa-check"> PDPA (Personal Data Protection Act)</i></a>
+            </div>
+        </div>
+    </div>
+</div>
+}
 

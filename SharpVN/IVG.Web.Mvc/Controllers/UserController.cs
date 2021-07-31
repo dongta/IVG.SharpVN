@@ -37,7 +37,7 @@ namespace IVG.Web.Mvc.Controllers
             if (ModelState.IsValid)
             {
                 var passMd5 = Helper.VerifyMD5.GetMd5Hash(input.Password);
-                tbl_Users user = db.tbl_Users.FirstOrDefault(a => a.UserName == input.UserName && a.Password == passMd5);
+                tbl_Users user = db.tbl_Users.FirstOrDefault(a => a.UserName == input.UserName && a.Password == passMd5 && a.Active == true);
                 var role = db.tbl_Roles.FirstOrDefault(a => a.Role == input.UserType.ToString());
                 if (user != null && db.tbl_UserRoles.Any(a => a.UserID == user.ID && a.RoleID == role.ID))
                 {
@@ -52,7 +52,7 @@ namespace IVG.Web.Mvc.Controllers
                         string encrypted = FormsAuthentication.Encrypt(ticket);
                         var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
                         cookie.Expires = DateTime.Now.AddMinutes(timeout);
-                        cookie.HttpOnly = true; 
+                        cookie.HttpOnly = true;
                         Response.Cookies.Add(cookie);
                     }
                     {//set các cookie,session tiện cho check dữ liệu
