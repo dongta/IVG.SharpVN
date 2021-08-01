@@ -10,6 +10,7 @@ namespace IVG.Web.Mvc.EF
     {
         [Key]
         public Guid CaseID { get; set; }
+        public Guid? CaseRequestId { get; set; }
 
         public Guid? CRMID { get; set; }
 

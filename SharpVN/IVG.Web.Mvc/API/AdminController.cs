@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using static IVG.Web.Mvc.Common.Helper;
 
 namespace IVG.Web.Mvc.API
 {
@@ -55,9 +56,11 @@ namespace IVG.Web.Mvc.API
 
             if (input.ID == Guid.Empty)
             {
+                var password = VerifyMD5.GetMd5Hash("123456");
                 u = new tbl_Users
                 {
                     UserName = input.UserName,
+                    Password = password,
                     DisplayName = input.DisplayName,
                     Address = input.Address,
                     Email = input.Email,
@@ -98,7 +101,7 @@ namespace IVG.Web.Mvc.API
                 foreach (var roleName in input.ListRole)
                 {
                     tbl_UserRoles ur = new tbl_UserRoles();
-                    ur.UserID = input.ID;
+                    ur.UserID = u.ID;
                     ur.RoleID = db.tbl_Roles.FirstOrDefault(a => a.Role == roleName).ID;
                     ur.CreatedBy = userId;
                     ur.CreatedOn = DateTime.Now;

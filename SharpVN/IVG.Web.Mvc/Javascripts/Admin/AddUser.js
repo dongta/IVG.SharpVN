@@ -52,12 +52,13 @@ $(function () {
                         return;
                     }
                     $(`input[name="id"]`).val(res?.Id);
-                    if ($(`input[name="id"]`).val() == "00000000-0000-0000-0000-000000000000") {
+                    if ($(`input[name="id"]`).val() == "00000000-0000-0000-0000-000000000000" || $(`input[name="id"]`).val()=="") {
                         toastr.success("Successfully Created", "Record Created",);
-                        var href = `${window.location.href}?id=${res.id}`;
-                        setTimeout(function () {
-                            window.location = href;
-                        }, 2000)
+                        $(`input[name="id"]`).val(res.id);
+                        //var href = `${window.location.href}?id=${res.id}`;
+                        //setTimeout(function () {
+                        //    window.location = href;
+                        //}, 2000)
                     } else {
                         toastr.success("Successfully Updated", "Record Updated",);                        
                     }

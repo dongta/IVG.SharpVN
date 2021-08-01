@@ -123,6 +123,7 @@ namespace IVG.Web.Mvc.API
                 job = new tbl_Cases
                 {
                     CaseID = request.CaseID,
+                    CaseRequestId = request.CaseID,
                     CaseCode = code,
                     ServiceCenterID = input.ServiceCenterId,
                     CustomerID = request.CustomerID,
@@ -131,7 +132,7 @@ namespace IVG.Web.Mvc.API
                     EndDate = request.EndDate,
                     MadeDate = request.MadeDate,
                     WarrantyTime = request.WarrantyTime,
-                    WarrantyStatus = 2,
+                    WarrantyStatus = request.WarrantyStatus,
                     WarrantyType = request.WarrantyType,
                     DefectCodeID = request.DefectID,
                     RepairType = request.RepairType,
@@ -140,7 +141,7 @@ namespace IVG.Web.Mvc.API
                     RepairStatus = (int)AppEnum.RepairStatus.DaChuyenThanhJobOrChoASCXacNhan,
                     Description = request.Description,
                     Description1 = request.SVNDescript,
-                    CreatedBy = userId,
+                    CreatedBy = request.CreatedBy,
                     CreatedOn = DateTime.Now,
                     ModifiedBy = userId,
                     ModifiedOn = DateTime.Now,

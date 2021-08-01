@@ -89,7 +89,7 @@ $(function () {
                     width: '120px'
                 },
                 {
-                    data: "trangThaiSuaChua",
+                    data: "trangThaiSuaChuaName",
                     width: '120px'
                 },
                 {

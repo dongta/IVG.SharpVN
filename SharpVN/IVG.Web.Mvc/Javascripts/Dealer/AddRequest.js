@@ -79,8 +79,9 @@
                 dataType: 'json',
                 success: (res) => {
                     console.log(`result`, res);
+                    console.log(res);
                     $(`input[name="maPhieu"]`).val(res?.MaPhieu);
-                    $(`input[name="khacHangId"]`).val(res?.KhachHangId);
+                    $(`input[name="khachHangId"]`).val(res?.KhachHangId);
                     $(`input[name="id"]`).val(res?.Id);
                     if ($(`input[name="id"]`).val() == "00000000-0000-0000-0000-000000000000") {
                         toastr.success("Successfully Created","Record Created",);

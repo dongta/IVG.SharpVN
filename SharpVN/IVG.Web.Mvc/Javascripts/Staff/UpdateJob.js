@@ -5,7 +5,7 @@
             width: 'resolve'
         });
     });
-
+    
     $(document).off("click", "#btnUpdate").on("click", "#btnUpdate", () => {
         $("#techUpdate").show();
     });
@@ -28,7 +28,7 @@
                 $(".trangThaiSuaChuaText").text("Đã chuyển thành job");
                 setTimeout(function () {
                     location.reload();
-                },3000);
+                }, 3000);
             },
         });
     });
@@ -50,7 +50,7 @@
                     $("#canceljobContainer").hide();
                     setTimeout(function () {
                         location.reload();
-                    },3000);
+                    }, 3000);
                 },
             });
         }

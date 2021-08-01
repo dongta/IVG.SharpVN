@@ -6,7 +6,9 @@ using NLog;
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity.Validation;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -28,8 +30,13 @@ namespace IVG.Web.Mvc.Controllers
             //_user = (Session["user"] as tbl_Users) ?? db.tbl_Users.FirstOrDefault(a => a.UserName == User.Identity.Name);
 
             SCOptionSet sCOptionSet = new SCOptionSet();
-            sCOptionSet.TrangThaiSuaChua = db.tbl_OptionSetValues
-                            .Where(a => a.OptionSetID == (int)AppEnum.OptionSetId.TransactionStatus)
+            var trạngTháiSửaChữa = db.tbl_OptionSetValues
+                            .Where(a => a.OptionSetID == (int)AppEnum.OptionSetId.RepairStatus).ToList();
+            var listValue = trạngTháiSửaChữa.Select(a => a.Value).ToList();
+            var trangThaiPhieu = db.tbl_OptionSetValues
+                .Where(a => a.OptionSetID == (int)AppEnum.OptionSetId.TransactionStatus && !listValue.Contains(a.Value)).ToList();
+
+            sCOptionSet.TrangThaiSuaChua = trạngTháiSửaChữa.Union(trangThaiPhieu).OrderBy(a => a.Value)
                             .OrderBy(a => a.Value).Select(a => new DropdownItemDto
                             {
                                 DisplayName = a.Text,
@@ -70,11 +77,23 @@ namespace IVG.Web.Mvc.Controllers
                 LookupId = a.ServiceCenterID.ToString(),
                 DisplayName = a.Name,
             }).ToList() : new List<DropdownItemDto>();
-            optionObject.TrangThaiPhieuCombobox = db.tbl_OptionSetValues.Where(a => a.OptionSetID == (int)AppEnum.OptionSetId.TransactionStatus).OrderBy(a => a.Value).Select(a => new DropdownItemDto
             {
-                Id = a.Value.ToString(),
-                DisplayName = a.Text,
-            }).ToList();
+                var trạngTháiSửaChữa = db.tbl_OptionSetValues
+                                .Where(a => a.OptionSetID == (int)AppEnum.OptionSetId.RepairStatus).ToList();
+                var listValue = trạngTháiSửaChữa.Select(a => a.Value).ToList();
+                var trangThaiPhieu = db.tbl_OptionSetValues
+                    .Where(a => a.OptionSetID == (int)AppEnum.OptionSetId.TransactionStatus && !listValue.Contains(a.Value)).ToList();
+
+                optionObject.TrangThaiPhieuCombobox = trạngTháiSửaChữa.Union(trangThaiPhieu).OrderBy(a => a.Value)
+                                .OrderBy(a => a.Value).Select(a => new DropdownItemDto
+                                {
+                                    DisplayName = a.Text,
+                                    Id = a.Value.ToString(),
+                                    Name = a.Text,
+                                    LookupId = a.OptionSetID.ToString()
+                                }).ToList();
+            }
+
             optionObject.ProductCombobox = db.tbl_Model.Where(a => a.Status == 1).OrderBy(a => a.Name).Select(a => new DropdownItemDto
             {
                 Id = a.ModelID.ToString(),
@@ -162,8 +181,7 @@ namespace IVG.Web.Mvc.Controllers
             {
                 createOrEditRequest.Tbl_CasesRequest = db.tbl_CasesRequest.FirstOrDefault(a => a.CaseID == id);
                 createOrEditRequest.Tbl_Customers = db.tbl_Customers.FirstOrDefault(a => a.CustomerID == createOrEditRequest.Tbl_CasesRequest.CustomerID);
-                createOrEditRequest.NoEdit = (createOrEditRequest.Tbl_CasesRequest.Status == (int)AppEnum.TrangThaiPhieuYeuCau.DaHoanThanh
-                                             || createOrEditRequest.Tbl_CasesRequest.Status == (int)AppEnum.TrangThaiPhieuYeuCau.DaHuy) ? true : false;
+                createOrEditRequest.NoEdit = ((createOrEditRequest.Tbl_CasesRequest.Status ?? 1) > (int)AppEnum.RepairStatus.ChuaXuLy) ? true : false;
             }
             createOrEditRequest.AllOptionSet = GetAllOptionSet(createOrEditRequest.Tbl_CasesRequest.ServiceCenterID, createOrEditRequest.Tbl_CasesRequest.ProvinceID, createOrEditRequest.Tbl_CasesRequest.DistrictID);
 
@@ -176,10 +194,16 @@ namespace IVG.Web.Mvc.Controllers
             try
             {
                 _user = Session["user"] as tbl_Users;
+                var AutonumberLength = 5;
+                var auto = GetCustomerCode();
+                var ASCCode = auto[0];
+                var Number = int.Parse(auto[1]);
+                var code = String.Format("{0}{1:D" + AutonumberLength + "}", ASCCode + "-" + DateTime.Now.ToString("MM") + DateTime.Now.ToString("yy") + "-", Number);
 
                 tbl_Customers cus = new tbl_Customers()
 
                 {
+                    Code = code,
                     Name = i.TenKhachHang,
                     Mainphone = i.SoDienthoai,
                     HomePhone = i.SoDienthoai,
@@ -202,7 +226,7 @@ namespace IVG.Web.Mvc.Controllers
                 tbl_CasesRequest r = new tbl_CasesRequest
                 {
                     CaseID = Guid.NewGuid(),
-                    Code = i.MaPhieu = DateTime.Now.ToString("ddMMyyyyHHmmss"),//get from store cũ
+                   // Code = i.MaPhieu = DateTime.Now.ToString("ddMMyyyyHHmmss"),//get from store cũ
 
                     ReceivedBy = i.NguoiTiepNhan,
                     RepairType = i.HinhThucBaoHanh,
@@ -305,5 +329,29 @@ namespace IVG.Web.Mvc.Controllers
             }
         }
 
+        private string[] GetCustomerCode()
+        {
+            var ServiceCenterId = db.tbl_ServiceCenters.FirstOrDefault(a => a.Code == "SVN").ServiceCenterID;
+
+            var y = DateTime.Now.Year;
+            var m = DateTime.Now.Month;
+            List<SqlParameter> objParas = new List<SqlParameter>();
+            objParas.Add(new SqlParameter("@ServiceCenterID", ServiceCenterId));
+            objParas.Add(new SqlParameter("@Year", y));
+            objParas.Add(new SqlParameter("@Month", m));
+
+            var ASCCode = new SqlParameter("@ASCCode", "");
+            ASCCode.Direction = ParameterDirection.Output;
+            ASCCode.Size = 3;
+            ASCCode.DbType = DbType.String;
+            var Number = new SqlParameter("@Number", 0);
+            Number.Direction = ParameterDirection.Output;
+            Number.DbType = DbType.Int32;
+            objParas.Add(ASCCode);
+            objParas.Add(Number);
+
+            var result = db.Database.ExecuteSqlCommand("exec p_Autonumber_Customer @ServiceCenterID, @Year, @Month,@ASCCode =@ASCCode OUTPUT,@Number =@Number OUTPUT", objParas.ToArray());
+            return new string[] { ASCCode.Value.ToString(), Number.Value.ToString() };
+        }
     }
 }

@@ -63,10 +63,6 @@ namespace IVG.Web.Mvc.API
                 {
                     query = query.Where(a => a.TrangThaiSuaChua == input.TrangThaiSuachua);
                 }
-                if (input.TrangThaiSuachua.HasValue)
-                {
-                    query = query.Where(a => a.TrangThaiSuaChua == input.TrangThaiSuachua);
-                }
                 if (input.NgayTaoTu.HasValue)
                 {
                     query = query.Where(a => a.CreatedOn.Value >= input.NgayTaoTu);

@@ -284,7 +284,10 @@
                     </div>
                     <div class="col-sm-2">
                         <span class="text-danger">
-                            @Html.Raw(Model.AllOptionSet.UserCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.JobAndRequest.ModifiedBy)?.DisplayName)
+                            @if (Model.JobAndRequest.RepairStatus == (int)AppEnum.RepairStatus.DaHuy)
+                            {
+                                @Html.Raw(Model.AllOptionSet.UserCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.JobAndRequest.ModifiedBy)?.DisplayName)
+                            }
                         </span>
                     </div>
                     <div class="col-sm-2">
@@ -357,8 +360,6 @@
 
             <div class="w-100" style="padding-top:10px !important">
                 <div class="col-sm-12">
-                    @*<input type="checkbox" />
-                        <label> To remain in same screen after saved</label>*@
                     <a name="btn-tech-savecancel" class="btn btn-sm btn-primary"><i class="fa fa-save"> Save</i></a>
                     <a name="btn-tech-back-cancel" class="btn btn-sm btn-danger"><i class="fa fa-close"> Back</i></a>
                 </div>

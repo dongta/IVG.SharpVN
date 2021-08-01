@@ -24,6 +24,7 @@ namespace IVG.Web.Mvc.EF
         public string MaLoi { get; set; }
         public string DienGiaiLoi { get; set; }
         public int? TrangThaiSuaChua { get; set; }
+        public string TrangThaiSuaChuaName { get; set; }
         public int? LoaiSuaChuaId { get; set; }
         public string CachSuaChua { get; set; }
         public string NgayDangKySuaChua { get; set; }
@@ -31,8 +32,8 @@ namespace IVG.Web.Mvc.EF
         public string CallCenterGhiChu { get; set; }
         public string ASCGhiChu { get; set; }
         public string ThangTT { get; set; }
-        public string NgayKTVKiemTra { get; set; }
-        public string ASCHoanThanhOn { get; set; }
+        public DateTime? NgayKTVKiemTra { get; set; }
+        public DateTime? ASCHoanThanhOn { get; set; }
         public string ASCHoanThanhBoi { get; set; }
         public Guid? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }

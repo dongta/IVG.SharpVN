@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\bin\app.publish\</_PublishTargetUrl>
-    <History>True|2021-07-31T07:07:12.3101348Z;</History>
+    <History>True|2021-08-01T11:36:37.7621417Z;True|2021-08-01T16:17:01.3955495+07:00;True|2021-07-31T14:07:12.3101348+07:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Antlr3.Runtime.dll">
@@ -27,10 +27,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/16/2019 10:54:30</publishTime>
     </File>
     <File Include="bin/IVG.Web.Mvc.dll">
-      <publishTime>07/31/2021 14:03:32</publishTime>
+      <publishTime>08/01/2021 17:09:45</publishTime>
     </File>
     <File Include="bin/IVG.Web.Mvc.pdb">
-      <publishTime>07/31/2021 14:03:32</publishTime>
+      <publishTime>08/01/2021 17:09:45</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>09/05/2018 16:10:50</publishTime>
@@ -395,17 +395,23 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Global.asax">
       <publishTime>05/15/2021 20:46:30</publishTime>
     </File>
+    <File Include="Javascripts/Admin/AddUser.js">
+      <publishTime>08/01/2021 14:16:11</publishTime>
+    </File>
+    <File Include="Javascripts/Admin/Users.js">
+      <publishTime>07/31/2021 19:39:00</publishTime>
+    </File>
     <File Include="Javascripts/Dealer/AddRequest.js">
-      <publishTime>07/30/2021 00:02:12</publishTime>
+      <publishTime>08/01/2021 13:04:04</publishTime>
     </File>
     <File Include="Javascripts/Dealer/ServiceRequest.js">
-      <publishTime>07/27/2021 12:11:01</publishTime>
+      <publishTime>08/01/2021 13:07:09</publishTime>
     </File>
     <File Include="Javascripts/Staff/ServiceLog.js">
       <publishTime>07/27/2021 12:11:01</publishTime>
     </File>
     <File Include="Javascripts/Staff/UpdateJob.js">
-      <publishTime>07/31/2021 02:24:42</publishTime>
+      <publishTime>08/01/2021 18:36:10</publishTime>
     </File>
     <File Include="Resources/images/avatar.png">
       <publishTime>07/27/2021 12:11:01</publishTime>
@@ -456,7 +462,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/30/2021 23:59:24</publishTime>
     </File>
     <File Include="Resources/sql script update database/6.sql">
-      <publishTime>07/31/2021 00:41:35</publishTime>
+      <publishTime>08/01/2021 12:12:19</publishTime>
     </File>
     <File Include="Scripts/bootstrap.bundle.js">
       <publishTime>05/15/2021 20:50:34</publishTime>
@@ -1019,6 +1025,12 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Scripts/umd/popper.min.js.map">
       <publishTime>05/15/2021 20:50:27</publishTime>
     </File>
+    <File Include="Views/Admin/AddUser.cshtml">
+      <publishTime>07/31/2021 20:40:16</publishTime>
+    </File>
+    <File Include="Views/Admin/Users.cshtml">
+      <publishTime>07/31/2021 16:27:35</publishTime>
+    </File>
     <File Include="Views/Dealer/AddRequest.cshtml">
       <publishTime>07/29/2021 22:31:35</publishTime>
     </File>
@@ -1074,7 +1086,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/27/2021 12:11:01</publishTime>
     </File>
     <File Include="Views/Staff/UpdateJob.cshtml">
-      <publishTime>07/31/2021 01:16:24</publishTime>
+      <publishTime>08/01/2021 18:36:21</publishTime>
     </File>
     <File Include="Views/User/ChangePassword.cshtml">
       <publishTime>07/27/2021 12:11:02</publishTime>
@@ -1083,10 +1095,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/27/2021 12:11:02</publishTime>
     </File>
     <File Include="Views/User/Login.cshtml">
-      <publishTime>07/27/2021 12:11:02</publishTime>
+      <publishTime>07/31/2021 14:39:41</publishTime>
     </File>
     <File Include="Views/User/MenuPartial.cshtml">
-      <publishTime>07/27/2021 12:11:02</publishTime>
+      <publishTime>07/31/2021 15:07:23</publishTime>
     </File>
     <File Include="Views/User/MyProfile.cshtml">
       <publishTime>07/27/2021 12:11:02</publishTime>
@@ -1101,7 +1113,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/15/2021 20:46:30</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/31/2021 14:07:09</publishTime>
+      <publishTime>08/01/2021 16:16:59</publishTime>
     </File>
     <File Include="webfonts/fa-brands-400.eot">
       <publishTime>05/15/2021 20:49:39</publishTime>
