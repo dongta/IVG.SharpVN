@@ -1,6 +1,8 @@
 ﻿alter table tbl_cases add  CancelReasonId uniqueidentifier
 alter table tbl_CasesRequest add  CancelReasonId uniqueidentifier
 alter table tbl_cases add CaseRequestId uniqueidentifier
+alter table tbl_casesrequest add RequestCode nvarchar(100)
+alter table tbl_cases add RequestCode nvarchar(100)
 
 create view AdminUsersView
 as
