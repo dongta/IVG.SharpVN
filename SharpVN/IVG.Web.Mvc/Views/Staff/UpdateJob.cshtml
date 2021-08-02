@@ -13,6 +13,10 @@
         opacity: 0.4;
         cursor: not-allowed;
     }
+
+    .select2.select2-container {
+        width: 100% !important;
+    }
 </style>
 
 <script src="~/Javascripts/Staff/UpdateJob.js"></script>
@@ -49,11 +53,11 @@
                         <span>@Model.JobAndRequest.CaseCode</span>
                     </div>
                     <div class="col-sm-2">
-                            <label>Mã phiếu yêu cầu :</label>
-                        </div>
-                        <div class="col-sm-2">
-                            <span>@Model.JobAndRequest.RequestCode</span>
-                        </div>
+                        <label>Mã phiếu yêu cầu :</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <span>@Model.JobAndRequest.RequestCode</span>
+                    </div>
                     <div class="col-sm-2">
                         <label>Trạng thái :</label>
                     </div>
@@ -311,28 +315,29 @@
             </h5>
         </div>
         <div id="collapseFour" class="collapse show">
-            <form name="update">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <label>Trung tâm : </label>
-                        <select id="assignedServiceCenterId" class="form-control form-control-sm">
-                            <option value="">Chọn trung tâm</option>
-                            @foreach (var item in Model.AllOptionSet.AscCombobox)
-                            {
-                                <option value="@item.Id" @Html.Raw(Model.JobAndRequest.ServiceCenterID == Guid.Parse(item.Id) ? "selected" : "")>@item.DisplayName</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="w-100" style="padding-top:10px !important">
-                        <div class="col-sm-12">
-                            @*<input type="checkbox" />
-                                <label> To remain in same screen after saved</label>*@
-                            <a name="btn-tech-save" class="btn btn-sm btn-primary"><i class="fa fa-save"> Save</i></a>
-                            <a name="btn-tech-cancel" class="btn btn-sm btn-danger"><i class="fa fa-close"> Back</i></a>
+            <div class="card-body">
+                <form name="update">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>Trung tâm : </label>
+                            <select id="assignedServiceCenterId" class="form-control form-control-sm">
+                                <option value="">Chọn trung tâm</option>
+                                @foreach (var item in Model.AllOptionSet.AscCombobox)
+                                {
+                                    <option value="@item.Id" @Html.Raw(Model.JobAndRequest.ServiceCenterID == Guid.Parse(item.Id) ? "selected" : "")>@item.DisplayName</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="w-100" style="padding-top:10px !important">
+                            <div class="col-sm-12">
+                                <a name="btn-tech-save" class="btn btn-sm btn-primary"><i class="fa fa-save"></i> Save</a>
+                                <a name="btn-tech-cancel" class="btn btn-sm btn-danger"><i class="fa fa-close"></i> Back</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
+
         </div>
     </div>
 
@@ -346,22 +351,23 @@
         </div>
         <div id="collapseFive" class="collapse show">
             <div class="card-body">
-                <div class="col-sm-6">
-                    <label>Lý do hủy : </label>
-                    <select id="cancelReasonId" class="form-control form-control-sm">
-                        <option>Chọn lý do</option>
-                        @foreach (var item in Model.AllOptionSet.CancelReasonCombobox)
-                        {
-                            <option value="@item.Id" @Html.Raw(Guid.Parse(item.Id) == Model.JobAndRequest.CancelReasonId ? "selected" : "")>@item.DisplayName</option>
-                        }
-                    </select>
-                </div>
-            </div>
-
-            <div class="w-100" style="padding-top:10px !important">
-                <div class="col-sm-12">
-                    <a name="btn-tech-savecancel" class="btn btn-sm btn-primary"><i class="fa fa-save"> Save</i></a>
-                    <a name="btn-tech-back-cancel" class="btn btn-sm btn-danger"><i class="fa fa-close"> Back</i></a>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>Lý do hủy : </label>
+                        <select id="cancelReasonId" class="form-control form-control-sm">
+                            <option>Chọn lý do</option>
+                            @foreach (var item in Model.AllOptionSet.CancelReasonCombobox)
+                            {
+                                <option value="@item.Id" @Html.Raw(Guid.Parse(item.Id) == Model.JobAndRequest.CancelReasonId ? "selected" : "")>@item.DisplayName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="w-100" style="padding-top:10px !important">
+                        <div class="col-sm-12">
+                            <a name="btn-tech-savecancel" class="btn btn-sm btn-primary"><i class="fa fa-save"></i> Save</a>
+                            <a name="btn-tech-back-cancel" class="btn btn-sm btn-danger"><i class="fa fa-close"></i> Back</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
