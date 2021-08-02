@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\bin\app.publish\</_PublishTargetUrl>
-    <History>True|2021-08-01T11:36:37.7621417Z;True|2021-08-01T16:17:01.3955495+07:00;True|2021-07-31T14:07:12.3101348+07:00;</History>
+    <History>True|2021-08-02T16:54:26.0311132Z;True|2021-08-01T18:36:37.7621417+07:00;True|2021-08-01T16:17:01.3955495+07:00;True|2021-07-31T14:07:12.3101348+07:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Antlr3.Runtime.dll">
@@ -27,10 +27,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/16/2019 10:54:30</publishTime>
     </File>
     <File Include="bin/IVG.Web.Mvc.dll">
-      <publishTime>08/01/2021 17:09:45</publishTime>
+      <publishTime>08/02/2021 22:18:34</publishTime>
     </File>
     <File Include="bin/IVG.Web.Mvc.pdb">
-      <publishTime>08/01/2021 17:09:45</publishTime>
+      <publishTime>08/02/2021 22:18:34</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>09/05/2018 16:10:50</publishTime>
@@ -402,16 +402,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/31/2021 19:39:00</publishTime>
     </File>
     <File Include="Javascripts/Dealer/AddRequest.js">
-      <publishTime>08/01/2021 13:04:04</publishTime>
+      <publishTime>08/02/2021 22:10:42</publishTime>
     </File>
     <File Include="Javascripts/Dealer/ServiceRequest.js">
-      <publishTime>08/01/2021 13:07:09</publishTime>
+      <publishTime>08/02/2021 22:28:55</publishTime>
     </File>
     <File Include="Javascripts/Staff/ServiceLog.js">
-      <publishTime>07/27/2021 12:11:01</publishTime>
+      <publishTime>08/02/2021 22:29:50</publishTime>
     </File>
     <File Include="Javascripts/Staff/UpdateJob.js">
-      <publishTime>08/01/2021 18:36:10</publishTime>
+      <publishTime>08/02/2021 23:35:45</publishTime>
     </File>
     <File Include="Resources/images/avatar.png">
       <publishTime>07/27/2021 12:11:01</publishTime>
@@ -1032,16 +1032,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/31/2021 16:27:35</publishTime>
     </File>
     <File Include="Views/Dealer/AddRequest.cshtml">
-      <publishTime>07/29/2021 22:31:35</publishTime>
+      <publishTime>08/02/2021 22:19:54</publishTime>
     </File>
     <File Include="Views/Dealer/Home.cshtml">
       <publishTime>05/25/2021 19:29:15</publishTime>
     </File>
     <File Include="Views/Dealer/ServiceDetail.cshtml">
-      <publishTime>07/29/2021 23:24:13</publishTime>
+      <publishTime>08/02/2021 22:56:30</publishTime>
     </File>
     <File Include="Views/Dealer/ServiceRequest.cshtml">
-      <publishTime>07/27/2021 12:11:01</publishTime>
+      <publishTime>08/02/2021 22:30:52</publishTime>
     </File>
     <File Include="Views/Dealer/ServiceRequest2.cshtml">
       <publishTime>07/27/2021 12:11:01</publishTime>
@@ -1080,13 +1080,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/19/2021 00:59:15</publishTime>
     </File>
     <File Include="Views/Staff/ServiceLog.cshtml">
-      <publishTime>07/27/2021 12:11:02</publishTime>
+      <publishTime>08/02/2021 22:31:39</publishTime>
     </File>
     <File Include="Views/Staff/SVC.cshtml">
       <publishTime>07/27/2021 12:11:01</publishTime>
     </File>
     <File Include="Views/Staff/UpdateJob.cshtml">
-      <publishTime>08/01/2021 18:36:21</publishTime>
+      <publishTime>08/02/2021 23:50:00</publishTime>
     </File>
     <File Include="Views/User/ChangePassword.cshtml">
       <publishTime>07/27/2021 12:11:02</publishTime>
@@ -1113,7 +1113,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/15/2021 20:46:30</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/01/2021 16:16:59</publishTime>
+      <publishTime>08/02/2021 23:54:24</publishTime>
     </File>
     <File Include="webfonts/fa-brands-400.eot">
       <publishTime>05/15/2021 20:49:39</publishTime>
