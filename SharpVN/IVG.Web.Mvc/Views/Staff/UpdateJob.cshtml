@@ -184,19 +184,19 @@
                         <label>Tên khách hàng :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>@Model.Tbl_Customers.Name</span>
+                        <span>@Html.Raw(Model?.Tbl_Customers?.Name)</span>
                     </div>
                     <div class="col-sm-2">
                         <label>Số điện thoại:</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>@Model.Tbl_Customers.Mainphone</span>
+                        <span>@Html.Raw(Model.Tbl_Customers?.Mainphone)</span>
                     </div>
                     <div class="col-sm-2">
                         <label>Số điện thoại khác :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>@Model.Tbl_Customers.MobilePhone</label>
+                        <label>@Html.Raw(Model.Tbl_Customers?.MobilePhone)</label>
                     </div>
                 </div>
                 <div class="row">
@@ -205,7 +205,7 @@
                     </div>
                     <div class="col-sm-2">
                         <label>
-                            @Html.Raw(Model.AllOptionSet.TinhThanhPhoCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_Customers.ProvinceID)?.DisplayName)
+                            @Html.Raw(Model.AllOptionSet?.TinhThanhPhoCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_Customers?.ProvinceID)?.DisplayName)
                         </label>
                     </div>
                     <div class="col-sm-2">
@@ -213,7 +213,7 @@
                     </div>
                     <div class="col-sm-2">
                         <label>
-                            @Html.Raw(Model.AllOptionSet.QuanHuyenCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_Customers.DistrictID)?.DisplayName)
+                            @Html.Raw(Model.AllOptionSet.QuanHuyenCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_Customers?.DistrictID)?.DisplayName)
                         </label>
                     </div>
                     <div class="col-sm-2">
@@ -221,7 +221,7 @@
                     </div>
                     <div class="col-sm-2">
                         <label>
-                            @Html.Raw(Model.AllOptionSet.PhuongXaCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_Customers.WardID)?.DisplayName)
+                            @Html.Raw(Model.AllOptionSet.PhuongXaCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_Customers?.WardID)?.DisplayName)
                         </label>
                     </div>
                 </div>
@@ -230,14 +230,14 @@
                         <label>Địa chỉ :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>@Model.Tbl_Customers.MobilePhone</span>
+                        <span>@Html.Raw(Model.Tbl_Customers?.MobilePhone)</span>
                     </div>
                     <div class="col-sm-2">
                         <label>Email:</label>
                     </div>
                     <div class="col-sm-2">
                         <label>
-                            <label>@Model.Tbl_Customers.Email</label>
+                            <label>@Html.Raw(Model.Tbl_Customers?.Email)</label>
                         </label>
                     </div>
                 </div>

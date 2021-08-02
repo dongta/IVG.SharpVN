@@ -53,7 +53,7 @@ namespace IVG.Web.Mvc.Controllers
             GetJobForStaffEditDto model = new GetJobForStaffEditDto();
             model.JobAndRequest = db.AllJobAndRequests.FirstOrDefault(a => a.CaseID == id);
             model.Tbl_Customers = db.tbl_Customers.FirstOrDefault(a => a.CustomerID == model.JobAndRequest.CustomerID);
-            model.AllOptionSet = GetAllOptionSet(model.JobAndRequest.ServiceCenterID, model.Tbl_Customers.ProvinceID, model.Tbl_Customers.DistrictID);
+            model.AllOptionSet = GetAllOptionSet(model.JobAndRequest?.ServiceCenterID, model.Tbl_Customers?.ProvinceID, model?.Tbl_Customers?.DistrictID);
 
             var trạngTháiSửaChữa = db.tbl_OptionSetValues
                             .Where(a => a.OptionSetID == (int)AppEnum.OptionSetId.RepairStatus).ToList();
