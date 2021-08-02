@@ -32,13 +32,14 @@ else
 
         <div class="col-sm-3">
             <div class="col-sm-12">
-                <label>Mã phiếu</label>
-                <input name="maPhieu" value="@Model.Tbl_CasesRequest.Code" placeholder="Mã phiếu tự sinh" type="text" class="form-control form-control-sm" disabled />
+                <label>Mã phiếu yêu cầu</label>
+                <input name="requestCode" value="@Model.Tbl_CasesRequest.RequestCode" placeholder="Mã sinh tự động" type="text" class="form-control form-control-sm" disabled />
             </div>
-            <div class="col-sm-12" style="display:none">
-                <label>Mã tham chiếu</label>
-                <input name="maThamChieu" value="@Model.Tbl_CasesRequest.ReferenceCode" placeholder="Nhập Mã tham chiếu" type="text" class="form-control form-control-sm" />
+            <div class="col-sm-12">
+                <label>Mã Sự vụ</label>
+                <input name="code" value="@Model.Tbl_CasesRequest.Code" placeholder="Mã sinh khi chuyển thành sự vụ" type="text" class="form-control form-control-sm" disabled />
             </div>
+
             <div class="col-sm-12">
                 <label>Người tiếp nhận</label>
                 <input name="nguoiTiepNhan" value="@Model.Tbl_CasesRequest.ReceivedBy" placeholder="Nhập người tiếp nhận" type="text" class="form-control form-control-sm" />

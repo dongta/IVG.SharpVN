@@ -41,7 +41,7 @@
                     width: '120px',
                 },
                 {
-                    data: "referenceCode",
+                    data: "requestCode",
                     width: '120px'
                 },
                 {

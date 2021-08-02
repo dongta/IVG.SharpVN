@@ -42,7 +42,7 @@ $(function () {
                     width: '120px',
                 },
                 {
-                    data: "maThamChieu",
+                    data: "maSuVu",
                     width: '120px'
                 },
                 {

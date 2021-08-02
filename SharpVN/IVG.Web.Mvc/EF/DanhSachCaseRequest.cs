@@ -12,6 +12,7 @@ namespace IVG.Web.Mvc.EF
         [Key]
         public Guid RequestId { get; set; }
         public string MaPhieu { get; set; }
+        public string MaSuVu { get; set; }
         public string MaThamChieu { get; set; }
         public string TenKhachHang { get; set; }
         public string DiaChi { get; set; }

@@ -16,6 +16,7 @@ namespace IVG.Web.Mvc.EF
 
         [StringLength(50)]
         public string CaseCode { get; set; }
+        public string RequestCode { get; set; }
 
         [StringLength(50)]
         public string ReferenceCode { get; set; }

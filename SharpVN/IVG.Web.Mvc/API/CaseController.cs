@@ -102,16 +102,13 @@ namespace IVG.Web.Mvc.API
         public object AssignJob(AssignJobDto input)
         {
             var userId = (HttpContext.Current.Session["user"] as tbl_Users)?.ID;
-            //var ServiceCenterCode = db.tbl_ServiceCenters.FirstOrDefault(a => a.ServiceCenterID == input.ServiceCenterId)?.Code;
-            var auto = GetCaseCode(input.ServiceCenterId);
-            var code = string.Format("JB{0}{1:yyMM}{2:00000}", auto[0], DateTime.Now, int.Parse(auto[1]));
+           
             var job = db.tbl_Cases.FirstOrDefault(a => a.CaseID == input.Id);
             tbl_CasesRequest request = db.tbl_CasesRequest.FirstOrDefault(a => a.CaseID == input.Id);
             
             if (job != null)
             {
                 job.ServiceCenterID = input.ServiceCenterId;
-                job.CaseCode = code;
                 job.RepairStatus = (int)AppEnum.RepairStatus.DaChuyenThanhJobOrChoASCXacNhan;
                 job.CancelReasonId = null;
                 job.TechnicalStaffID = null;
@@ -119,12 +116,15 @@ namespace IVG.Web.Mvc.API
             }
             else
             {
+                var auto = GetCaseCode(input.ServiceCenterId);
+                var code = string.Format("JB{0}{1:yyMM}{2:00000}", auto[0], DateTime.Now, int.Parse(auto[1]));
                 //Tạo case từ request.
                 job = new tbl_Cases
                 {
                     CaseID = request.CaseID,
                     CaseRequestId = request.CaseID,
                     CaseCode = code,
+                    RequestCode = request.RequestCode,
                     ServiceCenterID = input.ServiceCenterId,
                     CustomerID = request.CustomerID,
                     ModelID = (Guid)request.ModelID,

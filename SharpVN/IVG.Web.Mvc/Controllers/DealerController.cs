@@ -226,7 +226,7 @@ namespace IVG.Web.Mvc.Controllers
                 tbl_CasesRequest r = new tbl_CasesRequest
                 {
                     CaseID = Guid.NewGuid(),
-                   // Code = i.MaPhieu = DateTime.Now.ToString("ddMMyyyyHHmmss"),//get from store cũ
+                    RequestCode = i.RequestCode = DateTime.Now.ToString("ddMMyyyyHHmmss"),//get from store cũ
 
                     ReceivedBy = i.NguoiTiepNhan,
                     RepairType = i.HinhThucBaoHanh,

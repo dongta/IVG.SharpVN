@@ -9,7 +9,8 @@ namespace IVG.Web.Mvc.Models
     public class CreateOrEditCaseRequestDto
     {
         public Guid Id { get; set; }
-        public string MaPhieu{ get; set; }
+        public string Code { get; set; }
+        public string RequestCode { get; set; }
         public string NguoiTiepNhan { get; set; }
         [Required]
         public string DiaChi { get; set; }

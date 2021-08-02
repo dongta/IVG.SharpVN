@@ -1,16 +1,14 @@
 namespace IVG.Web.Mvc.EF
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     public partial class tbl_CasesRequest
     {
         [Key]
         public Guid CaseID { get; set; }
-
+        public string RequestCode { get; set; }
+        
         public Guid? CustomerID { get; set; }
 
         [StringLength(50)]
