@@ -81,7 +81,8 @@
                         <option value="@item.Value">@item.Text</option>
                     }*@
             </select>
-            <a href="/case/getjob" class="fa fa-file-excel btn btn-sm btn-outline-primary"> Export Excel</a>
+            <input type="date" id="currentDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" style="display:none; width:0;height:0" />
+            <a id="exportExcel" href="#" @*href="/case/getjob"*@ class="fa fa-file-excel btn btn-sm btn-outline-primary"> Export Excel</a>
         </div>
     </div>
     <div class="row" style="padding-top:5px; padding-bottom:5px">

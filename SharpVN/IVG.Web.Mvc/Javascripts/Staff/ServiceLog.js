@@ -110,6 +110,53 @@
         });
     });
 
+    $(document).off("click", "#exportExcel").on("click", "#exportExcel", (a) => {
+        var d = {};
+        d = $.extend({}, d, {
+            "filterText": $(`[name="textsearch"]`).val()
+        });
+        var formArray = $(`form[name='frmFilter']`).serializeArray();
+        var formData = {};
+        $.map(formArray, function (n, i) {
+            formData[n['name']] = n['value'];
+        });
+        d = $.extend({}, d, formData);
+        d = JSON.stringify(d);
+
+        $.ajax({
+            method: 'post',
+            cache: false,
+            url: '/api/Case/ExportExcel',
+            data: d,
+            dataType: 'json',
+            processData: false,
+            success: (res) => {
+                //let blob = new Blob([res], { type: "application/octetstream" });
+                //var date = $("#currentDate").val();
+                //let a = document.createElement('a');
+                //a.href = window.URL.createObjectURL(blob);
+                //a.download = `ServiceLog-${date}.xlsx`;
+                //document.body.appendChild(a);
+                //a.click();
+                //document.body.removeChild(a);
+                //toastr.success("Thông báo.", "Tải file thành công",);
+            },
+        }).then(resp => resp.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                // the filename you want
+                a.download = 'todo-1.xlsx';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                alert('your file has downloaded!'); // or you know, something with better UX...
+            })
+            .catch(() => alert('oh no!'));;
+    });
+
     $('#ListCase tbody').on('dblclick', 'tr', function () {
         var data = tbl.row(this).data();
         var id = data.caseID;

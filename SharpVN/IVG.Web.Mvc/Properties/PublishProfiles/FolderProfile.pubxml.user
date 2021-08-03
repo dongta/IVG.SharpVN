@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>D:\IVG\Sharp\Codes\IVG.SharpVN\SharpVN\IVG.Web.Mvc\bin\app.publish\</_PublishTargetUrl>
-    <History>True|2021-08-02T16:54:26.0311132Z;True|2021-08-01T18:36:37.7621417+07:00;True|2021-08-01T16:17:01.3955495+07:00;True|2021-07-31T14:07:12.3101348+07:00;</History>
+    <History>True|2021-08-03T20:56:07.4287362Z;True|2021-08-02T23:54:26.0311132+07:00;True|2021-08-01T18:36:37.7621417+07:00;True|2021-08-01T16:17:01.3955495+07:00;True|2021-07-31T14:07:12.3101348+07:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Antlr3.Runtime.dll">
@@ -27,10 +27,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/16/2019 10:54:30</publishTime>
     </File>
     <File Include="bin/IVG.Web.Mvc.dll">
-      <publishTime>08/02/2021 22:18:34</publishTime>
+      <publishTime>08/04/2021 03:56:04</publishTime>
     </File>
     <File Include="bin/IVG.Web.Mvc.pdb">
-      <publishTime>08/02/2021 22:18:34</publishTime>
+      <publishTime>08/04/2021 03:56:04</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>09/05/2018 16:10:50</publishTime>
@@ -402,13 +402,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/31/2021 19:39:00</publishTime>
     </File>
     <File Include="Javascripts/Dealer/AddRequest.js">
-      <publishTime>08/02/2021 22:10:42</publishTime>
+      <publishTime>08/04/2021 02:34:12</publishTime>
     </File>
     <File Include="Javascripts/Dealer/ServiceRequest.js">
       <publishTime>08/02/2021 22:28:55</publishTime>
     </File>
     <File Include="Javascripts/Staff/ServiceLog.js">
-      <publishTime>08/02/2021 22:29:50</publishTime>
+      <publishTime>08/04/2021 03:44:39</publishTime>
     </File>
     <File Include="Javascripts/Staff/UpdateJob.js">
       <publishTime>08/02/2021 23:35:45</publishTime>
@@ -417,7 +417,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/27/2021 12:11:01</publishTime>
     </File>
     <File Include="Resources/images/banner.jpg">
-      <publishTime>07/27/2021 12:11:01</publishTime>
+      <publishTime>08/03/2021 12:43:52</publishTime>
     </File>
     <File Include="Resources/images/folder-icon.png">
       <publishTime>05/25/2021 19:29:15</publishTime>
@@ -462,7 +462,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/30/2021 23:59:24</publishTime>
     </File>
     <File Include="Resources/sql script update database/6.sql">
-      <publishTime>08/01/2021 12:12:19</publishTime>
+      <publishTime>08/03/2021 00:06:46</publishTime>
     </File>
     <File Include="Scripts/bootstrap.bundle.js">
       <publishTime>05/15/2021 20:50:34</publishTime>
@@ -1032,16 +1032,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/31/2021 16:27:35</publishTime>
     </File>
     <File Include="Views/Dealer/AddRequest.cshtml">
-      <publishTime>08/02/2021 22:19:54</publishTime>
+      <publishTime>08/04/2021 02:15:33</publishTime>
     </File>
     <File Include="Views/Dealer/Home.cshtml">
       <publishTime>05/25/2021 19:29:15</publishTime>
     </File>
     <File Include="Views/Dealer/ServiceDetail.cshtml">
-      <publishTime>08/02/2021 22:56:30</publishTime>
+      <publishTime>08/03/2021 23:50:39</publishTime>
     </File>
     <File Include="Views/Dealer/ServiceRequest.cshtml">
-      <publishTime>08/02/2021 22:30:52</publishTime>
+      <publishTime>08/04/2021 00:32:31</publishTime>
     </File>
     <File Include="Views/Dealer/ServiceRequest2.cshtml">
       <publishTime>07/27/2021 12:11:01</publishTime>
@@ -1059,7 +1059,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/15/2021 20:46:30</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>07/27/2021 12:11:01</publishTime>
+      <publishTime>08/03/2021 12:46:04</publishTime>
     </File>
     <File Include="Views/Staff/Chat.cshtml">
       <publishTime>07/27/2021 12:11:01</publishTime>
@@ -1080,13 +1080,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/19/2021 00:59:15</publishTime>
     </File>
     <File Include="Views/Staff/ServiceLog.cshtml">
-      <publishTime>08/02/2021 22:31:39</publishTime>
+      <publishTime>08/04/2021 03:40:43</publishTime>
     </File>
     <File Include="Views/Staff/SVC.cshtml">
       <publishTime>07/27/2021 12:11:01</publishTime>
     </File>
     <File Include="Views/Staff/UpdateJob.cshtml">
-      <publishTime>08/02/2021 23:50:00</publishTime>
+      <publishTime>08/04/2021 00:47:45</publishTime>
     </File>
     <File Include="Views/User/ChangePassword.cshtml">
       <publishTime>07/27/2021 12:11:02</publishTime>
@@ -1095,7 +1095,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/27/2021 12:11:02</publishTime>
     </File>
     <File Include="Views/User/Login.cshtml">
-      <publishTime>07/31/2021 14:39:41</publishTime>
+      <publishTime>08/03/2021 12:44:52</publishTime>
     </File>
     <File Include="Views/User/MenuPartial.cshtml">
       <publishTime>07/31/2021 15:07:23</publishTime>
@@ -1104,7 +1104,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/27/2021 12:11:02</publishTime>
     </File>
     <File Include="Views/User/PDPA.cshtml">
-      <publishTime>07/27/2021 12:11:02</publishTime>
+      <publishTime>08/03/2021 12:52:30</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>05/15/2021 20:46:30</publishTime>

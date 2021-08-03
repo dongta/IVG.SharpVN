@@ -3,10 +3,13 @@ using IVG.Web.Mvc.API.Models;
 using IVG.Web.Mvc.Common;
 using IVG.Web.Mvc.EF;
 using IVG.Web.Mvc.Models;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -100,13 +103,100 @@ namespace IVG.Web.Mvc.API
         }
 
         [HttpPost]
+        public System.Web.Mvc.FileContentResult ExportExcel1(GetRequestDto input)
+        {
+            try
+            {
+                var listJob = db.tbl_Cases.ToList();
+                ExcelPackage excel = new ExcelPackage();
+                var workSheet = excel.Workbook.Worksheets.Add("Sheet1");
+                workSheet.TabColor = System.Drawing.Color.Black;
+                workSheet.DefaultRowHeight = 12;
+                workSheet.Row(1).Height = 20;
+                workSheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                workSheet.Row(1).Style.Font.Bold = true;
+                workSheet.Cells[1, 1].Value = "S.No";
+                workSheet.Cells[1, 2].Value = "Id";
+                workSheet.Cells[1, 3].Value = "Name";
+                workSheet.Cells[1, 4].Value = "Address";
+                int recordIndex = 2;
+                foreach (var job in listJob)
+                {
+                    workSheet.Cells[recordIndex, 1].Value = (recordIndex - 1).ToString();
+                    workSheet.Cells[recordIndex, 2].Value = job.CaseCode;
+                    workSheet.Cells[recordIndex, 3].Value = job.SerialNo;
+                    workSheet.Cells[recordIndex, 4].Value = job.ApprovalDate;
+                    recordIndex++;
+                }
+                workSheet.Column(1).AutoFit();
+                workSheet.Column(2).AutoFit();
+                workSheet.Column(3).AutoFit();
+                workSheet.Column(4).AutoFit();
+
+                return new System.Web.Mvc.FileContentResult(excel.GetAsByteArray() , "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+
+            }
+            catch (Exception ex)
+            {
+                NLogManager.Logger.Error(ex);
+                throw;
+            }
+        }
+        [HttpPost]
+        public System.Web.Mvc.FileResult ExportExcel(GetRequestDto input)
+        {
+            try
+            {
+                var listJob = db.tbl_Cases.ToList();
+                var stream = new MemoryStream();
+                using (var excel = new ExcelPackage(stream))
+                {
+                    var workSheet = excel.Workbook.Worksheets.Add("Sheet1");
+                    workSheet.TabColor = System.Drawing.Color.Black;
+                    workSheet.DefaultRowHeight = 12;
+                    workSheet.Row(1).Height = 20;
+                    workSheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    workSheet.Row(1).Style.Font.Bold = true;
+                    workSheet.Cells[1, 1].Value = "S.No";
+                    workSheet.Cells[1, 2].Value = "Id";
+                    workSheet.Cells[1, 3].Value = "Name";
+                    workSheet.Cells[1, 4].Value = "Address";
+                    int recordIndex = 2;
+                    foreach (var job in listJob)
+                    {
+                        workSheet.Cells[recordIndex, 1].Value = (recordIndex - 1).ToString();
+                        workSheet.Cells[recordIndex, 2].Value = job.CaseCode;
+                        workSheet.Cells[recordIndex, 3].Value = job.SerialNo;
+                        workSheet.Cells[recordIndex, 4].Value = job.ApprovalDate;
+                        recordIndex++;
+                    }
+                    workSheet.Column(1).AutoFit();
+                    workSheet.Column(2).AutoFit();
+                    workSheet.Column(3).AutoFit();
+                    workSheet.Column(4).AutoFit();
+
+                    excel.Save();
+                }
+                string excelName = $"Job-Export-{DateTime.Now.ToString("dd-MM-yyyy")}";
+                stream.Position = 0;
+                return new System.Web.Mvc.FileStreamResult(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+
+            }
+            catch (Exception ex)
+            {
+                NLogManager.Logger.Error(ex);
+                throw;
+            }
+        }
+
+        [HttpPost]
         public object AssignJob(AssignJobDto input)
         {
             var userId = (HttpContext.Current.Session["user"] as tbl_Users)?.ID;
-           
+
             var job = db.tbl_Cases.FirstOrDefault(a => a.CaseID == input.Id);
             tbl_CasesRequest request = db.tbl_CasesRequest.FirstOrDefault(a => a.CaseID == input.Id);
-            
+
             if (job != null)
             {
                 job.ServiceCenterID = input.ServiceCenterId;
@@ -207,7 +297,7 @@ namespace IVG.Web.Mvc.API
 
             //var result = db.ExcuteStoreProcdureOrFunction<object>("p_AutoNumber_Generate @ServiceCenterID, @ObjectCode, @Year, @Month ", objParas.ToArray());
             var result = db.Database.ExecuteSqlCommand("exec p_AutoNumber_Generate @ServiceCenterID, @ObjectCode, @Year, @Month,@ServiceCenterCode =@ServiceCenterCode OUTPUT,@Number =@Number OUTPUT", objParas.ToArray());
-            return  new string[] { ServiceCenterCode.Value.ToString(), Number.Value.ToString() };
+            return new string[] { ServiceCenterCode.Value.ToString(), Number.Value.ToString() };
         }
     }
 }
