@@ -37,6 +37,25 @@
         $selector.val(dateTime);
     }
 
+
+    $.validator.addMethod("validateNgay",
+        function (value, element, params) {
+            console.log(`value`, value);
+            console.log(`param  `, params);
+            if (!value) {
+                return true;
+            }
+            if (!$(params).val() && new Date(value) <= new Date($("#currentDate").val())) {
+                return true;
+            } 
+            if (!/Invalid|NaN/.test(new Date(value))) {
+                return new Date(value) <= new Date($(params).val());
+            }
+
+            return isNaN(value) && isNaN($(params).val())
+                || (Number(value) <= Number($(params).val()));
+        }, 'Ngày không hợp lệ.');
+
     $("form[name='frmCaseRequest']").validate({
         rules: {
             diaChi: {
@@ -50,7 +69,13 @@
             phuongXa: 'required',
             sanPham: 'required',
             email: {
-                email:true
+                email: true
+            },
+            ngayMua: {
+                validateNgay: "#currentDate"
+            },
+            ngaySanXuat: {
+                validateNgay: "#ngayMua"
             }
         },
         messages: {
@@ -62,6 +87,12 @@
             quanHuyen: 'Vui lòng chọn Quận/huyện.',
             phuongXa: 'Vui lòng chọn Phường/xã.',
             sanPham: 'Vui lòng chọn sản phẩm.',
+            ngayMua: {
+                validateNgay: "Ngày mua không thể sau ngày hiện tại."
+            },
+            ngaySanXuat: {
+                validateNgay: "Ngày sản xuất không thể sau ngày mua hoặc ngày hiện tại."
+            }
         },
         submitHandler: function (form) {
             console.log(`form`, form);
@@ -83,9 +114,9 @@
                     $(`input[name="khachHangId"]`).val(res?.KhachHangId);
                     $(`input[name="id"]`).val(res?.Id);
                     if ($(`input[name="id"]`).val() == "00000000-0000-0000-0000-000000000000") {
-                        toastr.success("Successfully Created","Record Created",);
+                        toastr.success("Successfully Created", "Record Created",);
                     } else {
-                        toastr.success("Successfully Updated","Record Updated", );
+                        toastr.success("Successfully Updated", "Record Updated",);
                     }
                 },
                 error: (err) => {
@@ -97,6 +128,38 @@
     });
 
 
+    $(document).off(`change`, `select[name="sanPham"]`).on("change", `select[name="sanPham"]`, () => {
+        GetThongTinSanPham();
+    });
+    $(document).off(`change`, `input[name="ngayMua"]`).on("change", `input[name="ngayMua"]`, () => {
+        $(`input[name="ngaySanXuat"]`).valid();
+        GetThongTinSanPham();
+    });
+    function GetThongTinSanPham() {
+        var param = {
+            sanPhamId: $(`select[name="sanPham"]`).val(),
+            purchaseDate: $(`input[name="ngayMua"]`).valid() ? $(`input[name="ngayMua"]`).val():""
+        };
+        console.log(`param`, param);
+        $.ajax({
+            method: 'get',
+            cache: false,
+            url: '/api/CaseRequest/GetThongTinSanPham',
+            data: param,
+            dataType: 'json',
+            success: (res) => {
+                console.log(`data`, res);
+                $(`input[name="ngayHetBaoHanh"]`).val(res?.ngayHetHanBaoHanh);
+                $(`select[name="tinhTrangBaoHanh"]`).val(res?.conBaoHanh).trigger("change");
+                $(`select[name="hinhThucBaoHanh"]`).val(res?.loaiBaoHanh).trigger("change");
+            },
+            error: (err) => {
+                $(`input[name="ngayHetBaoHanh"]`).val("");
+                $(`select[name="tinhTrangBaoHanh"]`).val("");
+                $(`select[name="hinhThucBaoHanh"]`).val("");
+            }
+        });
+    };
     //name="ASC"
     $(document).off(`change`, `select[name="ASC"]`).on("change", `select[name="ASC"]`, () => {
         let ascId = $(`select[name="ASC"]`).val();

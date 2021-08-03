@@ -48,27 +48,27 @@ namespace IVG.Web.Mvc.Controllers
         {
             return View();
         }
-        public ActionResult UpdateJob(Guid? id)
+        public ActionResult UpdateJob(Guid id)
         {
             GetJobForStaffEditDto model = new GetJobForStaffEditDto();
             model.JobAndRequest = db.AllJobAndRequests.FirstOrDefault(a => a.CaseID == id);
             model.Tbl_Customers = db.tbl_Customers.FirstOrDefault(a => a.CustomerID == model.JobAndRequest.CustomerID);
             model.AllOptionSet = GetAllOptionSet(model.JobAndRequest?.ServiceCenterID, model.Tbl_Customers?.ProvinceID, model?.Tbl_Customers?.DistrictID);
 
-            var trạngTháiSửaChữa = db.tbl_OptionSetValues
-                            .Where(a => a.OptionSetID == (int)AppEnum.OptionSetId.RepairStatus).ToList();
-            var listValue = trạngTháiSửaChữa.Select(a => a.Value).ToList();
-            var trangThaiPhieu = db.tbl_OptionSetValues
-                .Where(a => a.OptionSetID == (int)AppEnum.OptionSetId.TransactionStatus && !listValue.Contains(a.Value)).ToList();
+            //var trạngTháiSửaChữa = db.tbl_OptionSetValues
+            //                .Where(a => a.OptionSetID == (int)AppEnum.OptionSetId.RepairStatus).ToList();
+            //var listValue = trạngTháiSửaChữa.Select(a => a.Value).ToList();
+            //var trangThaiPhieu = db.tbl_OptionSetValues
+            //    .Where(a => a.OptionSetID == (int)AppEnum.OptionSetId.TransactionStatus && !listValue.Contains(a.Value)).ToList();
 
-            model.AllOptionSet.TrangThaiJobCombobox = trạngTháiSửaChữa.Union(trangThaiPhieu).OrderBy(a => a.Value)
-                            .OrderBy(a => a.Value).Select(a => new DropdownItemDto
-                            {
-                                DisplayName = a.Text,
-                                Id = a.Value.ToString(),
-                                Name = a.Text,
-                                LookupId = a.OptionSetID.ToString()
-                            }).ToList();
+            //model.AllOptionSet.TrangThaiJobCombobox = trạngTháiSửaChữa.Union(trangThaiPhieu).OrderBy(a => a.Value)
+            //                .OrderBy(a => a.Value).Select(a => new DropdownItemDto
+            //                {
+            //                    DisplayName = a.Text,
+            //                    Id = a.Value.ToString(),
+            //                    Name = a.Text,
+            //                    LookupId = a.OptionSetID.ToString()
+            //                }).ToList();
 
             return View(model);
         }
@@ -92,14 +92,14 @@ namespace IVG.Web.Mvc.Controllers
             optionObject.AscCombobox = db.tbl_ServiceCenters.OrderBy(a => a.Name).Select(a => new DropdownItemDto
             {
                 Id = a.ServiceCenterID.ToString(),
-                DisplayName = a.Name,
+                DisplayName = a.Code + " - " + a.Name,
             }).ToList();
             //Kỹ thuật viên
             optionObject.TechCombobox = AscId.HasValue ? db.tbl_TechnicalStaffs.Where(a => a.ServiceCenterID == AscId).OrderBy(a => a.Name).Select(a => new DropdownItemDto
             {
                 Id = a.TechnicalStaffID.ToString(),
                 LookupId = a.ServiceCenterID.ToString(),
-                DisplayName = a.Name,
+                DisplayName = a.Code + " - " + a.Name,
             }).ToList() : new List<DropdownItemDto>();
             optionObject.TrangThaiPhieuCombobox = db.tbl_OptionSetValues.Where(a => a.OptionSetID == (int)AppEnum.OptionSetId.TransactionStatus).OrderBy(a => a.Value).Select(a => new DropdownItemDto
             {
@@ -126,7 +126,7 @@ namespace IVG.Web.Mvc.Controllers
                 Id = a.DefectCodeID.ToString(),
                 DisplayName = a.Description + " | " + a.DescriptionVN
             }).ToList();
-            optionObject.CancelReasonCombobox = db.tbl_CancelReason.OrderBy(a=>a.Reason).Select(a => new DropdownItemDto
+            optionObject.CancelReasonCombobox = db.tbl_CancelReason.OrderBy(a => a.Reason).Select(a => new DropdownItemDto
             {
                 Id = a.Id.ToString(),
                 DisplayName = a.Reason
@@ -160,6 +160,11 @@ namespace IVG.Web.Mvc.Controllers
                     Selected = a.ID == uid ? true : false
                 }).ToList();
             }
+            optionObject.TrangThaiJobCombobox = db.v_RepairStatus.Select(a => new DropdownItemDto
+            {
+                Id = a.Value.ToString(),
+                DisplayName = a.Text,
+            }).OrderBy(a=>a.Id).ToList();
             return optionObject;
         }
     }

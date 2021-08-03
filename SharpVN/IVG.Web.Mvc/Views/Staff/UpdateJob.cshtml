@@ -63,7 +63,7 @@
                     </div>
                     <div class="col-sm-2">
                         <label class="text-warning trangThaiSuaChuaText">
-                            @Html.Raw(Model.AllOptionSet.TrangThaiPhieuCombobox.FirstOrDefault(a => int.Parse(a.Id) == (Model.JobAndRequest.RepairStatus ?? 1))?.DisplayName)
+                            @Html.Raw(Model.AllOptionSet.TrangThaiJobCombobox.FirstOrDefault(a => int.Parse(a.Id) == (Model.JobAndRequest.RepairStatus ?? 1))?.DisplayName)
                         </label>
                     </div>
                 </div>

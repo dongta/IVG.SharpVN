@@ -41,7 +41,9 @@ namespace IVG.Web.Mvc.EF
         public string SerialNo { get; set; }
 
         public DateTime? BoughtDate { get; set; }
-
+        public DateTime? PurchaseDate { get; set; }
+        public DateTime? ConvertOn { get; set; }
+        public Guid? ConvertBy { get; set; }
         public DateTime? EndDate { get; set; }
 
         [StringLength(250)]

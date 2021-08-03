@@ -33,6 +33,7 @@ namespace IVG.Web.Mvc.API
                 if (!string.IsNullOrEmpty(input?.FilterText))
                 {
                     query = query.Where(a => a.CaseCode.Contains(input.FilterText)
+                                          || a.RequestCode.Contains(input.FilterText)
                                           || a.SerialNo.Contains(input.FilterText)
                                           || a.ReferenceCode.Contains(input.FilterText)
                                           || a.CustomerName.Contains(input.FilterText)
@@ -44,9 +45,9 @@ namespace IVG.Web.Mvc.API
                 {
                     query = query.Where(a => a.CaseCode.Contains(input.Ma));
                 }
-                if (!string.IsNullOrEmpty(input?.MaThamChieu))
+                if (!string.IsNullOrEmpty(input?.RequestCode))
                 {
-                    query = query.Where(a => a.ReferenceCode.Contains(input.MaThamChieu));
+                    query = query.Where(a => a.RequestCode.Contains(input.RequestCode));
                 }
                 if (!string.IsNullOrEmpty(input?.SanPham))
                 {
@@ -145,8 +146,6 @@ namespace IVG.Web.Mvc.API
                     CreatedOn = DateTime.Now,
                     ModifiedBy = userId,
                     ModifiedOn = DateTime.Now,
-                    
-
                 };
                 db.tbl_Cases.Add(job);
                 db.SaveChanges();

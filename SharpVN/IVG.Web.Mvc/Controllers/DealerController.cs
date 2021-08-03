@@ -51,12 +51,13 @@ namespace IVG.Web.Mvc.Controllers
             GetRequestForCreateOrEditDto createOrEditRequest = new GetRequestForCreateOrEditDto();
             if (id.HasValue)
             {
-                createOrEditRequest.Tbl_CasesRequest = db.tbl_CasesRequest.FirstOrDefault(a => a.CaseID == id);
-                createOrEditRequest.Tbl_Customers = db.tbl_Customers.FirstOrDefault(a => a.CustomerID == createOrEditRequest.Tbl_CasesRequest.CustomerID);
-                createOrEditRequest.NoEdit = (createOrEditRequest.Tbl_CasesRequest.Status == (int)AppEnum.TrangThaiPhieuYeuCau.DaHoanThanh
-                                             || createOrEditRequest.Tbl_CasesRequest.Status == (int)AppEnum.TrangThaiPhieuYeuCau.DaHuy) ? true : false;
+                //createOrEditRequest.Tbl_CasesRequest = db.tbl_CasesRequest.FirstOrDefault(a => a.CaseID == id);
+                createOrEditRequest.RequestOrJob = db.AllJobAndRequests.FirstOrDefault(a => a.CaseID == id);
+                createOrEditRequest.Tbl_Customers = db.tbl_Customers.FirstOrDefault(a => a.CustomerID == createOrEditRequest.RequestOrJob.CustomerID);
+                createOrEditRequest.NoEdit = (createOrEditRequest.RequestOrJob.RepairStatus == (int)AppEnum.TrangThaiPhieuYeuCau.DaHoanThanh
+                                             || createOrEditRequest.RequestOrJob.RepairStatus == (int)AppEnum.TrangThaiPhieuYeuCau.DaHuy) ? true : false;
             }
-            createOrEditRequest.AllOptionSet = GetAllOptionSet(createOrEditRequest.Tbl_CasesRequest.ServiceCenterID, createOrEditRequest.Tbl_CasesRequest.ProvinceID, createOrEditRequest.Tbl_CasesRequest.DistrictID);
+            createOrEditRequest.AllOptionSet = GetAllOptionSet(createOrEditRequest.RequestOrJob.ServiceCenterID, createOrEditRequest.Tbl_Customers?.ProvinceID, createOrEditRequest.Tbl_Customers?.DistrictID);
 
 
             return View(createOrEditRequest);
@@ -143,6 +144,11 @@ namespace IVG.Web.Mvc.Controllers
                     Selected = a.ID == uid ? true : false
                 }).ToList();
             }
+            optionObject.CancelReasonCombobox= db.tbl_CancelReason.Select(a => new DropdownItemDto
+            {
+                Id = a.Id.ToString(),
+                DisplayName = a.Reason,
+            }).ToList();
             return optionObject;
         }
         [HttpPost]
@@ -179,12 +185,13 @@ namespace IVG.Web.Mvc.Controllers
             GetRequestForCreateOrEditDto createOrEditRequest = new GetRequestForCreateOrEditDto();
             if (id.HasValue)
             {
-                createOrEditRequest.Tbl_CasesRequest = db.tbl_CasesRequest.FirstOrDefault(a => a.CaseID == id);
-                createOrEditRequest.Tbl_Customers = db.tbl_Customers.FirstOrDefault(a => a.CustomerID == createOrEditRequest.Tbl_CasesRequest.CustomerID);
-                createOrEditRequest.NoEdit = ((createOrEditRequest.Tbl_CasesRequest.Status ?? 1) > (int)AppEnum.RepairStatus.ChuaXuLy) ? true : false;
+                //createOrEditRequest.Tbl_CasesRequest = db.tbl_CasesRequest.FirstOrDefault(a => a.CaseID == id);
+                createOrEditRequest.RequestOrJob = db.AllJobAndRequests.FirstOrDefault(a => a.CaseID == id);
+                createOrEditRequest.Tbl_Customers = db.tbl_Customers.FirstOrDefault(a => a.CustomerID == createOrEditRequest.RequestOrJob.CustomerID);
+                createOrEditRequest.NoEdit = (createOrEditRequest.RequestOrJob.RepairStatus == (int)AppEnum.TrangThaiPhieuYeuCau.DaHoanThanh
+                                             || createOrEditRequest.RequestOrJob.RepairStatus == (int)AppEnum.TrangThaiPhieuYeuCau.DaHuy) ? true : false;
             }
-            createOrEditRequest.AllOptionSet = GetAllOptionSet(createOrEditRequest.Tbl_CasesRequest.ServiceCenterID, createOrEditRequest.Tbl_CasesRequest.ProvinceID, createOrEditRequest.Tbl_CasesRequest.DistrictID);
-
+            createOrEditRequest.AllOptionSet = GetAllOptionSet(createOrEditRequest.RequestOrJob.ServiceCenterID, createOrEditRequest.Tbl_Customers?.ProvinceID, createOrEditRequest.Tbl_Customers?.DistrictID);
 
             return View(createOrEditRequest);
         }

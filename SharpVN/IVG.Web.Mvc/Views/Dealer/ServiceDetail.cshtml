@@ -14,7 +14,7 @@
         <a href="#"> Request detail</a>
     </div>
     <div class="col-sm-2 btn-group" style="padding-right:0 !important;padding-top:2px !important">
-        <a class="btn btn-sm btn-primary" href="@Html.Raw($"/dealer/addrequest?id={Model.Tbl_CasesRequest.CaseID}")"><i class="fa fa-edit"> Edit </i></a>
+        <a class="btn btn-sm btn-primary" href="@Html.Raw($"/dealer/addrequest?id={Model.RequestOrJob.CaseID}")"><i class="fa fa-edit"> Edit </i></a>
         <a class="btn btn-sm btn-danger" href="/dealer/ServiceRequest"><i class="fa fa-edit"> Back </i></a>
     </div>
 </div>
@@ -34,20 +34,20 @@
                         <label>Mã sự vụ:</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>@Model.Tbl_CasesRequest.Code</span>
+                        <span>@Model.RequestOrJob.CaseCode</span>
                     </div>
                     <div class="col-sm-2">
                         <label>Mã phiếu yêu cầu :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>@Model.Tbl_CasesRequest.RequestCode</span>
+                        <span>@Model.RequestOrJob.RequestCode</span>
                     </div>
                     <div class="col-sm-2">
                         <label>Trạng thái :</label>
                     </div>
                     <div class="col-sm-2">
                         <label class="text-warning">
-                            @Html.Raw(Model.AllOptionSet.TrangThaiPhieuCombobox.FirstOrDefault(a => int.Parse(a.Id) == (Model.Tbl_CasesRequest.Status ?? 1))?.DisplayName)
+                            @Html.Raw(Model.AllOptionSet.TrangThaiPhieuCombobox.FirstOrDefault(a => int.Parse(a.Id) == (Model.RequestOrJob.RepairStatus ?? 1))?.DisplayName)
                         </label>
                     </div>
                 </div>
@@ -57,20 +57,20 @@
                     </div>
                     <div class="col-sm-2">
                         <label>
-                            @Html.Raw(Model.AllOptionSet.UserCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_CasesRequest.CreatedBy)?.DisplayName)
+                            @Html.Raw(Model.AllOptionSet.UserCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.RequestOrJob.CreatedBy)?.DisplayName)
                         </label>
                     </div>
                     <div class="col-sm-2">
                         <label>Ngày tạo :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>@Html.Raw(Model.Tbl_CasesRequest.CreatedOn?.ToString("dd-MM-yyyy HH:mm"))</label>
+                        <label>@Html.Raw(Model.RequestOrJob.CreatedOn?.ToString("dd-MM-yyyy HH:mm"))</label>
                     </div>
                     <div class="col-sm-2">
                         <label>Người tiếp nhận :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>@Model.Tbl_CasesRequest.ReceivedBy</label>
+                        <label>@Html.Raw(Model.RequestOrJob.ReceivedBy)</label>
                     </div>
                 </div>
                 <div class="row">
@@ -79,20 +79,20 @@
                     </div>
                     <div class="col-sm-2">
                         <label>
-                            @Html.Raw(Model.AllOptionSet.HienTuongCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_CasesRequest.DefectID)?.DisplayName)
+                            @Html.Raw(Model.AllOptionSet.HienTuongCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.RequestOrJob.DefectCodeID)?.DisplayName)
                         </label>
                     </div>
                     <div class="col-sm-2">
                         <label>Diễn giải :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>@Model.Tbl_CasesRequest.Description</label>
+                        <label>@Model.RequestOrJob.Description</label>
                     </div>
                     <div class="col-sm-2">
                         <label>Ghi chú :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>@Model.Tbl_CasesRequest.SVNDescript</label>
+                        <label>@Model.RequestOrJob.Description1</label>
                     </div>
                 </div>
             </div>
@@ -113,19 +113,19 @@
                         <label>Mã|Tên sản phẩm :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>@Html.Raw(Model.AllOptionSet.ProductCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_CasesRequest.ModelID)?.DisplayName)</span>
+                        <span>@Html.Raw(Model.AllOptionSet.ProductCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.RequestOrJob.ModelID)?.DisplayName)</span>
                     </div>
                     <div class="col-sm-2">
                         <label>Số serial :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>@Model.Tbl_CasesRequest.SerialNo</span>
+                        <span>@Model.RequestOrJob.SerialNo</span>
                     </div>
                     <div class="col-sm-2">
                         <label>Ngày mua :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>@Html.Raw(Model.Tbl_CasesRequest.PurchaseDate?.ToString("dd-MM-yyyy"))</label>
+                        <label>@Html.Raw(Model.RequestOrJob.PurchaseDate?.ToString("dd-MM-yyyy"))</label>
                     </div>
                 </div>
                 <div class="row">
@@ -134,7 +134,7 @@
                     </div>
                     <div class="col-sm-2">
                         <span>
-                            @Html.Raw(Model.Tbl_CasesRequest.MadeDate?.ToString("dd-MM-yyyy"))
+                            @Html.Raw(Model.RequestOrJob.MadeDate?.ToString("dd-MM-yyyy"))
                         </span>
                     </div>
                     <div class="col-sm-2">
@@ -142,7 +142,7 @@
                     </div>
                     <div class="col-sm-2">
                         <span>
-                            @Html.Raw(Model.Tbl_CasesRequest.EndDate?.ToString("dd-MM-yyyy"))
+                            @Html.Raw(Model.RequestOrJob.EndDate?.ToString("dd-MM-yyyy"))
                         </span>
                     </div>
                     <div class="col-sm-2">
@@ -150,7 +150,7 @@
                     </div>
                     <div class="col-sm-2">
                         <span>
-                            @Html.Raw(Model.AllOptionSet.TrangThaiBaoHanhCombobox.FirstOrDefault(a => int.Parse(a.Id) == Model.Tbl_CasesRequest.WarrantyStatus)?.DisplayName)
+                            @Html.Raw(Model.AllOptionSet.TrangThaiBaoHanhCombobox.FirstOrDefault(a => int.Parse(a.Id) == Model.RequestOrJob.WarrantyStatus)?.DisplayName)
                         </span>
                     </div>
                 </div>
@@ -248,7 +248,7 @@
                     </div>
                     <div class="col-sm-2">
                         <span>
-                            @Html.Raw(Model.AllOptionSet.AscCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_CasesRequest.ServiceCenterID)?.DisplayName)
+                            @Html.Raw(Model.AllOptionSet.AscCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.RequestOrJob.ServiceCenterID)?.DisplayName)
                         </span>
                     </div>
                     <div class="col-sm-2">
@@ -256,14 +256,14 @@
                     </div>
                     <div class="col-sm-2">
                         <span>
-                            @Html.Raw(Model.AllOptionSet.TechCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_CasesRequest.TechnicalStaffID)?.DisplayName)
+                            @Html.Raw(Model.AllOptionSet.TechCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.RequestOrJob.TechnicalStaffID)?.DisplayName)
                         </span>
                     </div>
                     <div class="col-sm-2">
                         <label>Ghi chú kỹ thuật viên :</label>
                     </div>
                     <div class="col-sm-2">
-                        <label>@Model.Tbl_CasesRequest.SVNDescript</label>
+                        <label>@Model.RequestOrJob.Description1</label>
                     </div>
                 </div>
                 <div class="row">
@@ -272,14 +272,16 @@
                     </div>
                     <div class="col-sm-2">
                         <span>
-                            @Html.Raw(Model.AllOptionSet.TechCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.Tbl_CasesRequest.ModifiedBy)?.DisplayName)
+                            @Html.Raw(Model.AllOptionSet.TechCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.RequestOrJob.ModifiedBy)?.DisplayName)
                         </span>
                     </div>
                     <div class="col-sm-2">
                         <label>Lý do hủy :</label>
                     </div>
                     <div class="col-sm-2">
-                        <span>@Model.Tbl_CasesRequest.RejectReason</span>
+                        <span>
+                            @Html.Raw(Model.AllOptionSet.CancelReasonCombobox.FirstOrDefault(a => Guid.Parse(a.Id) == Model.RequestOrJob.CancelReasonId)?.DisplayName)
+                        </span>
                     </div>
                 </div>
             </div>

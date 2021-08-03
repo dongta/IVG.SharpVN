@@ -9,6 +9,7 @@ namespace IVG.Web.Mvc.API.Models
     {
         public string FilterText { get; set; }
         public string Ma { get; set; }
+        public string RequestCode { get; set; }
         public string MaThamChieu { get; set; }
         public string SoSerial { get; set; }
         public string TenKhachHang { get; set; }

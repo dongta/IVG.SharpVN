@@ -23,30 +23,37 @@ else
     <div class="">
         <a href="/"><i class="fa fa-home"></i> Home </a>  >
         <a href="/dealer/servicerequest"> Service request</a> >
-        <a href="#"> @Html.Raw(Model.Tbl_CasesRequest.CaseID == Guid.Empty ? " Add New Record" : "Edit Record")</a>
+        <a href="#"> @Html.Raw(Model.RequestOrJob.CaseID == Guid.Empty ? " Add New Record" : "Edit Record")</a>
     </div>
 </div>
 <form name="frmCaseRequest">
-    <input type="text" name="id" style="display:none" value="@Model.Tbl_CasesRequest.CaseID" />
+    <input type="text" name="id" style="display:none" value="@Model.RequestOrJob.CaseID" />
     <div class="row" style="padding:0 !important; display:flex">
 
         <div class="col-sm-3">
             <div class="col-sm-12">
                 <label>Mã phiếu yêu cầu</label>
-                <input name="requestCode" value="@Model.Tbl_CasesRequest.RequestCode" placeholder="Mã sinh tự động" type="text" class="form-control form-control-sm" disabled />
+                <input name="requestCode" value="@Model.RequestOrJob.RequestCode" placeholder="Mã sinh tự động" type="text" class="form-control form-control-sm" disabled />
             </div>
             <div class="col-sm-12">
                 <label>Mã Sự vụ</label>
-                <input name="code" value="@Model.Tbl_CasesRequest.Code" placeholder="Mã sinh khi chuyển thành sự vụ" type="text" class="form-control form-control-sm" disabled />
+                <input name="code" value="@Model.RequestOrJob.CaseCode" placeholder="Mã sinh khi chuyển thành sự vụ" type="text" class="form-control form-control-sm" disabled />
             </div>
 
             <div class="col-sm-12">
                 <label>Người tiếp nhận</label>
-                <input name="nguoiTiepNhan" value="@Model.Tbl_CasesRequest.ReceivedBy" placeholder="Nhập người tiếp nhận" type="text" class="form-control form-control-sm" />
+                @if (Model.RequestOrJob.CaseID == Guid.Empty)
+                {
+                    <input name="nguoiTiepNhan" value="@Html.Raw(Model.AllOptionSet.UserCombobox.FirstOrDefault(x => x.Selected)?.DisplayName)" placeholder="Nhập người tiếp nhận" type="text" class="form-control form-control-sm" />
+                }
+                else
+                {
+                    <input name="nguoiTiepNhan" value="@Model.RequestOrJob.ReceivedBy" placeholder="Nhập người tiếp nhận" type="text" class="form-control form-control-sm" />
+                }
             </div>
             <div class="col-sm-12">
                 <label>Ngày tiếp nhận</label>
-                <input name="ngayTiepNhan" value="@Html.Raw(Model.Tbl_CasesRequest.ReceivedDate?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" />
+                <input name="ngayTiepNhan" value="@Html.Raw(Model.RequestOrJob.ReceivedDate?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" />
             </div>
             <div class="col-sm-12" style="display:none">
                 <label>ASC</label>
@@ -54,7 +61,7 @@ else
                     <option value="">Chọn ASC</option>
                     @foreach (var item in Model.AllOptionSet.AscCombobox)
                     {
-                        <option value="@item.Id" @Html.Raw((Model.Tbl_CasesRequest?.ServiceCenterID == Guid.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
+                        <option value="@item.Id" @Html.Raw((Model.RequestOrJob?.ServiceCenterID == Guid.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
                     }
                 </select>
             </div>
@@ -64,13 +71,13 @@ else
                     <option value="">Chọn kỹ thuật viên</option>
                     @foreach (var item in Model.AllOptionSet.TechCombobox)
                     {
-                        <option value="@item.Id" @Html.Raw((Model.Tbl_CasesRequest?.TechnicalStaffID == Guid.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
+                        <option value="@item.Id" @Html.Raw((Model.RequestOrJob?.TechnicalStaffID == Guid.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
                     }
                 </select>
             </div>
             <div class="col-sm-12" style="display:none">
                 <label>Ngày KTV kiểm tra</label>
-                <input name="ngayKtvKiemTra" value="@Html.Raw(Model.Tbl_CasesRequest.TechnicalCheckedOn?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" />
+                <input name="ngayKtvKiemTra" value="@Html.Raw(Model.RequestOrJob.TechnicalCheckedOn?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" />
             </div>
             <div class="col-sm-12">
                 <label>Trạng thái</label>
@@ -78,7 +85,7 @@ else
                     @*<option value="">Chọn Trạng thái</option>*@
                     @foreach (var item in Model.AllOptionSet.TrangThaiPhieuCombobox)
                     {
-                        <option value="@item.Id" @Html.Raw((Model.Tbl_CasesRequest?.Status == int.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
+                        <option value="@item.Id" @Html.Raw((Model.RequestOrJob?.RepairStatus == int.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
                     }
                 </select>
             </div>
@@ -88,9 +95,9 @@ else
                     <option value="">Chọn người tạo</option>
                     @foreach (var item in Model.AllOptionSet.UserCombobox)
                     {
-                        if (Model.Tbl_CasesRequest.CreatedBy.HasValue)
+                        if (Model.RequestOrJob.CreatedBy.HasValue)
                         {
-                            <option value="@item.Id" @Html.Raw((Model.Tbl_CasesRequest?.CreatedBy == Guid.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
+                            <option value="@item.Id" @Html.Raw((Model.RequestOrJob?.CreatedBy == Guid.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
                         }
                         else
                         {
@@ -101,7 +108,7 @@ else
             </div>
             <div class="col-sm-12">
                 <label>Ngày tạo</label>
-                <input name="ngayTaoPhieu" value="@Html.Raw(Model.Tbl_CasesRequest.ReceivedDate?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" disabled />
+                <input name="ngayTaoPhieu" value="@Html.Raw(Model.RequestOrJob.ReceivedDate?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" disabled />
             </div>
         </div>
         <div class="col-sm-3">
@@ -111,25 +118,26 @@ else
                     <option value="">Chọn sản phẩm</option>
                     @foreach (var item in Model.AllOptionSet.ProductCombobox)
                     {
-                        <option value="@item.Id" @Html.Raw((Model.Tbl_CasesRequest?.ModelID == Guid.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
+                        <option value="@item.Id" @Html.Raw((Model.RequestOrJob?.ModelID == Guid.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
                     }
                 </select>
             </div>
             <div class="col-sm-12">
                 <label>Serial No</label>
-                <input name="serialNo" value="@Html.Raw(Model.Tbl_CasesRequest.SerialNo)" type="text" class="form-control form-control-sm" />
+                <input name="serialNo" value="@Html.Raw(Model.RequestOrJob.SerialNo)" type="text" class="form-control form-control-sm" />
             </div>
             <div class="col-sm-12">
                 <label>Ngày sản xuất</label>
-                <input name="ngaySanXuat" value="@Html.Raw(Model.Tbl_CasesRequest.MadeDate?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" />
+                <input name="ngaySanXuat" value="@Html.Raw(Model.RequestOrJob.MadeDate?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" />
             </div>
             <div class="col-sm-12">
                 <label>Ngày mua</label>
-                <input name="ngayMua" value="@Html.Raw(Model.Tbl_CasesRequest.PurchaseDate?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" />
+                <input name="ngayMua" id="ngayMua" value="@Html.Raw(Model.RequestOrJob.PurchaseDate?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" />
+                <input id="currentDate" value="@Html.Raw(DateTime.Now.ToString("yyyy-MM-dd"))" type="date" style="display:none; width:0; height:0;" />
             </div>
             <div class="col-sm-12">
                 <label>Ngày hết bảo hành</label>
-                <input name="ngayHetBaoHanh" value="@Html.Raw(Model.Tbl_CasesRequest.EndDate?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" />
+                <input name="ngayHetBaoHanh" value="@Html.Raw(Model.RequestOrJob.EndDate?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" />
             </div>
             <div class="col-sm-12">
                 <label>Tình trạng bảo hành</label>
@@ -137,7 +145,7 @@ else
                     <option value="">Chọn tình trạng bảo hành</option>
                     @foreach (var item in Model.AllOptionSet.TrangThaiBaoHanhCombobox)
                     {
-                        <option value="@item.Id" @Html.Raw((Model.Tbl_CasesRequest?.WarrantyStatus == int.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
+                        <option value="@item.Id" @Html.Raw((Model.RequestOrJob?.WarrantyStatus == int.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
                     }
                 </select>
             </div>
@@ -147,7 +155,7 @@ else
                     <option value="">Chọn phương thức bảo hành</option>
                     @foreach (var item in Model.AllOptionSet.HinhThucBaoHanhCombobox)
                     {
-                        <option value="@item.Id" @Html.Raw((Model.Tbl_CasesRequest?.WarrantyType == int.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
+                        <option value="@item.Id" @Html.Raw((Model.RequestOrJob?.WarrantyType == int.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
                     }
                 </select>
             </div>
@@ -157,7 +165,7 @@ else
                     <option value="">Chọn hiện tượng</option>
                     @foreach (var item in Model.AllOptionSet.HienTuongCombobox)
                     {
-                        <option value="@item.Id" @Html.Raw((Model.Tbl_CasesRequest?.DefectID == Guid.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
+                        <option value="@item.Id" @Html.Raw((Model.RequestOrJob?.DefectCodeID == Guid.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
                     }
                 </select>
             </div>
@@ -166,7 +174,7 @@ else
         <div class="col-sm-3">
             <div class="col-sm-12">
                 <label>Tên khách hàng <span class="text-danger">*</span></label>
-                <input name="khachHangId" type="text" value="@Model.Tbl_CasesRequest.CustomerID" style="display:none" />
+                <input name="khachHangId" type="text" value="@Model.RequestOrJob.CustomerID" style="display:none" />
                 <input name="tenKhachHang" value="@Html.Raw(Model.Tbl_Customers.Name)" placeholder="Nhập tên khách hàng" type="text" class="form-control form-control-sm" />
             </div>
             <div class="col-sm-12">
@@ -191,27 +199,27 @@ else
                     <option value="">Chọn tỉnh/thành phố</option>
                     @foreach (var item in Model.AllOptionSet.TinhThanhPhoCombobox)
                     {
-                        <option value="@item.Id" @Html.Raw((Model.Tbl_CasesRequest?.ProvinceID == Guid.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
+                        <option value="@item.Id" @Html.Raw((Model.Tbl_Customers?.ProvinceID == Guid.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
                     }
                 </select>
             </div>
             <div class="col-sm-12">
                 <label>Quận Huyện <span class="text-danger">*</span></label>
-                <select name="quanHuyen" class="form-control form-control-sm" @Html.Raw((Model.Tbl_CasesRequest.ProvinceID.HasValue) ? "" : "disabled")>
+                <select name="quanHuyen" class="form-control form-control-sm" @Html.Raw((Model.Tbl_Customers.ProvinceID.HasValue) ? "" : "disabled")>
                     <option value="">Chọn quận/huyện</option>
                     @foreach (var item in Model.AllOptionSet.QuanHuyenCombobox)
                     {
-                        <option value="@item.Id" @Html.Raw((Model.Tbl_CasesRequest?.DistrictID == Guid.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
+                        <option value="@item.Id" @Html.Raw((Model.Tbl_Customers?.DistrictID == Guid.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
                     }
                 </select>
             </div>
             <div class="col-sm-12">
                 <label>Phường/Xã <span class="text-danger">*</span></label>
-                <select name="phuongXa" class="form-control form-control-sm" @Html.Raw((Model.Tbl_CasesRequest.DistrictID.HasValue) ? "" : "disabled")>
+                <select name="phuongXa" class="form-control form-control-sm" @Html.Raw((Model.Tbl_Customers.DistrictID.HasValue) ? "" : "disabled")>
                     <option value="">Chọn phường/xã</option>
                     @foreach (var item in Model.AllOptionSet.PhuongXaCombobox)
                     {
-                        <option value="@item.Id" @Html.Raw((Model.Tbl_CasesRequest?.WardsID == Guid.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
+                        <option value="@item.Id" @Html.Raw((Model.Tbl_Customers?.WardID == Guid.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
                     }
                 </select>
             </div>
@@ -219,18 +227,18 @@ else
         <div class="col-sm-3">
             <div class="col-sm-12">
                 <label>Diễn giải</label>
-                <textarea name="dienGiai" placeholder="Nhập nội dung diễn giải, ghi chú..." type="text" style="height:90px;resize:none" class="form-control form-control-sm">@Html.Raw(Model.Tbl_CasesRequest.Description)</textarea>
+                <textarea name="dienGiai" placeholder="Nhập nội dung diễn giải, ghi chú..." type="text" style="height:90px;resize:none" class="form-control form-control-sm">@Html.Raw(Model.RequestOrJob.Description)</textarea>
             </div>
-            
+
             <div class="col-sm-12">
                 <label>Người Sửa</label>
                 <select name="nguoiSuaPhieu" class="form-control form-control-sm" disabled>
                     <option value="">Chọn người sửa</option>
                     @foreach (var item in Model.AllOptionSet.UserCombobox)
                     {
-                        if (Model.Tbl_CasesRequest.ModifiedBy.HasValue)
+                        if (Model.RequestOrJob.ModifiedBy.HasValue)
                         {
-                            <option value="@item.Id" @Html.Raw((Model.Tbl_CasesRequest?.ModifiedBy == Guid.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
+                            <option value="@item.Id" @Html.Raw((Model.RequestOrJob?.ModifiedBy == Guid.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
                         }
                         else
                         {
@@ -241,7 +249,7 @@ else
             </div>
             <div class="col-sm-12">
                 <label>Ngày sửa</label>
-                <input name="ngaySuaPhieu" value="@Html.Raw(Model.Tbl_CasesRequest.ModifiedOn?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" disabled />
+                <input name="ngaySuaPhieu" value="@Html.Raw(Model.RequestOrJob.ModifiedOn?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" disabled />
             </div>
             <div class="col-sm-12">
                 <label>Người chuyển thành sự vụ</label>
@@ -249,9 +257,9 @@ else
                     <option value="">Chọn người chuyển thành sự vụ</option>
                     @foreach (var item in Model.AllOptionSet.UserCombobox)
                     {
-                        if (Model.Tbl_CasesRequest.ConvertBy.HasValue)
+                        if (Model.RequestOrJob.ConvertBy.HasValue)
                         {
-                            <option value="@item.Id" @Html.Raw((Model.Tbl_CasesRequest?.ConvertBy == Guid.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
+                            <option value="@item.Id" @Html.Raw((Model.RequestOrJob?.ConvertBy == Guid.Parse(item.Id)) ? "selected" : "")>@item.DisplayName</option>
                         }
                         else
                         {
@@ -262,7 +270,7 @@ else
             </div>
             <div class="col-sm-12">
                 <label>Ngày chuyển thành sự vụ</label>
-                <input name="ngayChuyenThanhSuVu" value="@Html.Raw(Model.Tbl_CasesRequest.ConvertOn?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" disabled />
+                <input name="ngayChuyenThanhSuVu" value="@Html.Raw(Model.RequestOrJob.ConvertOn?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" disabled />
             </div>
         </div>
 
@@ -270,13 +278,13 @@ else
     <div class="container" style="padding-top:10px;">
         <div class="btn-group">
             <button name="save" type="submit" class="btn btn-sm btn-primary"> <i class="fa fa-save"> Save</i></button>
-            @if (Model.Tbl_CasesRequest.CaseID == Guid.Empty)
+            @if (Model.RequestOrJob.CaseID == Guid.Empty)
             {
                 <a href="/dealer/servicerequest" class="btn btn-sm btn-danger"> <i class="fa fa-close"> Cancel</i></a>
             }
             else
             {
-                <a href="@Html.Raw($"/dealer/servicedetail?id={Model.Tbl_CasesRequest.CaseID}")" class="btn btn-sm btn-danger"> <i class="fa fa-close"> Cancel</i></a>
+                <a href="@Html.Raw($"/dealer/servicedetail?id={Model.RequestOrJob.CaseID}")" class="btn btn-sm btn-danger"> <i class="fa fa-close"> Cancel</i></a>
             }
         </div>
     </div>

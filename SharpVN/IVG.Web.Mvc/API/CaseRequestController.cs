@@ -28,6 +28,7 @@ namespace IVG.Web.Mvc.API
                 if (!string.IsNullOrEmpty(input?.FilterText))
                 {
                     query = query.Where(a => a.MaPhieu.Contains(input.FilterText)
+                                          || a.MaSuVu.Contains(input.FilterText)
                                           || a.SoSerial.Contains(input.FilterText)
                                           || a.TenKhachHang.Contains(input.FilterText)
                                           || a.SoDienThoai.Contains(input.FilterText)
@@ -37,8 +38,14 @@ namespace IVG.Web.Mvc.API
                 }
                 if (!string.IsNullOrEmpty(input?.Ma))
                 {
-                    query = query.Where(a => a.MaPhieu.Contains(input.Ma));
+                    query = query.Where(a => a.MaSuVu.Contains(input.Ma));
                 }
+
+                if (!string.IsNullOrEmpty(input?.RequestCode))
+                {
+                    query = query.Where(a => a.MaPhieu.Contains(input.RequestCode));
+                }
+
                 if (!string.IsNullOrEmpty(input?.MaThamChieu))
                 {
                     query = query.Where(a => a.MaThamChieu.Contains(input.MaThamChieu));
@@ -89,8 +96,31 @@ namespace IVG.Web.Mvc.API
             catch (Exception ex)
             {
                 NLogManager.Logger.Error(ex);
-                throw ;
+                throw;
             }
+        }
+
+        public async Task<object> GetThongTinSanPham(Guid? SanPhamId, DateTime? PurchaseDate)
+        {
+            if (SanPhamId.HasValue)
+            {
+                var p = db.tbl_Model.FirstOrDefault(a => a.ModelID == SanPhamId);
+
+                var warrantyTime = p.WarrantyTime;
+                var warrantyType = p.WarrantyType;
+                return new
+                {
+                    NgayHetHanBaoHanh = (warrantyTime.HasValue && PurchaseDate.HasValue) ? PurchaseDate.Value.AddMonths(p.WarrantyTime.Value).ToString("yyyy-MM-dd") : "",
+                    LoaiBaoHanh = p.WarrantyType,
+                    ConBaoHanh = (warrantyTime.HasValue && PurchaseDate.HasValue) ? (PurchaseDate.Value.AddMonths(p.WarrantyTime.Value).Date > DateTime.Now.Date ? "1" : "2") : ""
+                };
+            }
+            return new
+            {
+                NgayHetHanBaoHanh = "",
+                LoaiBaoHanh = "",
+                ConBaoHanh = "",
+            };
         }
         // GET: api/CaseRequest
         public IEnumerable<string> Get()

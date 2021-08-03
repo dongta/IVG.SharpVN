@@ -52,7 +52,7 @@
                     var roleName = roleCookie?.Values["rolename"] ?? string.Empty;
                     if (roleName == AppEnum.Role.Staff.ToString())
                     {
-                        <h3>@Html.Raw("My Portal @SEV")</h3>
+                        <h3>@Html.Raw("My Portal @SVN")</h3>
                     }
                     else if (roleName == AppEnum.Role.Dealer.ToString())
                     {
@@ -61,7 +61,7 @@
                 }
                 else
                 {
-                    <h3>My Portal @Html.Raw("@SEV")</h3>
+                    <h3>My Portal @Html.Raw("@SVN")</h3>
                 }
             </div>
             @if (User.Identity.IsAuthenticated)
@@ -98,7 +98,7 @@
     <div class="container">
         <hr style="margin-bottom:0 !important" />
         <footer style="font-size:12px;">
-            <p>&copy;Copyright Sharp Electronics Viet Nam @DateTime.Now.Year.</p>
+            <p>&copy;Copyright SHARP ELECTRONICS VIET NAM @DateTime.Now.Year.</p>
         </footer>
     </div>
     <div class="loading" style="display:none">

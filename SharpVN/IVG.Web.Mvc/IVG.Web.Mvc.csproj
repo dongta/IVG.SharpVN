@@ -276,6 +276,7 @@
     <Compile Include="EF\tbl_Wards.cs" />
     <Compile Include="EF\tbl_WarrantyCards.cs" />
     <Compile Include="EF\tbl_WarrantyPolicy.cs" />
+    <Compile Include="EF\v_RepairStatus.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
