@@ -14,7 +14,7 @@
             SetDateNow($(`input[name="ngayTiepNhan"`));
             SetDateNow($(`input[name="ngayTaoPhieu"`));
         }
-        if (formDisable) {
+        if ($(`[name="trangThaiPhieu"]`).val()>1) {
             $("form[name='frmCaseRequest'] :input").prop("disabled", true);
         }
     });
@@ -67,6 +67,7 @@
             tinhTP: 'required',
             quanHuyen: 'required',
             phuongXa: 'required',
+            loaiSanPham:'required',
             sanPham: 'required',
             email: {
                 email: true
@@ -86,6 +87,7 @@
             tinhTP: 'Vui lòng chọn Tỉnh/thành phố.',
             quanHuyen: 'Vui lòng chọn Quận/huyện.',
             phuongXa: 'Vui lòng chọn Phường/xã.',
+            loaiSanPham:'Vui lòng chọn loại sản phẩm.',
             sanPham: 'Vui lòng chọn sản phẩm.',
             ngayMua: {
                 validateNgay: "Ngày mua không thể sau ngày hiện tại."
@@ -127,6 +129,25 @@
         }
     });
 
+    $(document).off(`change`, `select[name="loaiSanPham"]`).on("change", `select[name="loaiSanPham"]`, () => {
+        let cateId = $(`select[name="loaiSanPham"]`).val();
+        console.log(`cateId`, cateId);
+        $.ajax({
+            method: 'get',
+            cache: false,
+            url: '/api/Combobox/GetSanPhamByCategoryId',
+            data: { id: cateId },
+            dataType: 'json',
+            success: (data) => {
+                var options = `<option value="">Chọn sản phẩm</option>`
+                data?.forEach((item, index) => {
+                    options += `<option value="${item.id}">${item.displayName}</option>`
+                });
+                $(`select[name="sanPham"]`).html(options).prop('disabled', false)
+
+            },
+        });
+    });
 
     $(document).off(`change`, `select[name="sanPham"]`).on("change", `select[name="sanPham"]`, () => {
         GetThongTinSanPham();

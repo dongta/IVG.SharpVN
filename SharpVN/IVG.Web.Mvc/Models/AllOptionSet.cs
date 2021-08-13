@@ -11,6 +11,7 @@ namespace IVG.Web.Mvc.Models
        public List<DropdownItemDto> TechCombobox { get; set; }
        public List<DropdownItemDto> TrangThaiPhieuCombobox { get; set; }
        public List<DropdownItemDto> TrangThaiJobCombobox { get; set; }
+        public List<DropdownItemDto> ProductCategoryCombobox { get; set; }
         public List<DropdownItemDto> ProductCombobox { get; set; }
        public List<DropdownItemDto> TrangThaiBaoHanhCombobox { get; set; }
        public List<DropdownItemDto> HinhThucBaoHanhCombobox { get; set; }

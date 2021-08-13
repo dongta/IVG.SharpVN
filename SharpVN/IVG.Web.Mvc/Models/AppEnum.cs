@@ -52,5 +52,11 @@ namespace IVG.Web.Mvc.Models
             /// </summary>
             HinhThucBaoHanh =2,//Nơi thực hiện bảo hành
         }
+
+        public enum RequestChannelEnum
+        {
+            DealerPortal =1000,
+            CustomerPortal =1
+        }
     }
 }

@@ -12,6 +12,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using static IVG.Web.Mvc.Models.AppEnum;
 
 namespace IVG.Web.Mvc.Controllers
 {
@@ -57,12 +58,12 @@ namespace IVG.Web.Mvc.Controllers
                 createOrEditRequest.NoEdit = (createOrEditRequest.RequestOrJob.RepairStatus == (int)AppEnum.TrangThaiPhieuYeuCau.DaHoanThanh
                                              || createOrEditRequest.RequestOrJob.RepairStatus == (int)AppEnum.TrangThaiPhieuYeuCau.DaHuy) ? true : false;
             }
-            createOrEditRequest.AllOptionSet = GetAllOptionSet(createOrEditRequest.RequestOrJob.ServiceCenterID, createOrEditRequest.Tbl_Customers?.ProvinceID, createOrEditRequest.Tbl_Customers?.DistrictID);
+            createOrEditRequest.AllOptionSet = GetAllOptionSet(createOrEditRequest.RequestOrJob.ServiceCenterID, createOrEditRequest.Tbl_Customers?.ProvinceID, createOrEditRequest.Tbl_Customers?.DistrictID,createOrEditRequest.RequestOrJob.ProductCategoryId);
 
 
             return View(createOrEditRequest);
         }
-        private AllOptionSet GetAllOptionSet(Guid? AscId = null, Guid? TinhThanhId = null, Guid? QuanHuyenId = null)
+        private AllOptionSet GetAllOptionSet(Guid? AscId = null, Guid? TinhThanhId = null, Guid? QuanHuyenId = null, Guid? ProductCateId = null)
         {
             AllOptionSet optionObject = new AllOptionSet();
             //trung tâm sửa chữa
@@ -95,11 +96,17 @@ namespace IVG.Web.Mvc.Controllers
                                 }).ToList();
             }
 
-            optionObject.ProductCombobox = db.tbl_Model.Where(a => a.Status == 1).OrderBy(a => a.Name).Select(a => new DropdownItemDto
+            optionObject.ProductCategoryCombobox = db.tbl_Category.OrderBy(a => a.Code).Select(a => new DropdownItemDto
+            {
+                Id = a.CategoryID.ToString(),
+                DisplayName = a.Code + " - " + a.Description,
+            }).ToList();
+
+            optionObject.ProductCombobox = ProductCateId.HasValue ? db.tbl_Model.Where(a => a.Status == 1 && a.CategoryID == ProductCateId).OrderBy(a => a.Name).Select(a => new DropdownItemDto
             {
                 Id = a.ModelID.ToString(),
                 DisplayName = a.Code + " - " + a.Name + " | " + a.Description,
-            }).ToList();
+            }).ToList() : new List<DropdownItemDto>();
             optionObject.TrangThaiBaoHanhCombobox = db.tbl_OptionSetValues.Where(a => a.OptionSetID == (int)AppEnum.OptionSetId.TrangThaiBaoHanh).OrderBy(a => a.Value).Select(a => new DropdownItemDto
             {
                 Id = a.Value.ToString(),
@@ -144,7 +151,7 @@ namespace IVG.Web.Mvc.Controllers
                     Selected = a.ID == uid ? true : false
                 }).ToList();
             }
-            optionObject.CancelReasonCombobox= db.tbl_CancelReason.Select(a => new DropdownItemDto
+            optionObject.CancelReasonCombobox = db.tbl_CancelReason.Select(a => new DropdownItemDto
             {
                 Id = a.Id.ToString(),
                 DisplayName = a.Reason,
@@ -191,7 +198,7 @@ namespace IVG.Web.Mvc.Controllers
                 createOrEditRequest.NoEdit = (createOrEditRequest.RequestOrJob.RepairStatus == (int)AppEnum.TrangThaiPhieuYeuCau.DaHoanThanh
                                              || createOrEditRequest.RequestOrJob.RepairStatus == (int)AppEnum.TrangThaiPhieuYeuCau.DaHuy) ? true : false;
             }
-            createOrEditRequest.AllOptionSet = GetAllOptionSet(createOrEditRequest.RequestOrJob.ServiceCenterID, createOrEditRequest.Tbl_Customers?.ProvinceID, createOrEditRequest.Tbl_Customers?.DistrictID);
+            createOrEditRequest.AllOptionSet = GetAllOptionSet(createOrEditRequest.RequestOrJob.ServiceCenterID, createOrEditRequest.Tbl_Customers?.ProvinceID, createOrEditRequest.Tbl_Customers?.DistrictID,createOrEditRequest.RequestOrJob.ProductCategoryId);
 
             return View(createOrEditRequest);
         }
@@ -234,7 +241,7 @@ namespace IVG.Web.Mvc.Controllers
                 {
                     CaseID = Guid.NewGuid(),
                     RequestCode = i.RequestCode = DateTime.Now.ToString("ddMMyyyyHHmmss"),//get from store cũ
-
+                    RequestChannel= (int)RequestChannelEnum.DealerPortal,
                     ReceivedBy = i.NguoiTiepNhan,
                     RepairType = i.HinhThucBaoHanh,
                     ReferenceCode = i.MaThamChieu,

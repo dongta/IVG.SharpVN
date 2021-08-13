@@ -33,13 +33,23 @@ namespace IVG.Web.Mvc.Controllers
                 DisplayName = a.Name,
             }).ToList();
         }
-        public List<DropdownItemDto> GetKyThuatVienByTrungTamId(Guid id)
+        public List<DropdownItemDto> GetKyThuatVienByTrungTamId(Guid? id)
         {
             return db.tbl_TechnicalStaffs.Where(a => a.ServiceCenterID == id).OrderBy(a => a.Name).Select(a => new DropdownItemDto
             {
                 Id = a.TechnicalStaffID.ToString(),
                 LookupId = a.ServiceCenterID.ToString(),
-                DisplayName = a.Name + (a.MobilePhone.Length>0?" | "+a.MobilePhone:""),
+                DisplayName = a.Name + (a.MobilePhone.Length > 0 ? " | " + a.MobilePhone : ""),
+            }).ToList();
+        }
+
+        public List<DropdownItemDto> GetSanPhamByCategoryId(Guid? id)
+        {
+            return db.tbl_Model.Where(a => a.CategoryID == id).OrderBy(a => a.Name).Select(a => new DropdownItemDto
+            {
+                Id = a.ModelID.ToString(),
+                LookupId = a.CategoryID.ToString(),
+                DisplayName = a.Code + " - " + a.Name + (a.Name.Length > 0 ? " - " + a.Description : ""),
             }).ToList();
         }
     }

@@ -31,6 +31,7 @@ namespace IVG.Web.Mvc.EF
 
         public Guid? ReimburseID { get; set; }
 
+        public Guid? ProductCategoryId { get; set; }
         public Guid? ModelID { get; set; }
 
         public Guid? ModelUsedID { get; set; }

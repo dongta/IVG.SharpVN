@@ -8,7 +8,7 @@ namespace IVG.Web.Mvc.EF
         [Key]
         public Guid CaseID { get; set; }
         public string RequestCode { get; set; }
-        
+        public int? RequestChannel { get; set; }
         public Guid? CustomerID { get; set; }
 
         [StringLength(50)]
