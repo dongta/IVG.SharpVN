@@ -54,21 +54,17 @@ namespace IVG.Web.Mvc.Controllers
             model.JobAndRequest = db.AllJobAndRequests.FirstOrDefault(a => a.CaseID == id);
             model.Tbl_Customers = db.tbl_Customers.FirstOrDefault(a => a.CustomerID == model.JobAndRequest.CustomerID);
             model.AllOptionSet = GetAllOptionSet(model.JobAndRequest?.ServiceCenterID, model.Tbl_Customers?.ProvinceID, model?.Tbl_Customers?.DistrictID);
-
-            //var trạngTháiSửaChữa = db.tbl_OptionSetValues
-            //                .Where(a => a.OptionSetID == (int)AppEnum.OptionSetId.RepairStatus).ToList();
-            //var listValue = trạngTháiSửaChữa.Select(a => a.Value).ToList();
-            //var trangThaiPhieu = db.tbl_OptionSetValues
-            //    .Where(a => a.OptionSetID == (int)AppEnum.OptionSetId.TransactionStatus && !listValue.Contains(a.Value)).ToList();
-
-            //model.AllOptionSet.TrangThaiJobCombobox = trạngTháiSửaChữa.Union(trangThaiPhieu).OrderBy(a => a.Value)
-            //                .OrderBy(a => a.Value).Select(a => new DropdownItemDto
-            //                {
-            //                    DisplayName = a.Text,
-            //                    Id = a.Value.ToString(),
-            //                    Name = a.Text,
-            //                    LookupId = a.OptionSetID.ToString()
-            //                }).ToList();
+            var files = db.tbl_Files.Where(a => a.ObjectID == id).ToList();
+            model.Files = files.Select(a => new FileForView
+            {
+                ID = a.ID,
+                Name = a.Name,
+                Base64 = "data:image;base64," + Convert.ToBase64String(a.Stream),
+                Extension = a.Extension,
+                ObjectCode = a.ObjectCode,
+                ObjectID = a.ObjectID,
+                Stream = a.Stream
+            }).ToList();
 
             return View(model);
         }

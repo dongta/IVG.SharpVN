@@ -58,5 +58,10 @@ namespace IVG.Web.Mvc.Models
             DealerPortal =1000,
             CustomerPortal =1
         }
+        public enum ObjectCode
+        {
+            Case = 1000,
+            Request = 2000
+        }
     }
 }

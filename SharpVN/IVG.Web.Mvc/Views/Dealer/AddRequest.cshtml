@@ -1,6 +1,7 @@
 ﻿@model IVG.Web.Mvc.Models.GetRequestForCreateOrEditDto
 @using IVG.Web.Mvc.EF;
 @using System.Web.Script.Serialization;
+@using IVG.Web.Mvc.Models;
 @{
     ViewBag.Title = "AddRequest";
     Guid? cateid = null;
@@ -25,6 +26,28 @@ else
         <a href="#"> @Html.Raw(Model.RequestOrJob.CaseID == Guid.Empty ? " Add New Record" : "Edit Record")</a>
     </div>
 </div>
+
+<!-- The Modal View Image -->
+<div class="modal fade" id="imageViewModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <img name="imageView" class="img-fluid" src="~/Resources/images/order.png" />
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
 <form name="frmCaseRequest">
     <input type="text" name="id" style="display:none" value="@Model.RequestOrJob.CaseID" />
     <div class="row" style="padding:0 !important; display:flex">
@@ -240,7 +263,7 @@ else
         <div class="col-sm-3">
             <div class="col-sm-12">
                 <label>Diễn giải</label>
-                <textarea name="dienGiai" placeholder="Nhập nội dung diễn giải, ghi chú..." type="text" style="height:203px;resize:none" class="form-control form-control-sm">@Html.Raw(Model.RequestOrJob.Description)</textarea>
+                <textarea name="dienGiai" placeholder="Nhập nội dung diễn giải, ghi chú..." type="text" style="height:90px;resize:none" class="form-control form-control-sm">@Html.Raw(Model.RequestOrJob.Description)</textarea>
             </div>
 
             <div class="col-sm-12">
@@ -284,6 +307,23 @@ else
             <div class="col-sm-12">
                 <label>Ngày chuyển thành sự vụ</label>
                 <input name="ngayChuyenThanhSuVu" value="@Html.Raw(Model.RequestOrJob.ConvertOn?.ToString("yyyy-MM-dd"))" type="date" class="form-control form-control-sm" disabled />
+            </div>
+            <div class="col-sm-12">
+                <label>Hình ảnh:</label>
+                @foreach (var item in Model.Files?? new List<FileForView>())
+                {
+                    <span id=".image-name-container">
+                        <a href="#" data-base64="@item.Base64" class="text-info view-image"> @item.Name </a>
+                        @if (!((Model.RequestOrJob.RepairStatus ?? 0) > (int)AppEnum.RepairStatus.ChuaXuLy))
+                        {
+                            <i data-id="@item.ID" data-name="@item.Name" class="delete-image fa fa-close text-danger" style="cursor:pointer" title="Xóa ảnh này"></i>
+                        }
+                    </span>
+                }
+                @if (!((Model.RequestOrJob.RepairStatus ?? 0) > (int)AppEnum.RepairStatus.ChuaXuLy))
+                {
+                    <input type="file" name="images" multiple="multiple" accept="image/*">
+                }
             </div>
         </div>
 

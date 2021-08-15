@@ -13,7 +13,7 @@ namespace IVG.Web.Mvc.Models
         public tbl_Customers Tbl_Customers { get; set; }
 
         public AllOptionSet AllOptionSet { get; set; }
-
+        public List<FileForView> Files { get; set; }
         public bool NoEdit { get; set; }
         public GetRequestForCreateOrEditDto()
         {
@@ -24,5 +24,20 @@ namespace IVG.Web.Mvc.Models
             NoEdit = false;
         }
 
+    }
+    public class FileForView
+    {
+        public Guid ID { get; set; }
+
+        public int? ObjectCode { get; set; }
+
+        public Guid? ObjectID { get; set; }
+
+        public byte[] Stream { get; set; }
+
+        public string Name { get; set; }
+
+        public string Extension { get; set; }
+        public string Base64 { get; set; }
     }
 }

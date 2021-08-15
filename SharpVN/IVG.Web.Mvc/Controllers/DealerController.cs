@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Validation;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -57,8 +58,19 @@ namespace IVG.Web.Mvc.Controllers
                 createOrEditRequest.Tbl_Customers = db.tbl_Customers.FirstOrDefault(a => a.CustomerID == createOrEditRequest.RequestOrJob.CustomerID);
                 createOrEditRequest.NoEdit = (createOrEditRequest.RequestOrJob.RepairStatus == (int)AppEnum.TrangThaiPhieuYeuCau.DaHoanThanh
                                              || createOrEditRequest.RequestOrJob.RepairStatus == (int)AppEnum.TrangThaiPhieuYeuCau.DaHuy) ? true : false;
+                var files = db.tbl_Files.Where(a => a.ObjectID == id).ToList();
+                createOrEditRequest.Files = files.Select(a => new FileForView
+                {
+                    ID = a.ID,
+                    Name = a.Name,
+                    Base64 = "data:image;base64," + Convert.ToBase64String(a.Stream),
+                    Extension = a.Extension,
+                    ObjectCode = a.ObjectCode,
+                    ObjectID = a.ObjectID,
+                    Stream = a.Stream
+                }).ToList();
             }
-            createOrEditRequest.AllOptionSet = GetAllOptionSet(createOrEditRequest.RequestOrJob.ServiceCenterID, createOrEditRequest.Tbl_Customers?.ProvinceID, createOrEditRequest.Tbl_Customers?.DistrictID,createOrEditRequest.RequestOrJob.ProductCategoryId);
+            createOrEditRequest.AllOptionSet = GetAllOptionSet(createOrEditRequest.RequestOrJob.ServiceCenterID, createOrEditRequest.Tbl_Customers?.ProvinceID, createOrEditRequest.Tbl_Customers?.DistrictID, createOrEditRequest.RequestOrJob.ProductCategoryId);
 
 
             return View(createOrEditRequest);
@@ -198,7 +210,7 @@ namespace IVG.Web.Mvc.Controllers
                 createOrEditRequest.NoEdit = (createOrEditRequest.RequestOrJob.RepairStatus == (int)AppEnum.TrangThaiPhieuYeuCau.DaHoanThanh
                                              || createOrEditRequest.RequestOrJob.RepairStatus == (int)AppEnum.TrangThaiPhieuYeuCau.DaHuy) ? true : false;
             }
-            createOrEditRequest.AllOptionSet = GetAllOptionSet(createOrEditRequest.RequestOrJob.ServiceCenterID, createOrEditRequest.Tbl_Customers?.ProvinceID, createOrEditRequest.Tbl_Customers?.DistrictID,createOrEditRequest.RequestOrJob.ProductCategoryId);
+            createOrEditRequest.AllOptionSet = GetAllOptionSet(createOrEditRequest.RequestOrJob.ServiceCenterID, createOrEditRequest.Tbl_Customers?.ProvinceID, createOrEditRequest.Tbl_Customers?.DistrictID, createOrEditRequest.RequestOrJob.ProductCategoryId);
 
             return View(createOrEditRequest);
         }
@@ -241,7 +253,7 @@ namespace IVG.Web.Mvc.Controllers
                 {
                     CaseID = Guid.NewGuid(),
                     RequestCode = i.RequestCode = DateTime.Now.ToString("ddMMyyyyHHmmss"),//get from store cũ
-                    RequestChannel= (int)RequestChannelEnum.DealerPortal,
+                    RequestChannel = (int)RequestChannelEnum.DealerPortal,
                     ReceivedBy = i.NguoiTiepNhan,
                     RepairType = i.HinhThucBaoHanh,
                     ReferenceCode = i.MaThamChieu,
@@ -366,6 +378,49 @@ namespace IVG.Web.Mvc.Controllers
 
             var result = db.Database.ExecuteSqlCommand("exec p_Autonumber_Customer @ServiceCenterID, @Year, @Month,@ASCCode =@ASCCode OUTPUT,@Number =@Number OUTPUT", objParas.ToArray());
             return new string[] { ASCCode.Value.ToString(), Number.Value.ToString() };
+        }
+
+        [HttpPost]
+        public ActionResult UploadFiles()
+        {
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+                    HttpFileCollectionBase files = Request.Files;
+                    var requestId = Guid.Parse(Request.Form.Get("id"));
+
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        HttpPostedFileBase file = files[i];
+                        var length = file.InputStream.Length;
+                        MemoryStream target = new MemoryStream();
+                        file.InputStream.CopyTo(target);
+                        byte[] data = target.ToArray();
+
+                        var tbl_files = new tbl_Files
+                        {
+                            ID = Guid.NewGuid(),
+                            Name = file.FileName,
+                            Extension = file.ContentType,
+                            ObjectCode = (int)ObjectCode.Request,
+                            ObjectID = requestId,
+                            Stream = data
+                        };
+                        db.tbl_Files.Add(tbl_files);
+                        db.SaveChanges();
+                    }
+                    return Json("File Uploaded Successfully!");
+                }
+                catch (Exception ex)
+                {
+                    return Json("Error occurred. Error details: " + ex.Message);
+                }
+            }
+            else
+            {
+                return Json("No files selected.");
+            }
         }
     }
 }

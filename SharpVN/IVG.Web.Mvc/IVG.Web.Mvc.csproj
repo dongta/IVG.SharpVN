@@ -187,6 +187,7 @@
     <Compile Include="Common\NLogManager.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CaseController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\ComboboxController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -320,6 +321,7 @@
     <Content Include="Content\mycss\loading-page.css" />
     <Content Include="Content\mycss\login.css" />
     <Content Include="Content\mycss\Menu.css" />
+    <Content Include="Content\mycss\ModalSlide.css" />
     <Content Include="Content\mycss\reset.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\regular.css" />
@@ -612,6 +614,7 @@
     <Content Include="Views\Dealer\ServiceRequest2.cshtml" />
     <Content Include="Views\Admin\Users.cshtml" />
     <Content Include="Views\Admin\AddUser.cshtml" />
+    <Content Include="Views\Common\ImageModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -145,8 +145,11 @@ namespace IVG.Web.Mvc.API
         }
 
         // DELETE: api/CaseRequest/5
-        public void Delete(int id)
+        [HttpGet]
+        public void DeleteImage(Guid id)
         {
+            db.tbl_Files.Remove(db.tbl_Files.FirstOrDefault(a => a.ID == id));
+            db.SaveChanges();
         }
     }
 }

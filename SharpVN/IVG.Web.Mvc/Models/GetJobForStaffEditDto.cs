@@ -10,6 +10,7 @@ namespace IVG.Web.Mvc.Models
     {
         public AllJobAndRequest JobAndRequest { get; set; }
         public tbl_Customers Tbl_Customers { get; set; }
+        public List<FileForView> Files { get; set; }
 
         public AllOptionSet AllOptionSet { get; set; }
 
@@ -20,6 +21,7 @@ namespace IVG.Web.Mvc.Models
             Tbl_Customers = new tbl_Customers();
             AllOptionSet = new AllOptionSet();
             NoEdit = false;
+            Files = new List<FileForView>();
         }
 
     }

@@ -14,7 +14,7 @@
             SetDateNow($(`input[name="ngayTiepNhan"`));
             SetDateNow($(`input[name="ngayTaoPhieu"`));
         }
-        if ($(`[name="trangThaiPhieu"]`).val()>1) {
+        if ($(`[name="trangThaiPhieu"]`).val() > 1) {
             $("form[name='frmCaseRequest'] :input").prop("disabled", true);
         }
     });
@@ -47,7 +47,7 @@
             }
             if (!$(params).val() && new Date(value) <= new Date($("#currentDate").val())) {
                 return true;
-            } 
+            }
             if (!/Invalid|NaN/.test(new Date(value))) {
                 return new Date(value) <= new Date($(params).val());
             }
@@ -67,7 +67,7 @@
             tinhTP: 'required',
             quanHuyen: 'required',
             phuongXa: 'required',
-            loaiSanPham:'required',
+            loaiSanPham: 'required',
             sanPham: 'required',
             email: {
                 email: true
@@ -87,7 +87,7 @@
             tinhTP: 'Vui lòng chọn Tỉnh/thành phố.',
             quanHuyen: 'Vui lòng chọn Quận/huyện.',
             phuongXa: 'Vui lòng chọn Phường/xã.',
-            loaiSanPham:'Vui lòng chọn loại sản phẩm.',
+            loaiSanPham: 'Vui lòng chọn loại sản phẩm.',
             sanPham: 'Vui lòng chọn sản phẩm.',
             ngayMua: {
                 validateNgay: "Ngày mua không thể sau ngày hiện tại."
@@ -103,7 +103,7 @@
             $.map(formArray, function (n, i) {
                 formData[n['name']] = n['value'];
             });
-            console.log(formData);
+            console.log(`create object `, formData);
             $.ajax({
                 method: 'post',
                 cache: false,
@@ -112,14 +112,16 @@
                 dataType: 'json',
                 success: (res) => {
                     console.log(`result`, res);
-                    $(`input[name="requestCode"]`).val(res?.RequestCode);
-                    $(`input[name="khachHangId"]`).val(res?.KhachHangId);
-                    $(`input[name="id"]`).val(res?.Id);
                     if ($(`input[name="id"]`).val() == "00000000-0000-0000-0000-000000000000") {
-                        toastr.success("Successfully Created", "Record Created",);
+                        $(`input[name="requestCode"]`).val(res?.RequestCode);
+                        $(`input[name="khachHangId"]`).val(res?.KhachHangId);
+                        $(`input[name="id"]`).val(res?.Id);
+                        toastr.success("Phiếu yêu cầu đã được tạo", "Thông báo",);
                     } else {
-                        toastr.success("Successfully Updated", "Record Updated",);
+                        toastr.success("Phiếu yêu cầu đã được cập nhật", "Thông báo",);
                     }
+                    console.log(`request id `, res?.Id);
+                    UploadImages(res?.Id);
                 },
                 error: (err) => {
                     console.log(`err`, err);
@@ -128,6 +130,41 @@
             });
         }
     });
+
+    function UploadImages(requestId) {
+        return new Promise((resolve, reject) => {
+            if (window.FormData !== undefined) {
+
+                var fileUpload = $("[name='images']").get(0);
+                var files = fileUpload.files;
+                var fileData = new FormData();
+
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
+
+                fileData.append('id', requestId);
+
+                $.ajax({
+                    url: '/Dealer/UploadFiles',
+                    type: "POST",
+                    contentType: false,
+                    processData: false,
+                    data: fileData,
+                    success: function (result) {
+                        console.log(result);
+                        resolve();
+                    },
+                    error: function (err) {
+                        reject(err);
+                        console.log(err.statusText);
+                    }
+                });
+            } else {
+                alert("FormData is not supported.");
+            }
+        })
+    }
 
     $(document).off(`change`, `select[name="loaiSanPham"]`).on("change", `select[name="loaiSanPham"]`, () => {
         let cateId = $(`select[name="loaiSanPham"]`).val();
@@ -159,7 +196,7 @@
     function GetThongTinSanPham() {
         var param = {
             sanPhamId: $(`select[name="sanPham"]`).val(),
-            purchaseDate: $(`input[name="ngayMua"]`).valid() ? $(`input[name="ngayMua"]`).val():""
+            purchaseDate: $(`input[name="ngayMua"]`).valid() ? $(`input[name="ngayMua"]`).val() : ""
         };
         console.log(`param`, param);
         $.ajax({
@@ -237,6 +274,33 @@
             },
         });
     });
+
+    //Show image
+    $(document).off(`click`, `.view-image"]`).on("click", `.view-image`, function () {
+        let base64 = $(this).attr(`data-base64`);
+        $("[name='imageView']").attr('src', base64);
+        $(`#imageViewModal`).modal('show');
+    });
+    //Xóa image
+    $(document).off(`click`, `.delete-image"]`).on("click", `.delete-image`, function () {
+        let id = $(this).attr(`data-id`);
+        let name = $(this).attr(`data-name`);
+        if (window.confirm(`Bạn chắc chắn muốn xóa hình ảnh ${name}`)) {
+            $.ajax({
+                method: 'get',
+                cache: false,
+                url: '/api/CaseRequest/DeleteImage',
+                data: { id: id },
+                dataType: 'json',
+                success: (data) => {
+                    toastr.success(`Hình ảnh ${name} đã được xóa`, "Thông báo",);
+                    $(this).closest('span').remove();
+                },
+            });
+        }
+    });
+
+
     //select change
     $(`select`).on('select2:select', function (e) {
         $('form').valid();

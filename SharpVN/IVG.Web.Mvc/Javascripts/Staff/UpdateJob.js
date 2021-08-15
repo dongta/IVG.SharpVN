@@ -58,5 +58,10 @@
     $(document).off("click", `a[name="btn-tech-back-cancel"]`).on("click", `a[name="btn-tech-back-cancel"]`, () => {
         $("#canceljobContainer").hide();
     });
-
+    //Show image
+    $(document).off(`click`, `.view-image"]`).on("click", `.view-image`, function () {
+        let base64 = $(this).attr(`data-base64`);
+        $("[name='imageView']").attr('src', base64);
+        $(`#imageViewModal`).modal('show');
+    });
 });
